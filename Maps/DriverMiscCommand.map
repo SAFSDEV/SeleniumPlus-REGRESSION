@@ -1,0 +1,7 @@
+[ApplicationConstants]
+LocationKey="200, 200"
+subarea="0,0,50%,50%"
+
+[T.Window]
+T.Window="id=aaa_erw.t"
+T.Component="AAA"

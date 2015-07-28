@@ -1,0 +1,8 @@
+#-------------------------------------------------------------------------------
+# Used to define html application
+#-------------------------------------------------------------------------------
+[ApplicationConstants]
+GOJS_MINIMAL_URL="http://www.gojs.net/latest/samples/minimal.html"
+
+[GoJSMinimal]
+Diagram="id=myDiagram"

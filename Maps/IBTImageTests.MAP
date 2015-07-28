@@ -1,0 +1,8 @@
+
+[ApplicationConstants]
+SwingAppJar="./Apps/JavaApp/swingapp.jar"
+SwingAppID="SwingApp"
+
+[SwingApp]
+SwingApp="Image=IBT/Images/SwingAppWin;BT=95"
+JDragTab="Image=IBT/Images/SwingAppTab_JDrag;BT=95"

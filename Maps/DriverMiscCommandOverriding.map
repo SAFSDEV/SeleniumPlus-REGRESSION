@@ -1,0 +1,7 @@
+[ApplicationConstants]
+LocationKey="200, 200 in overriding map"
+subarea="0,0,50%,50% in overriding map"
+
+[T.Window]
+T.Window="T.Window in overriding map"
+T.Component="T.Component in overriding map"

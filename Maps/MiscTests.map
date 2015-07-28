@@ -1,0 +1,82 @@
+#-------------------------------------------------------------------------------
+# Application recognition string and constant here 
+# constant can use inside testcase or application map
+# Please see example how constant defines
+#-------------------------------------------------------------------------------
+
+[ApplicationConstants]
+GoogleURL="http://www.google.com"
+BingURL="http://www.bing.com/"
+GoogleUser="yourname@gmail.com"
+GooglePassword="yourpassword"
+GoogleBrowser="GoogleMain"
+SignInScreenshot="signIn"
+SignInInfoScreenshot="signInInfo"
+SignInBenchmark="signInBench"
+TopLeft="5,5"
+HoneycombBrowser="Honeycomb"
+HoneycombURL="***REMOVED***"
+BusyDialogURL="{^HoneycombURL}#control/BusyDialog_m"
+SimpleTableURL="{^HoneycombURL}#control/Table_ui_Simple"
+MessagesURL="{^HoneycombURL}#control/messageControl"
+ContentSelectorURL="***REMOVED***"
+Platform="win8"
+Browser="browser"
+TestPath="Actuals/{^Platform}/{^Browser}"
+BenchPath="Benchmarks/{^Platform}/{^Browser}"
+UserNamespaceURIBench="{^BenchPath}/UserNameNamespaceURI.txt"
+UserNamespaceURIOut="{^TestPath}/UserNameNamespaceURI.txt"
+EVUserName="carynt\sasidb2"
+EVPassword="sasidb2"
+EVBBUserName="sascnn"
+EVBBPassword="1connect"
+nlsSignin="Sign in"
+
+[ContentSelector]
+Result="XPATH=.//textarea[@id='ContentSelector-basic-opnDlgSmplTextArea-inner']"
+
+[RandomClicks]
+AboutPopoverLink="id=Group--controlsList"
+
+[SimpleTable]
+VScroller="XPATH=.//div[@class='sapUiTableVSb']"
+Table="XPATH=.//table[@id='__table0-listUl']"
+
+#-------------------------------------------------------------------------------
+# Application recognition string
+# [Google] : define section in app map
+# Google="", it is main window and name should be match in [Google]. 
+#-------------------------------------------------------------------------------
+
+[Google]
+Google="id=viewport"
+SignIn="Text={^nlsSignIn}"
+
+
+#-------------------------------------------------------------------------------
+# User can use any html attribute as recognition string 
+# Example: id, text, name, class, type. As long as it is unique
+#-------------------------------------------------------------------------------
+
+[LogIn]
+UserName="name=Email"
+Passwd="name=Passwd"
+SignIn="name=signIn"
+OneGoogle="alt=Google"
+LogIn="class=main"
+ProfileImage="xpath=.//img[@class='profile-img']"
+
+[SASEV]
+UserName="id=username"
+Password="id=password"
+Submit="id=Logon"
+AnalyzeMenu="link=Analyze"
+SignOut="link=Sign Out"
+GridManagerItem="partiallink=Grid Manager"
+
+[Bing]
+Bing="xpath=/html"
+SearchInput="id=sb_form_q"
+SearchButton="id=sb_form_go"
+TabImage="id=scpt1"
+FirstImage="id=dg_c;\;xpath=.//div/div[1]"

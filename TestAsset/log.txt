@@ -1,0 +1,1 @@
+07-18 13:35:12.034: D/RobotiumTestRunner(23444): view resource full name is 'com.sas.android.bimobile:id/menu_connections'

@@ -1,0 +1,13 @@
+#-------------------------------------------------------------------------------
+# Used to define Dojo based application
+#-------------------------------------------------------------------------------
+[ApplicationConstants]
+DOJO_CHART_URL="http://demos.dojotoolkit.org/demos/dynamicChart/demo.html"
+
+[DynamicChart]
+ComboBox="id=widget_plot"
+GridCheckBox="id=grid"
+XCheckBox="id=hAxis"
+YCheckBox="id=vAxis"
+Serie1Btn="id=sb1"
+Serie5Btn="id=sb5"

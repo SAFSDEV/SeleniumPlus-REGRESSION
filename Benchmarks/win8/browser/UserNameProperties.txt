@@ -1,0 +1,67 @@
+align	
+alt	
+autocomplete	
+autofocus	false
+background-color	rgba(255, 255, 255, 1)
+background-repeat	repeat
+checked	false
+class	
+className	
+clientHeight	42
+clientWidth	272
+color	rgba(64, 64, 64, 1)
+contentEditable	inherit
+defaultChecked	false
+defaultValue	
+dir	
+disabled	false
+display	block
+float	none
+font-family	MS Shell Dlg
+font-size	16px
+font-weight	400
+formAction	
+formMethod	
+formNoValidate	false
+formTarget	
+hasAttributes	true
+hasChildNodes	false
+height	44px
+id	Email
+indeterminate	false
+innerHTML	
+isContentEditable	false
+lang	
+max	
+maxLength	-1
+min	
+multiple	false
+name	Email
+namespaceURI	http://www.w3.org/1999/xhtml
+nodeName	INPUT
+offsetHeight	44
+offsetLeft	361
+offsetTop	354
+offsetWidth	274
+pattern	
+placeholder	Email
+readOnly	false
+required	false
+scrollHeight	42
+scrollLeft	0
+scrollTop	0
+scrollWidth	272
+size	20
+spellcheck	false
+src	
+step	
+style	
+tabIndex	0
+tagName	input
+textContent	
+title	
+type	email
+value	
+visibility	visible
+white-space	normal
+width	274px

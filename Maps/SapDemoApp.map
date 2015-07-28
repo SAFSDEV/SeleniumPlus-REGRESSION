@@ -1,0 +1,68 @@
+[ApplicationConstants]
+SAPDemoURL="http://***REMOVED***:8880/SAPDemo/"
+
+Tab_basc_comp="Basc.Comp"
+Tab_mort_calc="Mort.Calc"
+Tab_jpan="JPan"
+Tab_jtree="JTree"
+Tab_jtree2="JTree2"
+Tab_jtable="JTable"
+Tab_jtable2="JTable2"
+LocationKey="200, 200"
+subarea="0,0,50%,50%"
+locationA="5,5"
+
+FilteredAreas1="0,0,5%,5%    10%,10%,15%,15%   80%,80%,85%,85%"
+FilteredAreas2="Filter=0,0,5%,5%    10%,10%,15%,15%    80%,80%,85%,85%"
+;FilteredAreasWithWarning, the 1th and 2th area are wrong
+;FilteredAreasWithWarning="Filter=0,0,%,5% 10%,10%,,15% 80%,80%,85%,85%"
+;FilteredAreasWithError, all areas are wrong
+;FilteredAreasWithError="Filter=0,0,%,5% 10%,10%,,15% 80%,80%,,85%"
+
+# Window and Component definitions are added below.
+# Example:
+# 
+# [WindowName]
+# Child1="recognition string"
+# Child2="recognition string"
+
+# Refer to the SearchObject link below for info on recognition string formats:
+# 
+# http://safsdev.sourceforge.net/doc/org/safs/selenium/webdriver/lib/SearchObject.html
+
+[SAPDemoPage]
+SAPDemoPage="class=sapUiBody"
+TabControl="id=main.content.tabstrip"
+ListView="id=layout.center.tab.basc.listbox"
+ListViewItem5="xpath=//*[@id='layout.center.tab.basc.listbox']//li[5]"
+ListViewItemArizona="xpath=//*[@id='layout.center.tab.basc.listbox']//span[contains(text(),'Arizona')]"
+ListViewItemAlaska="xpath=//*[@id='layout.center.tab.basc.listbox']//span[contains(text(),'Alaska')]"
+
+ListViewItem26="id=layout.center.tab.basc.listbox;ItemIndex=26"
+ListViewItemFederated="id=layout.center.tab.basc.listbox;PATH=(\w|\s)*Federated(\w|\s)*"
+ListViewItemAr="id=layout.center.tab.basc.listbox;PATH=(\w|\s)*Ar(\w|\s)*"
+
+TreeView="id=layout.center.tab.jtree2.tree"
+
+MenuBar="id=menuBar"
+MenuToolsItem="id=menuBar;Path=Tools"
+MenuBasicComponentsItem="id=menuBar;Path=Tools->Basic Components"
+MenuToolViewerItem="id=menuBar;Path=Too[l|L]s->[A-Z]*able[1-4] Viewer"
+
+Basc_TextArea_L="id=layout.center.tab.basc.textarea.label"
+Basc_TextArea="id=layout.center.tab.basc.textarea"
+Basc_Password_L="id=layout.center.tab.basc.password.label"
+Basc_Password="id=layout.center.tab.basc.password"
+Basc_ComboBox="id=layout.center.tab.basc.combobox"
+Basc_Radio="id=layout.center.tab.basc.radiobutton"
+Basc_CheckBox="id=layout.center.tab.basc.checkbox"
+Basc_ListBox="id=layout.center.tab.basc.listbox"
+Basc_ToggleButton="id=layout.center.tab.basc.togglebutton"
+Basc_Button="id=layout.center.tab.basc.button"
+Basc_Link="id=layout.center.tab.basc.link"
+
+[Basc_ListBox]
+;FilteredAreasWithWarning, the 1th and 2th area are wrong
+FilteredAreasWithWarning="Filter=0,0,%,5% 10%,10%,,15% 80%,80%,85%,85%"
+;FilteredAreasWithError, all areas are wrong
+FilteredAreasWithError="Filter=0,0,%,5% 10%,10%,,15% 80%,80%,,85%"

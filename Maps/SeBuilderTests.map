@@ -1,0 +1,7 @@
+[ApplicationConstants]
+SampleEscpScript="SeBuilder/Scripts/sample_escp.json"
+AmazonText="amazon"
+
+[GoogleResults]
+AmazonOfficialSiteLink="xpath=.//a[@href='http://www.amazon.com/']"
+AmazonAdCite="xpath=.//div[@class='ads-visurl']//cite[1]"
