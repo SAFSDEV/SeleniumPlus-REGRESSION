@@ -12,6 +12,7 @@ import regression.testcases.AssertTests;
 import regression.testcases.CheckBoxTests;
 import regression.testcases.ComboBoxTests;
 import regression.testcases.DriverMiscCommandTests;
+import regression.testcases.EditBoxTests;
 import regression.testcases.FilesTests;
 import regression.testcases.GenericMasterTests;
 import regression.testcases.GenericObjectTests;
@@ -52,14 +53,13 @@ public class Regression extends SeleniumPlus {
 		return String.valueOf((new Date()).getTime());
 	}
 	
-	public static String startBrowser(String browser, String url){
+	public static String startBrowser(String browser, String url, String... params){
 		if(browser==null) browser = SelectBrowser.BROWSER_NAME_FIREFOX;
 		String browserID = generateID();
 		
-		if (!StartWebBrowser(url, browserID, browser)){
-//			Logging.LogTestWarning("StartWebBrowser Unsuccessful.");
-			return null;
-		}
+		String[] parameters = combineParams(params, browser, ""/*timeout will be default 30 seconds*/, ""/*isRemote default is true*/);
+
+		if (!StartWebBrowser(url, browserID, parameters)) return null;
 
 		return browserID;
 	}
@@ -101,6 +101,7 @@ public class Regression extends SeleniumPlus {
 		fail += MenuTests.runRegressionTest(Runner, enabledDomains);
 		fail += TabControlTests.runRegressionTest(Runner, enabledDomains);
 		fail += TreeViewTests.runRegressionTest(Runner, enabledDomains);
+		fail += EditBoxTests.runRegressionTest(Runner, enabledDomains);
 		
 		if(fail > 0){
 			Logging.LogTestFailure("Regression reports "+ fail +" UNEXPECTED test failures!");
