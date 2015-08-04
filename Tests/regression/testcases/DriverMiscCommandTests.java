@@ -1,8 +1,12 @@
 package regression.testcases;
 
+import java.io.File;
+
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils.SubArea;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
+import org.safs.selenium.webdriver.DCDriverCommand;
+import org.safs.text.FileUtilities;
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -224,6 +228,23 @@ public class DriverMiscCommandTests extends Regression{
 		
 		return fail;
 	}
+	
+	/**
+	 * 
+	 * @return int, the total number of failures
+	 * @throws Throwable
+	 * @see {@link #testAPI_WaitForGUI(String)}
+	 * @see {@link #testAPI_Misc_URL(String)}
+	 */
+	private static int testAPI(String browser) throws Throwable{
+		int fail = 0;
+		
+		fail += testAPI_WaitForGUI(browser);
+		fail += testAPI_Misc_URL(browser);
+		
+		return fail;
+	}
+	
 	/**
 	 * Test keywords:<br>
 	 * <pre>
@@ -234,13 +255,13 @@ public class DriverMiscCommandTests extends Regression{
 	 * @return int, the total number of failures
 	 * @throws Throwable
 	 */
-	private static int testAPI(String browser) throws Throwable{
+	private static int testAPI_WaitForGUI(String browser) throws Throwable{
+		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
-		
 		String ID = null;
 		try{
 			if(!Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
-				Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_SAPDEMOAPP+"', cannot test in browser '"+browser+"'!");
+				Logging.LogTestFailure(preMsg+"Fail to load map '"+MAP_FILE_SAPDEMOAPP+"', cannot test in browser '"+browser+"'!");
 				fail++;
 				return fail;
 			}
@@ -252,7 +273,7 @@ public class DriverMiscCommandTests extends Regression{
 				if(Misc.WaitForGUI(Map.SAPDemoPage.Basc_Button, "2")){
 					fail++;
 				}else{
-					Logging.LogMessage(COUNTER+" Expected failure: "+Map.SAPDemoPage.Basc_Button.getName()+" does show on page yet.");
+					Logging.LogMessage(preMsg+" Expected failure: "+Map.SAPDemoPage.Basc_Button.getName()+" does show on page yet.");
 				}
 				
 				if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -263,12 +284,12 @@ public class DriverMiscCommandTests extends Regression{
 						Misc.Delay(2000);
 						if(!Misc.WaitForGUIGone(Map.SAPDemoPage.Basc_Button)) fail++;
 					}else{
-						Logging.LogTestFailure(COUNTER+"Fail click tab "+Map.Tab_jpan()+", cannot test WaitForGUIGone.");
+						Logging.LogTestFailure(preMsg+"Fail click tab "+Map.Tab_jpan()+", cannot test WaitForGUIGone.");
 						fail++;
 					}
 					
 				}else{
-					Logging.LogTestFailure(COUNTER+"Fail click tab "+Map.Tab_basc_comp()+", cannot test WaitForGUI/WaitForGUIGone.");
+					Logging.LogTestFailure(preMsg+"Fail click tab "+Map.Tab_basc_comp()+", cannot test WaitForGUI/WaitForGUIGone.");
 					fail++;
 				}
 				
@@ -279,21 +300,173 @@ public class DriverMiscCommandTests extends Regression{
 //				Misc.SetContext(Map.SAPDemoPage.Basc_Password);
 				
 			}else{
-				Logging.LogTestWarning(COUNTER+"StartWebBrowser '"+browser+"' Unsuccessful.");
+				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+browser+"' Unsuccessful.");
 				fail++;
 			}
 			
 		}catch(Exception e){
 			fail++;
-			Logging.LogTestFailure(COUNTER+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
+			Logging.LogTestFailure(preMsg+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
 		}finally{
 			if(ID!=null) if(!StopWebBrowser(ID)) fail++;
 			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
 		}
 		
+		if(fail > 0){
+			Logging.LogTestFailure(preMsg+" runRegressionTest reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
+		}
+		
 		return fail;
 	}
-
+	
+	/**
+	 * Test keywords:<br>
+	 * <pre>
+	 * {@link Misc#GetURL(String, String, String...)}
+	 * {@link Misc#SaveURLToFile(String, String, String...)}
+	 * {@link Misc#VerifyURLContent(String, String, String...)}
+	 * {@link Misc#VerifyURLToFile(String, String, String...)}
+	 * </pre>
+	 * 
+	 * @return int, the total number of failures
+	 * @throws Throwable
+	 */
+	private static int testAPI_Misc_URL(String browser) throws Throwable{
+		String preMsg = StringUtils.getMethodName(0, false);
+		int fail = 0;
+		String ID = null;
+		
+		boolean originalExpression = Misc.isExpressionsOn();
+		
+		try{
+			if(!Misc.SetApplicationMap(MAP_FILE_HTMLAPP)){
+				Logging.LogTestFailure(preMsg+"Fail to load map '"+MAP_FILE_HTMLAPP+"', cannot test in browser '"+browser+"'!");
+				trace(++fail);
+				return fail;
+			}
+			
+			//Turn off the expression
+			Misc.Expressions(false);
+			
+			ID = startBrowser(browser, Map.THOMAS_BAYER_URL());
+			if(ID!=null){
+				
+				if(Misc.WaitForGUI(Map.ThomasBayerPage.ThomasBayerPage)){
+					String restURL = null;
+					//1. Test Misc.GetURL
+					String contentVariable = "content";
+					try{
+						String var = contentVariable;
+						restURL = Map.THOMAS_BAYER_SQLREST_URL();
+						if(Misc.GetURL(restURL, contentVariable)){
+							StringBuffer result = new StringBuffer();
+							
+							result.append(var+"="+GetVariableValue(var)+"\n");
+							var = contentVariable+DCDriverCommand.SUFFIX_VARIABLE_HEADERS;
+							result.append(var+"="+GetVariableValue(var)+"\n");
+							var = contentVariable+DCDriverCommand.SUFFIX_VARIABLE_READY_STATE;
+							result.append(var+"="+GetVariableValue(var)+"\n");
+							var = contentVariable+DCDriverCommand.SUFFIX_VARIABLE_STATUS;
+							result.append(var+"="+GetVariableValue(var)+"\n");
+							var = contentVariable+DCDriverCommand.SUFFIX_VARIABLE_STATUS_TEXT;
+							result.append(var+"="+GetVariableValue(var)+"\n");
+							var = contentVariable+DCDriverCommand.SUFFIX_VARIABLE_XML;
+							result.append(var+"="+GetVariableValue(var)+"\n");
+							
+							Logging.LogTestSuccess("Executing Misc.GetURL('"+restURL+"', '"+contentVariable+"'), the result is \n", result.toString());
+						}else{
+							trace(++fail);
+							Logging.LogTestFailure("Fail to get content for url '"+restURL+"'!");
+						}
+					}catch(Exception e){
+						trace(++fail);
+						Logging.LogTestFailure("Executing Misc.GetURL('"+restURL+"', '"+contentVariable+"'), met error ", StringUtils.debugmsg(e));
+					}
+					
+					String file = "product_content.txt";
+					String filecontent = null;
+					//2. Test Misc.SaveURLToFile
+					try{
+						restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
+						
+						if(Misc.SaveURLToFile(restURL, file)){
+							filecontent = FileUtilities.readStringFromUTF8File(utils.testFile(file));
+							
+							Logging.LogTestSuccess("Executing Misc.SaveURLToFile('"+restURL+"', '"+file+"'), the file content is \n", filecontent);
+						}else{
+							trace(++fail);
+							Logging.LogTestFailure("Fail to get save url '"+restURL+"' to file '"+file+"'!");
+						}
+					}catch(Exception e){
+						trace(++fail);
+						Logging.LogTestFailure("Executing Misc.SaveURLToFile('"+restURL+"', '"+file+"'), met error ", StringUtils.debugmsg(e));
+					}
+					
+					//3. Test Misc.VerifyURLToFile
+					try{
+						//Move the test file to bench directory
+						FileUtilities.copyFileToFile(new File(utils.testFile(file)), new File(utils.benchFile(file)));
+						
+						restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
+						
+						if(Misc.VerifyURLToFile(restURL, file)){							
+							Logging.LogTestSuccess("Executing Misc.VerifyURLToFile('"+restURL+"', '"+file+"') succeed.");
+						}else{
+							trace(++fail);
+							Logging.LogTestFailure("Fail to get verify url '"+restURL+"' to file '"+file+"'!");
+						}
+					}catch(Exception e){
+						trace(++fail);
+						Logging.LogTestFailure("Executing Misc.VerifyURLToFile('"+restURL+"', '"+file+"'), met error ", StringUtils.debugmsg(e));
+					}
+					
+					//3. Test Misc.VerifyURLContent
+					try{
+						restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
+						
+						if(Misc.VerifyURLContent(restURL, filecontent)){							
+							Logging.LogTestSuccess("Executing Misc.VerifyURLContent('"+restURL+"', '"+filecontent+"') succeed.");
+						}else{
+							trace(++fail);
+							Logging.LogTestFailure("Fail to get verify url '"+restURL+"' to content '"+filecontent+"'!");
+						}
+					}catch(Exception e){
+						trace(++fail);
+						Logging.LogTestFailure("Executing Misc.VerifyURLContent('"+restURL+"', '"+filecontent+"'), met error ", StringUtils.debugmsg(e));
+					}
+						
+					
+				}else{
+					trace(++fail);
+					Logging.LogMessage(preMsg+" fail: "+Map.ThomasBayerPage.ThomasBayerPage.getName()+" does show on page yet.");
+				}
+			
+				
+			}else{
+				trace(++fail);
+				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+browser+"' Unsuccessful.");
+			}
+			
+		}catch(Exception e){
+			trace(++fail);
+			Logging.LogTestFailure(preMsg+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
+		}finally{
+			if(ID!=null) if(!StopWebBrowser(ID)) fail++;
+			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
+			Misc.Expressions(originalExpression);
+		}
+		
+		if(fail > 0){
+			Logging.LogTestFailure(preMsg+" runRegressionTest reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
+		}
+		
+		return fail;
+	}
+	
 	/**
 	 * 
 	 * @param Runner EmbeddedHookDriverRunner
@@ -333,7 +506,7 @@ public class DriverMiscCommandTests extends Regression{
 		Counters.LogCounterInfo(COUNTER);
 
 		if(fail > 0){
-			Logging.LogTestFailure(COUNTER+" XXX reports "+ fail +" UNEXPECTED test failures! XXX");
+			Logging.LogTestFailure(COUNTER+" runRegressionTest reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess(COUNTER+" did not report any UNEXPECTED test failures!");
 		}

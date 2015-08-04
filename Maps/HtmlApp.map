@@ -3,6 +3,15 @@
 #-------------------------------------------------------------------------------
 [ApplicationConstants]
 GOJS_MINIMAL_URL="http://www.gojs.net/latest/samples/minimal.html"
+THOMAS_BAYER_URL="http://www.thomas-bayer.com"
+THOMAS_BAYER_SQLREST_URL="http://www.thomas-bayer.com/sqlrest/"
+THOMAS_BAYER_SQLREST_CUSTOMER_URL="http://www.thomas-bayer.com/sqlrest/CUSTOMER/"
+THOMAS_BAYER_SQLREST_INVOICE_URL="http://www.thomas-bayer.com/sqlrest/INVOICE/"
+THOMAS_BAYER_SQLREST_ITEM_URL="http://www.thomas-bayer.com/sqlrest/ITEM/"
+THOMAS_BAYER_SQLREST_PRODUCT_URL="http://www.thomas-bayer.com/sqlrest/PRODUCT/"
 
 [GoJSMinimal]
 Diagram="id=myDiagram"
+
+[ThomasBayerPage]
+ThomasBayerPage="xpath=/html/body"
