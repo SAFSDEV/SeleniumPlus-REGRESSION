@@ -61,6 +61,17 @@ Basc_ToggleButton="id=layout.center.tab.basc.togglebutton"
 Basc_Button="id=layout.center.tab.basc.button"
 Basc_Link="id=layout.center.tab.basc.link"
 
+JPan_Employee_L="id=layout.center.tab.jpan.autocomplete.employeesid.label"
+JPan_Employee="id=layout.center.tab.jpan.autocomplete.employeesid"
+JPan_FirstName_L="id=layout.center.tab.jpan.textview.firstname.label"
+JPan_FirstName="id=layout.center.tab.jpan.textview.firstname"
+JPan_LastName_L="id=layout.center.tab.jpan.textview.lastname.label"
+JPan_LastName="id=layout.center.tab.jpan.textview.lastname"
+JPan_Address_L="id=layout.center.tab.jpan.textarea.address.label"
+JPan_Address="id=layout.center.tab.jpan.textarea.address"
+JPan_Postcode_L="id=layout.center.tab.jpan.textview.postcode.label"
+JPan_Postcode="id=layout.center.tab.jpan.textview.postcode"
+
 [Basc_ListBox]
 ;FilteredAreasWithWarning, the 1th and 2th area are wrong
 FilteredAreasWithWarning="Filter=0,0,%,5% 10%,10%,,15% 80%,80%,85%,85%"
