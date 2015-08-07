@@ -520,20 +520,6 @@ public class GenericMasterTests extends Regression{
 				try{ WDLibrary.inputKeysSAFS2Selenium(e,  Map.GoogleUser());}catch(Throwable t){ trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());}
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
-
-				// As sendKeys may reset the focus, we put the DELETE after the pressing "a" without releasing CONTROL.
-				e.sendKeys("");
-				Actions actions = new Actions(WDLibrary.getWebDriver());
-				Action series = actions.moveToElement(e)
-								.keyDown(e, Keys.CONTROL)
-								.sendKeys(e, "a", Keys.DELETE)
-								.keyUp(e, Keys.CONTROL)
-								.sendKeys(e, Keys.DELETE)
-								.build();
-				series.perform();
-				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
-
-
 			}else{
 				fail++;
 				Logging.LogTestFailure(KEYSTEST+" failed to retrieve Google UserName EditBox field for testing.");
