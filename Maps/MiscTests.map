@@ -60,8 +60,10 @@ SignIn="Text={^nlsSignIn}"
 
 [LogIn]
 UserName="name=Email"
+UserNameNext="name=signIn"
 Passwd="name=Passwd"
 SignIn="name=signIn"
+BackArrow="id=back-arrow"
 OneGoogle="alt=Google"
 LogIn="class=main"
 ProfileImage="xpath=.//img[@class='profile-img']"
