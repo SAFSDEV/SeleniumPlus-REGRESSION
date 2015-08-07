@@ -282,7 +282,7 @@ public class DriverMiscCommandTests extends Regression{
 					
 					if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_jpan())){
 						Misc.Delay(2000);
-						if(!Misc.WaitForGUIGone(Map.SAPDemoPage.Basc_Button)) fail++;
+						if(Misc.WaitForGUIGone(Map.SAPDemoPage.Basc_Button)) fail++;
 					}else{
 						Logging.LogTestFailure(preMsg+"Fail click tab "+Map.Tab_jpan()+", cannot test WaitForGUIGone.");
 						fail++;

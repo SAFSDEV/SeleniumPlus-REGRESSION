@@ -491,15 +491,19 @@ public class GenericMasterTests extends Regression{
 			if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 			if(! Component.InputCharacters(Map.LogIn.UserName, Map.GoogleUser())) trace(++fail);
 			if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
+			if(! Click(Map.LogIn.UserNameNext)) trace(++fail);
 			if(! Component.InputKeys(Map.LogIn.Passwd, quote(CLEAR))) trace(++fail);
 			if(! Component.InputCharacters(Map.LogIn.Passwd, Map.GooglePassword())) trace(++fail);
 
+			if(! Click(Map.LogIn.BackArrow)) trace(++fail);
 			WebElement e = getObject(Map.LogIn.UserName);
 			if(e != null){
 				try{
+					// Here may need clear the Edit box because of the setting focus action of WDLibrary.inputChars()
+					e.clear();
 					WDLibrary.inputChars(e,  Map.GoogleUser());}catch(Throwable t){ trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibrary.inputChars "+ Map.GoogleUser());}
-				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser()+Map.GoogleUser())) trace(++fail);
+				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
 				try{ WDLibrary.inputKeys(e,  CLEAR);}catch(Throwable t){ trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeys "+ CLEAR);}
@@ -517,21 +521,17 @@ public class GenericMasterTests extends Regression{
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());}
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
-				// TODO: try direct selenium and it still does not seem to work for ie, chrome, or firefox.
-				// this needs to be removed when the problem is resolved
-
-					e.sendKeys("");
-					Actions actions = new Actions(WDLibrary.getWebDriver());
-					Action series = actions.moveToElement(e)
-									.keyDown(e, Keys.CONTROL)
-									.sendKeys(e, "a")
-									.keyUp(e, Keys.CONTROL)
-									.sendKeys(e, Keys.DELETE)
-									.build();
-					series.perform();
-					if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
-
-				// TODO: end of above section to be removed
+				// As sendKeys may reset the focus, we put the DELETE after the pressing "a" without releasing CONTROL.
+				e.sendKeys("");
+				Actions actions = new Actions(WDLibrary.getWebDriver());
+				Action series = actions.moveToElement(e)
+								.keyDown(e, Keys.CONTROL)
+								.sendKeys(e, "a", Keys.DELETE)
+								.keyUp(e, Keys.CONTROL)
+								.sendKeys(e, Keys.DELETE)
+								.build();
+				series.perform();
+				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
 
 			}else{
