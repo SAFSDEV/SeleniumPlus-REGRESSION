@@ -11,7 +11,7 @@
       "type": "setElementText",
       "locator": {
         "type": "id",
-        "value": "gbqfq"
+        "value": "lst-ib"
       },
       "text": "amazon"
     },
@@ -19,7 +19,7 @@
       "type": "sendKeysToElement",
       "locator": {
         "type": "id",
-        "value": "gbqfq"
+        "value": "lst-ib"
       },
       "text": ""
     }
