@@ -59,13 +59,14 @@ SignIn="Text={^nlsSignIn}"
 #-------------------------------------------------------------------------------
 
 [LogIn]
-UserName="name=Email"
+LogIn="class=main"
+UserName="id=Email"
 UserNameNext="name=signIn"
 Passwd="name=Passwd"
-SignIn="name=signIn"
+SignIn="id=signIn"
 BackArrow="id=back-arrow"
 OneGoogle="alt=Google"
-LogIn="class=main"
+Circle="class=circle"
 ProfileImage="xpath=.//img[@class='profile-img']"
 
 [SASEV]
