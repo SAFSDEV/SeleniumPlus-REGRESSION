@@ -768,11 +768,20 @@ public final class Map implements RuntimeDataAware {
         /** "LogIn" Window Component itself. */
         public static final Component LogIn = new Component("LogIn");
 
+        /** "Circle" Component in "LogIn". */
+        public static final Component Circle = new Component(LogIn, "Circle");
+
+        /** "BackArrow" Component in "LogIn". */
+        public static final Component BackArrow = new Component(LogIn, "BackArrow");
+
         /** "SignIn" Component in "LogIn". */
         public static final Component SignIn = new Component(LogIn, "SignIn");
 
         /** "ProfileImage" Component in "LogIn". */
         public static final Component ProfileImage = new Component(LogIn, "ProfileImage");
+
+        /** "UserNameNext" Component in "LogIn". */
+        public static final Component UserNameNext = new Component(LogIn, "UserNameNext");
 
         /** "OneGoogle" Component in "LogIn". */
         public static final Component OneGoogle = new Component(LogIn, "OneGoogle");
@@ -891,6 +900,9 @@ public final class Map implements RuntimeDataAware {
         /** "TabControl" Component in "SAPDemoPage". */
         public static final Component TabControl = new Component(SAPDemoPage, "TabControl");
 
+        /** "JPan_Postcode" Component in "SAPDemoPage". */
+        public static final Component JPan_Postcode = new Component(SAPDemoPage, "JPan_Postcode");
+
         /** "Basc_ComboBox" Component in "SAPDemoPage". */
         public static final Component Basc_ComboBox = new Component(SAPDemoPage, "Basc_ComboBox");
 
@@ -903,11 +915,20 @@ public final class Map implements RuntimeDataAware {
         /** "ListViewItem26" Component in "SAPDemoPage". */
         public static final Component ListViewItem26 = new Component(SAPDemoPage, "ListViewItem26");
 
+        /** "JPan_LastName" Component in "SAPDemoPage". */
+        public static final Component JPan_LastName = new Component(SAPDemoPage, "JPan_LastName");
+
         /** "MenuBar" Component in "SAPDemoPage". */
         public static final Component MenuBar = new Component(SAPDemoPage, "MenuBar");
 
         /** "Basc_Radio" Component in "SAPDemoPage". */
         public static final Component Basc_Radio = new Component(SAPDemoPage, "Basc_Radio");
+
+        /** "JPan_Address_L" Component in "SAPDemoPage". */
+        public static final Component JPan_Address_L = new Component(SAPDemoPage, "JPan_Address_L");
+
+        /** "JPan_FirstName_L" Component in "SAPDemoPage". */
+        public static final Component JPan_FirstName_L = new Component(SAPDemoPage, "JPan_FirstName_L");
 
         /** "Basc_Password_L" Component in "SAPDemoPage". */
         public static final Component Basc_Password_L = new Component(SAPDemoPage, "Basc_Password_L");
@@ -936,11 +957,29 @@ public final class Map implements RuntimeDataAware {
         /** "ListViewItemAr" Component in "SAPDemoPage". */
         public static final Component ListViewItemAr = new Component(SAPDemoPage, "ListViewItemAr");
 
+        /** "JPan_Postcode_L" Component in "SAPDemoPage". */
+        public static final Component JPan_Postcode_L = new Component(SAPDemoPage, "JPan_Postcode_L");
+
+        /** "JPan_Employee" Component in "SAPDemoPage". */
+        public static final Component JPan_Employee = new Component(SAPDemoPage, "JPan_Employee");
+
+        /** "JPan_Employee_L" Component in "SAPDemoPage". */
+        public static final Component JPan_Employee_L = new Component(SAPDemoPage, "JPan_Employee_L");
+
+        /** "JPan_LastName_L" Component in "SAPDemoPage". */
+        public static final Component JPan_LastName_L = new Component(SAPDemoPage, "JPan_LastName_L");
+
+        /** "JPan_FirstName" Component in "SAPDemoPage". */
+        public static final Component JPan_FirstName = new Component(SAPDemoPage, "JPan_FirstName");
+
         /** "Basc_TextArea_L" Component in "SAPDemoPage". */
         public static final Component Basc_TextArea_L = new Component(SAPDemoPage, "Basc_TextArea_L");
 
         /** "Basc_Button" Component in "SAPDemoPage". */
         public static final Component Basc_Button = new Component(SAPDemoPage, "Basc_Button");
+
+        /** "JPan_Address" Component in "SAPDemoPage". */
+        public static final Component JPan_Address = new Component(SAPDemoPage, "JPan_Address");
 
         /** "Basc_ToggleButton" Component in "SAPDemoPage". */
         public static final Component Basc_ToggleButton = new Component(SAPDemoPage, "Basc_ToggleButton");
