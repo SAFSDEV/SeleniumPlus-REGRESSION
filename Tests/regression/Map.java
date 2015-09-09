@@ -691,19 +691,6 @@ public final class Map implements RuntimeDataAware {
         public static final Component ThomasBayerPage = new Component("ThomasBayerPage");
     }
 
-    /** "GoJSMinimal" Component and its children. */
-    public static class GoJSMinimal {
-
-        // No use for a default constructor.
-        private GoJSMinimal(){}
-
-        /** "GoJSMinimal" Window Component itself. */
-        public static final Component GoJSMinimal = new Component("GoJSMinimal");
-
-        /** "Diagram" Component in "GoJSMinimal". */
-        public static final Component Diagram = new Component(GoJSMinimal, "Diagram");
-    }
-
     /** "Google" Component and its children. */
     public static class Google {
 
@@ -791,6 +778,25 @@ public final class Map implements RuntimeDataAware {
 
         /** "UserName" Component in "LogIn". */
         public static final Component UserName = new Component(LogIn, "UserName");
+    }
+
+    /** "GoJSSamples" Component and its children. */
+    public static class GoJSSamples {
+
+        // No use for a default constructor.
+        private GoJSSamples(){}
+
+        /** "GoJSSamples" Window Component itself. */
+        public static final Component GoJSSamples = new Component("GoJSSamples");
+
+        /** "MenuPageFlow" Component in "GoJSSamples". */
+        public static final Component MenuPageFlow = new Component(GoJSSamples, "MenuPageFlow");
+
+        /** "Diagram" Component in "GoJSSamples". */
+        public static final Component Diagram = new Component(GoJSSamples, "Diagram");
+
+        /** "Palette" Component in "GoJSSamples". */
+        public static final Component Palette = new Component(GoJSSamples, "Palette");
     }
 
     /** "T.Window" Component and its children. */

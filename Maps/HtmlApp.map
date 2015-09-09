@@ -10,8 +10,10 @@ THOMAS_BAYER_SQLREST_INVOICE_URL="http://www.thomas-bayer.com/sqlrest/INVOICE/"
 THOMAS_BAYER_SQLREST_ITEM_URL="http://www.thomas-bayer.com/sqlrest/ITEM/"
 THOMAS_BAYER_SQLREST_PRODUCT_URL="http://www.thomas-bayer.com/sqlrest/PRODUCT/"
 
-[GoJSMinimal]
+[GoJSSamples]
 Diagram="id=myDiagram"
+MenuPageFlow="id=menu;\;xpath=//li[text()='Page Flow']"
+Palette="id=palette"
 
 [ThomasBayerPage]
 ThomasBayerPage="xpath=/html/body"

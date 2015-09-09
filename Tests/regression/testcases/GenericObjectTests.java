@@ -82,22 +82,38 @@ public class GenericObjectTests extends Regression{
 	private static int html_gojs_testDrag(){
 		int fail = 0;
 	
+		//1. Test some drag keywords on Minimal page "http://www.gojs.net/latest/samples/minimal.html"
 		//Drag one node
-		LeftDrag(Map.GoJSMinimal.Diagram, "coords=160, 160, 72, 160");
+		if(!LeftDrag(Map.GoJSSamples.Diagram, "coords=160, 160, 72, 160")) fail++;
 		//Drag two nodes together
-		ShiftLeftDrag(Map.GoJSMinimal.Diagram, "coords=160, 235, 160, 350");
+		if(!ShiftLeftDrag(Map.GoJSSamples.Diagram, "coords=160, 235, 160, 350")) fail++;
 		//Copy 2 nodes
-		CtrlShiftLeftDrag(Map.GoJSMinimal.Diagram, "coords=160, 350, 130, 350");
+		if(!CtrlShiftLeftDrag(Map.GoJSSamples.Diagram, "coords=160, 350, 130, 350")) fail++;
 		//Click one node
-		Click(Map.GoJSMinimal.Diagram, "225, 165");
+		if(!Click(Map.GoJSSamples.Diagram, "225, 165")) fail++;
 		//Copy one node, and put the copy at its right
-		CtrlLeftDrag(Map.GoJSMinimal.Diagram, "coords=225, 165, 300, 165");
+		if(!CtrlLeftDrag(Map.GoJSSamples.Diagram, "coords=225, 165, 300, 165")) fail++;
 		//Alt Drag the copy to up
-		AltLeftDrag(Map.GoJSMinimal.Diagram, "coords=300, 165, 300, 55");
+		if(!AltLeftDrag(Map.GoJSSamples.Diagram, "coords=300, 165, 300, 55")) fail++;
 		//Right Drag the copy to right
-		RightDrag(Map.GoJSMinimal.Diagram, "coords=300, 55, 350, 55");
+		if(!RightDrag(Map.GoJSSamples.Diagram, "coords=300, 55, 350, 55")) fail++;
 		//Make an copy of the copy, put it to the left
-		CtrlAltLeftDrag(Map.GoJSMinimal.Diagram, "coords=350, 55, 300, 55");
+		if(!CtrlAltLeftDrag(Map.GoJSSamples.Diagram, "coords=350, 55, 300, 55")) fail++;
+		
+		//2. Test DragTo on PageFlow page "http://www.gojs.net/latest/samples/pageFlow.html"
+		Logging.LogMessage("Going to page 'Page Flow, try to test DragTo'");
+		if(Click(Map.GoJSSamples.MenuPageFlow)){
+			//Drag some component from "palate" to "my diagram"			
+			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "40, 20, 5%, 5%")) fail++;
+			Pause(1);
+			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "10%, 20%, 20%, 20%")) fail++;
+			Pause(1);
+			//Draw a line between 2 components
+			if(!Component.DragTo(Map.GoJSSamples.Diagram, Map.GoJSSamples.Diagram, "6%, 6%, 21%, 21%")) fail++;
+			Pause(1);
+		}else{
+			fail++;
+		}
 		
 		return fail;
 	}
