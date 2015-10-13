@@ -49,6 +49,8 @@ MenuToolsItem="id=menuBar;Path=Tools"
 MenuBasicComponentsItem="id=menuBar;Path=Tools->Basic Components"
 MenuToolViewerItem="id=menuBar;Path=Too[l|L]s->[A-Z]*able[1-4] Viewer"
 
+Basc_Input_L="id=layout.center.tab.basc.input.label"
+Basc_Input="id=layout.center.tab.basc.input"
 Basc_TextArea_L="id=layout.center.tab.basc.textarea.label"
 Basc_TextArea="id=layout.center.tab.basc.textarea"
 Basc_Password_L="id=layout.center.tab.basc.password.label"

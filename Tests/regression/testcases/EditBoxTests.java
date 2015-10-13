@@ -94,6 +94,7 @@ public class EditBoxTests extends Regression{
 				if(ID!=null){
 					if(TabControl.SelectTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
 						fail += sap_test_editbox(Map.SAPDemoPage.Basc_TextArea);
+						fail += sap_test_editbox(Map.SAPDemoPage.Basc_Input);
 					}else{
 						Logging.LogTestWarning(debugmsg+"SelectTab Fail to select tab '"+Map.Tab_basc_comp()+"'. All tests missed.");
 						trace(++fail);
@@ -132,7 +133,7 @@ public class EditBoxTests extends Regression{
 		if(!EditBox.SetUnverifiedTextCharacters(editbox, value)) trace(++fail);
 		Pause(1);
 		
-		value = "Some Text with sepcial keys +(abcd)";
+		value = "Some Text with special keys +(abcd)";
 		if(!EditBox.SetTextValue(editbox, value)) trace(++fail);
 		Pause(1);
 		if(!EditBox.SetUnverifiedTextValue(editbox, value)) trace(++fail);

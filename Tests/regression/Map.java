@@ -700,6 +700,9 @@ public final class Map implements RuntimeDataAware {
         /** "Google" Window Component itself. */
         public static final Component Google = new Component("Google");
 
+        /** "SearchBox" Component in "Google". */
+        public static final Component SearchBox = new Component(Google, "SearchBox");
+
         /** "SignIn" Component in "Google". */
         public static final Component SignIn = new Component(Google, "SignIn");
     }
@@ -939,6 +942,9 @@ public final class Map implements RuntimeDataAware {
         /** "Basc_Password_L" Component in "SAPDemoPage". */
         public static final Component Basc_Password_L = new Component(SAPDemoPage, "Basc_Password_L");
 
+        /** "Basc_Input_L" Component in "SAPDemoPage". */
+        public static final Component Basc_Input_L = new Component(SAPDemoPage, "Basc_Input_L");
+
         /** "MenuBasicComponentsItem" Component in "SAPDemoPage". */
         public static final Component MenuBasicComponentsItem = new Component(SAPDemoPage, "MenuBasicComponentsItem");
 
@@ -983,6 +989,9 @@ public final class Map implements RuntimeDataAware {
 
         /** "Basc_Button" Component in "SAPDemoPage". */
         public static final Component Basc_Button = new Component(SAPDemoPage, "Basc_Button");
+
+        /** "Basc_Input" Component in "SAPDemoPage". */
+        public static final Component Basc_Input = new Component(SAPDemoPage, "Basc_Input");
 
         /** "JPan_Address" Component in "SAPDemoPage". */
         public static final Component JPan_Address = new Component(SAPDemoPage, "JPan_Address");
