@@ -51,6 +51,7 @@ Table="XPATH=.//table[@id='__table0-listUl']"
 [Google]
 Google="id=viewport"
 SignIn="Text={^nlsSignIn}"
+SearchBox="id=lst-ib"
 
 
 #-------------------------------------------------------------------------------
