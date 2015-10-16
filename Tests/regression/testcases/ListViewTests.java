@@ -335,6 +335,7 @@ public class ListViewTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
 
+		Misc.Expressions(false);
 		runRegressionTest(Runner, enabledDomains);
 	}
 
