@@ -71,6 +71,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "HtmlLinkTargetPageURL" */
+    public static final String HtmlLinkTargetPageURL = "HtmlLinkTargetPageURL";
+
+    /** The resolved runtime value of constant 'HtmlLinkTargetPageURL', or null. */
+    public static String HtmlLinkTargetPageURL(){
+        try{ return dataInterface.getVariable("HtmlLinkTargetPageURL"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "THOMAS_BAYER_SQLREST_ITEM_URL" */
     public static final String THOMAS_BAYER_SQLREST_ITEM_URL = "THOMAS_BAYER_SQLREST_ITEM_URL";
 
@@ -487,32 +496,68 @@ public final class Map implements RuntimeDataAware {
 
     // The Names of Window and Child Component objects: 
 
-    /** "SASEV" Component and its children. */
-    public static class SASEV {
+    /** "ContentSelector" Component and its children. */
+    public static class ContentSelector {
 
         // No use for a default constructor.
-        private SASEV(){}
+        private ContentSelector(){}
 
-        /** "SASEV" Window Component itself. */
-        public static final Component SASEV = new Component("SASEV");
+        /** "ContentSelector" Window Component itself. */
+        public static final Component ContentSelector = new Component("ContentSelector");
 
-        /** "GridManagerItem" Component in "SASEV". */
-        public static final Component GridManagerItem = new Component(SASEV, "GridManagerItem");
+        /** "Result" Component in "ContentSelector". */
+        public static final Component Result = new Component(ContentSelector, "Result");
+    }
 
-        /** "Password" Component in "SASEV". */
-        public static final Component Password = new Component(SASEV, "Password");
+    /** "SwingApp" Component and its children. */
+    public static class SwingApp {
 
-        /** "Submit" Component in "SASEV". */
-        public static final Component Submit = new Component(SASEV, "Submit");
+        // No use for a default constructor.
+        private SwingApp(){}
 
-        /** "AnalyzeMenu" Component in "SASEV". */
-        public static final Component AnalyzeMenu = new Component(SASEV, "AnalyzeMenu");
+        /** "SwingApp" Window Component itself. */
+        public static final Component SwingApp = new Component("SwingApp");
 
-        /** "SignOut" Component in "SASEV". */
-        public static final Component SignOut = new Component(SASEV, "SignOut");
+        /** "JDragTab" Component in "SwingApp". */
+        public static final Component JDragTab = new Component(SwingApp, "JDragTab");
+    }
 
-        /** "UserName" Component in "SASEV". */
-        public static final Component UserName = new Component(SASEV, "UserName");
+    /** "GoogleResults" Component and its children. */
+    public static class GoogleResults {
+
+        // No use for a default constructor.
+        private GoogleResults(){}
+
+        /** "GoogleResults" Window Component itself. */
+        public static final Component GoogleResults = new Component("GoogleResults");
+
+        /** "AmazonAdCite" Component in "GoogleResults". */
+        public static final Component AmazonAdCite = new Component(GoogleResults, "AmazonAdCite");
+
+        /** "AmazonOfficialSiteLink" Component in "GoogleResults". */
+        public static final Component AmazonOfficialSiteLink = new Component(GoogleResults, "AmazonOfficialSiteLink");
+    }
+
+    /** "Bing" Component and its children. */
+    public static class Bing {
+
+        // No use for a default constructor.
+        private Bing(){}
+
+        /** "Bing" Window Component itself. */
+        public static final Component Bing = new Component("Bing");
+
+        /** "TabImage" Component in "Bing". */
+        public static final Component TabImage = new Component(Bing, "TabImage");
+
+        /** "SearchButton" Component in "Bing". */
+        public static final Component SearchButton = new Component(Bing, "SearchButton");
+
+        /** "SearchInput" Component in "Bing". */
+        public static final Component SearchInput = new Component(Bing, "SearchInput");
+
+        /** "FirstImage" Component in "Bing". */
+        public static final Component FirstImage = new Component(Bing, "FirstImage");
     }
 
     /** "ApplicationConstants" Component and its children. */
@@ -541,6 +586,9 @@ public final class Map implements RuntimeDataAware {
 
         /** "THOMAS_BAYER_SQLREST_INVOICE_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_INVOICE_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_INVOICE_URL");
+
+        /** "HtmlLinkTargetPageURL" Component in "ApplicationConstants". */
+        public static final Component HtmlLinkTargetPageURL = new Component(ApplicationConstants, "HtmlLinkTargetPageURL");
 
         /** "THOMAS_BAYER_SQLREST_ITEM_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_ITEM_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_ITEM_URL");
@@ -681,106 +729,48 @@ public final class Map implements RuntimeDataAware {
         public static final Component SampleEscpScript = new Component(ApplicationConstants, "SampleEscpScript");
     }
 
-    /** "ThomasBayerPage" Component and its children. */
-    public static class ThomasBayerPage {
+    /** "SimpleTable" Component and its children. */
+    public static class SimpleTable {
 
         // No use for a default constructor.
-        private ThomasBayerPage(){}
+        private SimpleTable(){}
 
-        /** "ThomasBayerPage" Window Component itself. */
-        public static final Component ThomasBayerPage = new Component("ThomasBayerPage");
+        /** "SimpleTable" Window Component itself. */
+        public static final Component SimpleTable = new Component("SimpleTable");
+
+        /** "VScroller" Component in "SimpleTable". */
+        public static final Component VScroller = new Component(SimpleTable, "VScroller");
+
+        /** "Table" Component in "SimpleTable". */
+        public static final Component Table = new Component(SimpleTable, "Table");
     }
 
-    /** "Google" Component and its children. */
-    public static class Google {
+    /** "SASEV" Component and its children. */
+    public static class SASEV {
 
         // No use for a default constructor.
-        private Google(){}
+        private SASEV(){}
 
-        /** "Google" Window Component itself. */
-        public static final Component Google = new Component("Google");
+        /** "SASEV" Window Component itself. */
+        public static final Component SASEV = new Component("SASEV");
 
-        /** "SearchBox" Component in "Google". */
-        public static final Component SearchBox = new Component(Google, "SearchBox");
+        /** "GridManagerItem" Component in "SASEV". */
+        public static final Component GridManagerItem = new Component(SASEV, "GridManagerItem");
 
-        /** "SignIn" Component in "Google". */
-        public static final Component SignIn = new Component(Google, "SignIn");
-    }
+        /** "Password" Component in "SASEV". */
+        public static final Component Password = new Component(SASEV, "Password");
 
-    /** "ContentSelector" Component and its children. */
-    public static class ContentSelector {
+        /** "Submit" Component in "SASEV". */
+        public static final Component Submit = new Component(SASEV, "Submit");
 
-        // No use for a default constructor.
-        private ContentSelector(){}
+        /** "AnalyzeMenu" Component in "SASEV". */
+        public static final Component AnalyzeMenu = new Component(SASEV, "AnalyzeMenu");
 
-        /** "ContentSelector" Window Component itself. */
-        public static final Component ContentSelector = new Component("ContentSelector");
+        /** "SignOut" Component in "SASEV". */
+        public static final Component SignOut = new Component(SASEV, "SignOut");
 
-        /** "Result" Component in "ContentSelector". */
-        public static final Component Result = new Component(ContentSelector, "Result");
-    }
-
-    /** "SwingApp" Component and its children. */
-    public static class SwingApp {
-
-        // No use for a default constructor.
-        private SwingApp(){}
-
-        /** "SwingApp" Window Component itself. */
-        public static final Component SwingApp = new Component("SwingApp");
-
-        /** "JDragTab" Component in "SwingApp". */
-        public static final Component JDragTab = new Component(SwingApp, "JDragTab");
-    }
-
-    /** "Basc_ListBox" Component and its children. */
-    public static class Basc_ListBox {
-
-        // No use for a default constructor.
-        private Basc_ListBox(){}
-
-        /** "Basc_ListBox" Window Component itself. */
-        public static final Component Basc_ListBox = new Component("Basc_ListBox");
-
-        /** "FilteredAreasWithError" Component in "Basc_ListBox". */
-        public static final Component FilteredAreasWithError = new Component(Basc_ListBox, "FilteredAreasWithError");
-
-        /** "FilteredAreasWithWarning" Component in "Basc_ListBox". */
-        public static final Component FilteredAreasWithWarning = new Component(Basc_ListBox, "FilteredAreasWithWarning");
-    }
-
-    /** "LogIn" Component and its children. */
-    public static class LogIn {
-
-        // No use for a default constructor.
-        private LogIn(){}
-
-        /** "LogIn" Window Component itself. */
-        public static final Component LogIn = new Component("LogIn");
-
-        /** "Circle" Component in "LogIn". */
-        public static final Component Circle = new Component(LogIn, "Circle");
-
-        /** "BackArrow" Component in "LogIn". */
-        public static final Component BackArrow = new Component(LogIn, "BackArrow");
-
-        /** "SignIn" Component in "LogIn". */
-        public static final Component SignIn = new Component(LogIn, "SignIn");
-
-        /** "ProfileImage" Component in "LogIn". */
-        public static final Component ProfileImage = new Component(LogIn, "ProfileImage");
-
-        /** "UserNameNext" Component in "LogIn". */
-        public static final Component UserNameNext = new Component(LogIn, "UserNameNext");
-
-        /** "OneGoogle" Component in "LogIn". */
-        public static final Component OneGoogle = new Component(LogIn, "OneGoogle");
-
-        /** "Passwd" Component in "LogIn". */
-        public static final Component Passwd = new Component(LogIn, "Passwd");
-
-        /** "UserName" Component in "LogIn". */
-        public static final Component UserName = new Component(LogIn, "UserName");
+        /** "UserName" Component in "SASEV". */
+        public static final Component UserName = new Component(SASEV, "UserName");
     }
 
     /** "GoJSSamples" Component and its children. */
@@ -800,86 +790,6 @@ public final class Map implements RuntimeDataAware {
 
         /** "Palette" Component in "GoJSSamples". */
         public static final Component Palette = new Component(GoJSSamples, "Palette");
-    }
-
-    /** "T.Window" Component and its children. */
-    public static class T_Window {
-
-        // No use for a default constructor.
-        private T_Window(){}
-
-        /** "T.Window" Window Component itself. */
-        public static final Component T_Window = new Component("T.Window");
-
-        /** "T.Component" Component in "T.Window". */
-        public static final Component T_Component = new Component(T_Window, "T.Component");
-    }
-
-    /** "GoogleResults" Component and its children. */
-    public static class GoogleResults {
-
-        // No use for a default constructor.
-        private GoogleResults(){}
-
-        /** "GoogleResults" Window Component itself. */
-        public static final Component GoogleResults = new Component("GoogleResults");
-
-        /** "AmazonAdCite" Component in "GoogleResults". */
-        public static final Component AmazonAdCite = new Component(GoogleResults, "AmazonAdCite");
-
-        /** "AmazonOfficialSiteLink" Component in "GoogleResults". */
-        public static final Component AmazonOfficialSiteLink = new Component(GoogleResults, "AmazonOfficialSiteLink");
-    }
-
-    /** "SimpleTable" Component and its children. */
-    public static class SimpleTable {
-
-        // No use for a default constructor.
-        private SimpleTable(){}
-
-        /** "SimpleTable" Window Component itself. */
-        public static final Component SimpleTable = new Component("SimpleTable");
-
-        /** "VScroller" Component in "SimpleTable". */
-        public static final Component VScroller = new Component(SimpleTable, "VScroller");
-
-        /** "Table" Component in "SimpleTable". */
-        public static final Component Table = new Component(SimpleTable, "Table");
-    }
-
-    /** "Bing" Component and its children. */
-    public static class Bing {
-
-        // No use for a default constructor.
-        private Bing(){}
-
-        /** "Bing" Window Component itself. */
-        public static final Component Bing = new Component("Bing");
-
-        /** "TabImage" Component in "Bing". */
-        public static final Component TabImage = new Component(Bing, "TabImage");
-
-        /** "SearchButton" Component in "Bing". */
-        public static final Component SearchButton = new Component(Bing, "SearchButton");
-
-        /** "SearchInput" Component in "Bing". */
-        public static final Component SearchInput = new Component(Bing, "SearchInput");
-
-        /** "FirstImage" Component in "Bing". */
-        public static final Component FirstImage = new Component(Bing, "FirstImage");
-    }
-
-    /** "RandomClicks" Component and its children. */
-    public static class RandomClicks {
-
-        // No use for a default constructor.
-        private RandomClicks(){}
-
-        /** "RandomClicks" Window Component itself. */
-        public static final Component RandomClicks = new Component("RandomClicks");
-
-        /** "AboutPopoverLink" Component in "RandomClicks". */
-        public static final Component AboutPopoverLink = new Component(RandomClicks, "AboutPopoverLink");
     }
 
     /** "SAPDemoPage" Component and its children. */
@@ -1000,6 +910,38 @@ public final class Map implements RuntimeDataAware {
         public static final Component Basc_ToggleButton = new Component(SAPDemoPage, "Basc_ToggleButton");
     }
 
+    /** "HtmlLinkTargetPage" Component and its children. */
+    public static class HtmlLinkTargetPage {
+
+        // No use for a default constructor.
+        private HtmlLinkTargetPage(){}
+
+        /** "HtmlLinkTargetPage" Window Component itself. */
+        public static final Component HtmlLinkTargetPage = new Component("HtmlLinkTargetPage");
+
+        /** "Link" Component in "HtmlLinkTargetPage". */
+        public static final Component Link = new Component(HtmlLinkTargetPage, "Link");
+
+        /** "Body" Component in "HtmlLinkTargetPage". */
+        public static final Component Body = new Component(HtmlLinkTargetPage, "Body");
+    }
+
+    /** "Google" Component and its children. */
+    public static class Google {
+
+        // No use for a default constructor.
+        private Google(){}
+
+        /** "Google" Window Component itself. */
+        public static final Component Google = new Component("Google");
+
+        /** "SearchBox" Component in "Google". */
+        public static final Component SearchBox = new Component(Google, "SearchBox");
+
+        /** "SignIn" Component in "Google". */
+        public static final Component SignIn = new Component(Google, "SignIn");
+    }
+
     /** "DynamicChart" Component and its children. */
     public static class DynamicChart {
 
@@ -1026,5 +968,101 @@ public final class Map implements RuntimeDataAware {
 
         /** "YCheckBox" Component in "DynamicChart". */
         public static final Component YCheckBox = new Component(DynamicChart, "YCheckBox");
+    }
+
+    /** "W3CPage" Component and its children. */
+    public static class W3CPage {
+
+        // No use for a default constructor.
+        private W3CPage(){}
+
+        /** "W3CPage" Window Component itself. */
+        public static final Component W3CPage = new Component("W3CPage");
+    }
+
+    /** "T.Window" Component and its children. */
+    public static class T_Window {
+
+        // No use for a default constructor.
+        private T_Window(){}
+
+        /** "T.Window" Window Component itself. */
+        public static final Component T_Window = new Component("T.Window");
+
+        /** "T.Component" Component in "T.Window". */
+        public static final Component T_Component = new Component(T_Window, "T.Component");
+    }
+
+    /** "Basc_ListBox" Component and its children. */
+    public static class Basc_ListBox {
+
+        // No use for a default constructor.
+        private Basc_ListBox(){}
+
+        /** "Basc_ListBox" Window Component itself. */
+        public static final Component Basc_ListBox = new Component("Basc_ListBox");
+
+        /** "FilteredAreasWithError" Component in "Basc_ListBox". */
+        public static final Component FilteredAreasWithError = new Component(Basc_ListBox, "FilteredAreasWithError");
+
+        /** "FilteredAreasWithWarning" Component in "Basc_ListBox". */
+        public static final Component FilteredAreasWithWarning = new Component(Basc_ListBox, "FilteredAreasWithWarning");
+    }
+
+    /** "ThomasBayerPage" Component and its children. */
+    public static class ThomasBayerPage {
+
+        // No use for a default constructor.
+        private ThomasBayerPage(){}
+
+        /** "ThomasBayerPage" Window Component itself. */
+        public static final Component ThomasBayerPage = new Component("ThomasBayerPage");
+    }
+
+    /** "LogIn" Component and its children. */
+    public static class LogIn {
+
+        // No use for a default constructor.
+        private LogIn(){}
+
+        /** "LogIn" Window Component itself. */
+        public static final Component LogIn = new Component("LogIn");
+
+        /** "Circle" Component in "LogIn". */
+        public static final Component Circle = new Component(LogIn, "Circle");
+
+        /** "BackArrow" Component in "LogIn". */
+        public static final Component BackArrow = new Component(LogIn, "BackArrow");
+
+        /** "SignIn" Component in "LogIn". */
+        public static final Component SignIn = new Component(LogIn, "SignIn");
+
+        /** "ProfileImage" Component in "LogIn". */
+        public static final Component ProfileImage = new Component(LogIn, "ProfileImage");
+
+        /** "UserNameNext" Component in "LogIn". */
+        public static final Component UserNameNext = new Component(LogIn, "UserNameNext");
+
+        /** "OneGoogle" Component in "LogIn". */
+        public static final Component OneGoogle = new Component(LogIn, "OneGoogle");
+
+        /** "Passwd" Component in "LogIn". */
+        public static final Component Passwd = new Component(LogIn, "Passwd");
+
+        /** "UserName" Component in "LogIn". */
+        public static final Component UserName = new Component(LogIn, "UserName");
+    }
+
+    /** "RandomClicks" Component and its children. */
+    public static class RandomClicks {
+
+        // No use for a default constructor.
+        private RandomClicks(){}
+
+        /** "RandomClicks" Window Component itself. */
+        public static final Component RandomClicks = new Component("RandomClicks");
+
+        /** "AboutPopoverLink" Component in "RandomClicks". */
+        public static final Component AboutPopoverLink = new Component(RandomClicks, "AboutPopoverLink");
     }
 }
