@@ -10,6 +10,8 @@ THOMAS_BAYER_SQLREST_INVOICE_URL="http://www.thomas-bayer.com/sqlrest/INVOICE/"
 THOMAS_BAYER_SQLREST_ITEM_URL="http://www.thomas-bayer.com/sqlrest/ITEM/"
 THOMAS_BAYER_SQLREST_PRODUCT_URL="http://www.thomas-bayer.com/sqlrest/PRODUCT/"
 
+HtmlLinkTargetPageURL="http://www.w3schools.com/tags/tryit.asp?filename=tryhtml_link_target"
+
 [GoJSSamples]
 Diagram="id=myDiagram"
 MenuPageFlow="id=menu;\;xpath=//li[text()='Page Flow']"
@@ -17,3 +19,11 @@ Palette="id=palette"
 
 [ThomasBayerPage]
 ThomasBayerPage="xpath=/html/body"
+
+[HtmlLinkTargetPage]
+HtmlLinkTargetPage="FRAMEID=iframeResult"
+Body="xpath=/html/body"
+Link="xpath=/html/body/a"
+
+[W3CPage]
+W3CPage="xpath=/html"
