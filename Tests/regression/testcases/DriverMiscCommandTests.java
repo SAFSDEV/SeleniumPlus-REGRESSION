@@ -8,8 +8,6 @@ import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.DCDriverCommand;
 import org.safs.text.FileUtilities;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import regression.Map;
 import regression.testruns.Regression;
 
