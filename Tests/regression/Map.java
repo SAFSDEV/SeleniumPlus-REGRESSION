@@ -89,6 +89,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "InternalSecondPageURL" */
+    public static final String InternalSecondPageURL = "InternalSecondPageURL";
+
+    /** The resolved runtime value of constant 'InternalSecondPageURL', or null. */
+    public static String InternalSecondPageURL(){
+        try{ return dataInterface.getVariable("InternalSecondPageURL"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "THOMAS_BAYER_URL" */
     public static final String THOMAS_BAYER_URL = "THOMAS_BAYER_URL";
 
@@ -104,6 +113,15 @@ public final class Map implements RuntimeDataAware {
     /** The resolved runtime value of constant 'THOMAS_BAYER_SQLREST_CUSTOMER_URL', or null. */
     public static String THOMAS_BAYER_SQLREST_CUSTOMER_URL(){
         try{ return dataInterface.getVariable("THOMAS_BAYER_SQLREST_CUSTOMER_URL"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "InternalTestLinkPageURL" */
+    public static final String InternalTestLinkPageURL = "InternalTestLinkPageURL";
+
+    /** The resolved runtime value of constant 'InternalTestLinkPageURL', or null. */
+    public static String InternalTestLinkPageURL(){
+        try{ return dataInterface.getVariable("InternalTestLinkPageURL"); }
         catch(Exception x){ return null; }
     }
 
@@ -560,6 +578,16 @@ public final class Map implements RuntimeDataAware {
         public static final Component FirstImage = new Component(Bing, "FirstImage");
     }
 
+    /** "InternalSecondPage" Component and its children. */
+    public static class InternalSecondPage {
+
+        // No use for a default constructor.
+        private InternalSecondPage(){}
+
+        /** "InternalSecondPage" Window Component itself. */
+        public static final Component InternalSecondPage = new Component("InternalSecondPage");
+    }
+
     /** "ApplicationConstants" Component and its children. */
     public static class ApplicationConstants {
 
@@ -593,11 +621,17 @@ public final class Map implements RuntimeDataAware {
         /** "THOMAS_BAYER_SQLREST_ITEM_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_ITEM_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_ITEM_URL");
 
+        /** "InternalSecondPageURL" Component in "ApplicationConstants". */
+        public static final Component InternalSecondPageURL = new Component(ApplicationConstants, "InternalSecondPageURL");
+
         /** "THOMAS_BAYER_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_URL = new Component(ApplicationConstants, "THOMAS_BAYER_URL");
 
         /** "THOMAS_BAYER_SQLREST_CUSTOMER_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_CUSTOMER_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_CUSTOMER_URL");
+
+        /** "InternalTestLinkPageURL" Component in "ApplicationConstants". */
+        public static final Component InternalTestLinkPageURL = new Component(ApplicationConstants, "InternalTestLinkPageURL");
 
         /** "THOMAS_BAYER_SQLREST_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_URL");
@@ -771,6 +805,22 @@ public final class Map implements RuntimeDataAware {
 
         /** "UserName" Component in "SASEV". */
         public static final Component UserName = new Component(SASEV, "UserName");
+    }
+
+    /** "InternalTestLinkPage" Component and its children. */
+    public static class InternalTestLinkPage {
+
+        // No use for a default constructor.
+        private InternalTestLinkPage(){}
+
+        /** "InternalTestLinkPage" Window Component itself. */
+        public static final Component InternalTestLinkPage = new Component("InternalTestLinkPage");
+
+        /** "Link" Component in "InternalTestLinkPage". */
+        public static final Component Link = new Component(InternalTestLinkPage, "Link");
+
+        /** "Body" Component in "InternalTestLinkPage". */
+        public static final Component Body = new Component(InternalTestLinkPage, "Body");
     }
 
     /** "GoJSSamples" Component and its children. */
