@@ -482,6 +482,9 @@ public class GenericMasterTests extends Regression{
 		Counters.StartCounter(KEYSTEST);
 		String CLEAR = "^a{DELETE}";
 
+		Logging.LogMessage(KEYSTEST+" WDLibrary.setDelayBetweenKeystrokes(70).");
+		WDLibrary.setDelayBetweenKeystrokes(70); // direct calls often are too fast for UI without delayBetweenKeystrokes
+		
 		if(! StartWebBrowser("http://www.google.com", KEYSTEST, "explorer")) trace(++fail);
 		if(fail == 0){
 			if(! Misc.SetApplicationMap("MiscTests")) trace(++fail);
@@ -498,27 +501,62 @@ public class GenericMasterTests extends Regression{
 			if(! Click(Map.LogIn.BackArrow)) trace(++fail);
 			WebElement e = getObject(Map.LogIn.UserName);
 			if(e != null){
+				
 				try{
+					Logging.LogMessage(KEYSTEST+" attempting WebElement.clear().");
 					// Here may need clear the Edit box because of the setting focus action of WDLibrary.inputChars()
 					e.clear();
-					WDLibrary.inputChars(e,  Map.GoogleUser());}catch(Throwable t){ trace(++fail);
+
+					if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
+
+					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputChars "+ Map.GoogleUser());
+					WDLibrary.inputChars(e,  Map.GoogleUser());
+				}catch(Throwable t){ 
+					trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibrary.inputChars "+ Map.GoogleUser());}
+				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
-				try{ WDLibrary.inputKeys(e,  CLEAR);}catch(Throwable t){ trace(++fail);
+				try{ 
+					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeys "+ CLEAR);
+					// DOES NOT TAKE ^a and DELETE reliably. 
+					// MUST separate unless DelayBetweenKeystrokes
+					WDLibrary.inputKeys(e,  CLEAR); 
+					// WDLibrary.inputKeys(e,  "^a");					
+					// WDLibrary.inputKeys(e,  "{DELETE}");
+				}catch(Throwable t){ 
+					trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeys "+ CLEAR);}
+				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
-				try{ WDLibrary.inputKeys(e,  Map.GoogleUser());}catch(Throwable t){ trace(++fail);
-					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeys "+ Map.GoogleUser());}
+				try{
+					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeys "+ Map.GoogleUser());
+					WDLibrary.inputKeys(e,  Map.GoogleUser());
+					}catch(Throwable t){ 
+						trace(++fail);
+					    Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeys "+ Map.GoogleUser());}
+				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
-				try{ WDLibrary.inputKeysSAFS2Selenium(e,  CLEAR);}catch(Throwable t){ trace(++fail);
+				try{ 
+					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeysSAFS2Selenium "+ CLEAR);
+					//WDLibrary.inputKeysSAFS2Selenium(e,  CLEAR); // TOO FAST.  Needs DelayBetweenKeystrokes?
+					WDLibrary.inputKeysSAFS2Selenium(e,  "^a");
+					WDLibrary.inputKeysSAFS2Selenium(e,  "{DELETE}");
+				}catch(Throwable t){ 
+					trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ CLEAR);}
+				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
-				try{ WDLibrary.inputKeysSAFS2Selenium(e,  Map.GoogleUser());}catch(Throwable t){ trace(++fail);
+				try{ 
+					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());
+					WDLibrary.inputKeysSAFS2Selenium(e,  Map.GoogleUser());
+				}catch(Throwable t){ 
+					trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());}
+				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 			}else{
 				fail++;
@@ -793,8 +831,8 @@ public class GenericMasterTests extends Regression{
 
 	public void runTest() throws Throwable{
 
-		// TODO: remove when run as part of runRegressionTest()
-		testKeyboardInput();
+		// TODO remove when run as part of runRegressionTest()
+		// testKeyboardInput();
 
 		List<String> enabledDomains = new ArrayList<String>();
 		enabledDomains.add(Domains.HTML_DOMAIN);
