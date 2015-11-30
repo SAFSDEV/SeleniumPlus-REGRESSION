@@ -6,8 +6,8 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/selenium-server-standalone-2.47.1.jar"/>
 	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/seleniumplus.jar"/>
+	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/selenium-server-standalone-2.47.1.jar"/>
 	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/JSTAFEmbedded.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
