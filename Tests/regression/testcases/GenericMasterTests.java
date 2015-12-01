@@ -174,7 +174,7 @@ public class GenericMasterTests extends Regression{
 
 			String listviewPic = "listview.bmp";
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, listviewPic)) trace(++fail);
-			if(Files.CopyFile(utils.testFile(listviewPic), utils.benchFile(listviewPic))){
+			if(Files.CopyFile(quote(utils.testFile(listviewPic)), quote(utils.benchFile(listviewPic)))){
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic)) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", quote("UUID=FALSE"))) trace(++fail);
 				//Remove all generated actual files.
@@ -186,7 +186,7 @@ public class GenericMasterTests extends Regression{
 
 			listviewPic = "listview.png";
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, listviewPic)) trace(++fail);
-			if(Files.CopyFile(utils.testFile(listviewPic), utils.benchFile(listviewPic))){
+			if(Files.CopyFile(quote(utils.testFile(listviewPic)), quote(utils.benchFile(listviewPic)))){
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic)) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"=0,0,15%,15%"))) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"="+Map.FilteredAreas1))) trace(++fail);
@@ -314,7 +314,7 @@ public class GenericMasterTests extends Regression{
 			String encoding = quote("utf-8");
 			if(!Component.CapturePropertiesToFile(Map.SAPDemoPage.Basc_ComboBox, filename, encoding)) trace(++fail);
 
-			if(Files.CopyFile(utils.testFile(filename), utils.benchFile(filename))){
+			if(Files.CopyFile(quote(utils.testFile(filename)), quote(utils.benchFile(filename)))){
 				if(!Component.VerifyPropertiesToFile(Map.SAPDemoPage.Basc_ComboBox, filename, encoding)) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+" Fail to copy '"+filename+"' to bench directory.");
@@ -363,7 +363,7 @@ public class GenericMasterTests extends Regression{
 
 			property = "display";
 			filename = "combobox."+property+".dat";
-			if(Files.CopyFile(utils.testFile(filename), utils.benchFile(filename))){
+			if(Files.CopyFile(quote(utils.testFile(filename)), quote(utils.benchFile(filename)))){
 				if(!Component.VerifyPropertyToFile(Map.SAPDemoPage.Basc_ComboBox, property, filename, encoding)) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+" Fail to copy '"+filename+"' to bench directory.");
@@ -408,7 +408,7 @@ public class GenericMasterTests extends Regression{
 
 			if(!Component.CaptureObjectDataToFile(Map.SAPDemoPage.TreeView, testfile, quote("utf-8"))) trace(++fail);
 			else{
-				if(Files.CopyFile(utils.testFile(testfile), utils.benchFile(benchfile))){
+				if(Files.CopyFile(quote(utils.testFile(testfile)), quote(utils.benchFile(benchfile)))){
 					if(!Component.VerifyObjectDataToFile(Map.SAPDemoPage.TreeView, "tree_bench.dat", quote("utf-8"))) trace(++fail);
 				}else{
 					Logging.LogTestWarning(debugmsg+" Fail to copy test file '"+testfile+"' to bench file '"+benchfile+"'.");
