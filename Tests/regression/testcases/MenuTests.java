@@ -154,7 +154,7 @@ public class MenuTests extends Regression{
 		//Important note: the defined menu-item must be visible on the page, you can click to show it.
 		String itemPic = "MenuToolsItem.png";
 		if(GetGUIImage(Map.SAPDemoPage.MenuToolsItem, itemPic)){
-			if(Files.CopyFile(utils.testFile(itemPic), utils.benchFile(itemPic))){
+			if(Files.CopyFile(quote(utils.testFile(itemPic)), quote(utils.benchFile(itemPic)))){
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.MenuToolsItem, utils.benchFile(itemPic))) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+" Fail to copy file '"+itemPic+"', miss VerifyGUIImageToFile test.");

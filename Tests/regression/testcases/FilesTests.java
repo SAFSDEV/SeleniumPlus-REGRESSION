@@ -57,7 +57,7 @@ public class FilesTests extends SeleniumPlus{
 		//CopyFile
 		file = utils.testAssetFile("SASStudioDaily.htm");
 		dest = utils.appendDir(baseDirecotory, "newSASStudioDaily.htm");
-		if(!Files.CopyFile(file, dest)) fail++;
+		if(!Files.CopyFile(quote(file), quote(dest))) fail++;
 
 		//FilterTextFile
 		String stringToReplace = "html";
@@ -327,7 +327,7 @@ public class FilesTests extends SeleniumPlus{
 			}
 			
 			dest = utils.appendDir(directory, "copy of file3.txt");
-			if(!Files.CopyFile(file, dest)) fail++;
+			if(!Files.CopyFile(quote(file), quote(dest))) fail++;
 			
 			dest = utils.appendDir(directory, "second copy of file3.txt");
 			String fileDriverCommand = "CopyFile";
@@ -413,7 +413,7 @@ public class FilesTests extends SeleniumPlus{
 			}
 			
 			newdest = utils.appendDir(directory, "Copy of UTF8 FILE.txt");
-			if(Files.CopyFile(file, newdest)){
+			if(Files.CopyFile(quote(file), quote(newdest))){
 				regexPattern = "saturday|sat|sunday|sun";
 				replace = "weekend";
 				

@@ -228,7 +228,7 @@ public class ListViewTests extends Regression{
 		String filename = "listview_content.txt";
 
 		if(ListView.CaptureItemsToFile(listview, quote(filename))){
-			if(Files.CopyFile(utils.testFile(filename), utils.benchFile(filename))){
+			if(Files.CopyFile(quote(utils.testFile(filename)), quote(utils.benchFile(filename)))){
 				if(!SeleniumPlus.VerifyFileToFile(utils.testFile(filename), utils.benchFile(filename))) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+"CopyFile Failed. Some tests missed.");
@@ -258,7 +258,7 @@ public class ListViewTests extends Regression{
 		String file = "ListViewItem26_ComputedStyle.dat";
 		//ListViewItem26 is defined with qualifier "ItemIndex"
 		if(Component.GetComputedStyle(Map.SAPDemoPage.ListViewItem26, file)){
-			if(Files.CopyFile(utils.testFile(file), utils.benchFile(file))){
+			if(Files.CopyFile(quote(utils.testFile(file)), quote(utils.benchFile(file)))){
 				if(!Component.VerifyComputedStyle(Map.SAPDemoPage.ListViewItem26, file)) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+"CopyFile Failed. Some tests missed.");
@@ -283,7 +283,7 @@ public class ListViewTests extends Regression{
 
 		file = "ItemAlaska.properties";
 		if(Component.CapturePropertiesToFile(Map.SAPDemoPage.ListViewItemAlaska, file, quote("utf-8"))){
-			if(Files.CopyFile(utils.testFile(file), utils.benchFile(file))){
+			if(Files.CopyFile(quote(utils.testFile(file)), quote(utils.benchFile(file)))){
 				if(!Component.VerifyPropertiesToFile(Map.SAPDemoPage.ListViewItemAlaska, file, quote("utf-8"))) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+"CopyFile Failed. Some tests missed.");
