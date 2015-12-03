@@ -156,7 +156,7 @@ public class DriverMiscCommandTests extends Regression{
 		String clipboardValue = "THIS IS SOMETHING TO BE SET TO CLIPBOARD!\n被设置为 MAKE a Test... 使用参数\n";
 		if(Misc.SetClipboard(clipboardValue)){
 			if(Misc.SaveClipboardToFile(clipboardFile)){
-				if(Files.CopyFile(utils.testFile(clipboardFile), utils.benchFile(clipboardFile))){
+				if(Files.CopyFile(quote(utils.testFile(clipboardFile)), quote(utils.benchFile(clipboardFile)))){
 					if(!Misc.VerifyClipboardToFile(clipboardFile)) fail++;
 				}else{
 					Logging.LogTestFailure(COUNTER+"Fail to copy test file '"+clipboardFile+"' to bench directory, cannot verify.");
