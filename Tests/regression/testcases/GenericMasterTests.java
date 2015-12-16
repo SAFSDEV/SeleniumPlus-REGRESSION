@@ -541,9 +541,18 @@ public class GenericMasterTests extends Regression{
 
 				try{ 
 					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeysSAFS2Selenium "+ CLEAR);
-					//WDLibrary.inputKeysSAFS2Selenium(e,  CLEAR); // TOO FAST.  Needs DelayBetweenKeystrokes?
-					WDLibrary.inputKeysSAFS2Selenium(e,  "^a");
-					WDLibrary.inputKeysSAFS2Selenium(e,  "{DELETE}");
+					
+					/**
+					 * DEC 16, 2015    (Tao Xie)
+					 * As 'WDLibrary.inputKeysSAFS2Selenium' will set focus at beginning,
+					 * we need to combine the "^a" and "{Delete}" into one inputting contents.
+					 * Otherwise the 'set focus' action of "{Delete}" will make the "select all" action invalid.
+					 * 
+					 * Also keep the original comment "TOO FAST..." below.
+					 */
+					WDLibrary.inputKeysSAFS2Selenium(e,  CLEAR); // TOO FAST.  Needs DelayBetweenKeystrokes? 
+//					WDLibrary.inputKeysSAFS2Selenium(e,  "^a");
+//					WDLibrary.inputKeysSAFS2Selenium(e,  "{DELETE}");
 				}catch(Throwable t){ 
 					trace(++fail);
 					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ CLEAR);}
