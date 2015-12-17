@@ -351,6 +351,10 @@ public class GenericMasterTests extends Regression{
 
 			property = "font-family";//need quoted to avoid expression-evaluation
 			String containedValue = "Helvetica";
+			// DEC 17, 2015 Tao Xie, Here exists a 3rd party Selenium's problem. For example, if the original value of 'font-family' is
+			// 						"Arial, Helvetica, sans-serif", IE driver will return "arial, helvetica, sans-serif", which makes the
+			// 						case-sensitive match failed.
+			// 						Chrome and Firefox don't have this problem.
 			if(!Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue)) trace(++fail);
 
 			containedValue = "HELVETICA";
