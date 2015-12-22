@@ -540,6 +540,19 @@ public final class Map implements RuntimeDataAware {
         public static final Component JDragTab = new Component(SwingApp, "JDragTab");
     }
 
+    /** "Notepad" Component and its children. */
+    public static class Notepad {
+
+        // No use for a default constructor.
+        private Notepad(){}
+
+        /** "Notepad" Window Component itself. */
+        public static final Component Notepad = new Component("Notepad");
+
+        /** "EditBox" Component in "Notepad". */
+        public static final Component EditBox = new Component(Notepad, "EditBox");
+    }
+
     /** "GoogleResults" Component and its children. */
     public static class GoogleResults {
 
@@ -976,6 +989,64 @@ public final class Map implements RuntimeDataAware {
         public static final Component Body = new Component(HtmlLinkTargetPage, "Body");
     }
 
+    /** "Calculator" Component and its children. */
+    public static class Calculator {
+
+        // No use for a default constructor.
+        private Calculator(){}
+
+        /** "Calculator" Window Component itself. */
+        public static final Component Calculator = new Component("Calculator");
+
+        /** "BtnMinus" Component in "Calculator". */
+        public static final Component BtnMinus = new Component(Calculator, "BtnMinus");
+
+        /** "Panel" Component in "Calculator". */
+        public static final Component Panel = new Component(Calculator, "Panel");
+
+        /** "Btn9" Component in "Calculator". */
+        public static final Component Btn9 = new Component(Calculator, "Btn9");
+
+        /** "Btn8" Component in "Calculator". */
+        public static final Component Btn8 = new Component(Calculator, "Btn8");
+
+        /** "Btn7" Component in "Calculator". */
+        public static final Component Btn7 = new Component(Calculator, "Btn7");
+
+        /** "Btn6" Component in "Calculator". */
+        public static final Component Btn6 = new Component(Calculator, "Btn6");
+
+        /** "Btn5" Component in "Calculator". */
+        public static final Component Btn5 = new Component(Calculator, "Btn5");
+
+        /** "Btn4" Component in "Calculator". */
+        public static final Component Btn4 = new Component(Calculator, "Btn4");
+
+        /** "Btn3" Component in "Calculator". */
+        public static final Component Btn3 = new Component(Calculator, "Btn3");
+
+        /** "Btn2" Component in "Calculator". */
+        public static final Component Btn2 = new Component(Calculator, "Btn2");
+
+        /** "Btn1" Component in "Calculator". */
+        public static final Component Btn1 = new Component(Calculator, "Btn1");
+
+        /** "Btn0" Component in "Calculator". */
+        public static final Component Btn0 = new Component(Calculator, "Btn0");
+
+        /** "BtnDiv" Component in "Calculator". */
+        public static final Component BtnDiv = new Component(Calculator, "BtnDiv");
+
+        /** "BtnEqual" Component in "Calculator". */
+        public static final Component BtnEqual = new Component(Calculator, "BtnEqual");
+
+        /** "BtnPlus" Component in "Calculator". */
+        public static final Component BtnPlus = new Component(Calculator, "BtnPlus");
+
+        /** "BtnMulp" Component in "Calculator". */
+        public static final Component BtnMulp = new Component(Calculator, "BtnMulp");
+    }
+
     /** "Google" Component and its children. */
     public static class Google {
 
@@ -1069,6 +1140,28 @@ public final class Map implements RuntimeDataAware {
         public static final Component ThomasBayerPage = new Component("ThomasBayerPage");
     }
 
+    /** "Notepad_Replace" Component and its children. */
+    public static class Notepad_Replace {
+
+        // No use for a default constructor.
+        private Notepad_Replace(){}
+
+        /** "Notepad_Replace" Window Component itself. */
+        public static final Component Notepad_Replace = new Component("Notepad_Replace");
+
+        /** "EditBoxReplace" Component in "Notepad_Replace". */
+        public static final Component EditBoxReplace = new Component(Notepad_Replace, "EditBoxReplace");
+
+        /** "ButtonReplaceAll" Component in "Notepad_Replace". */
+        public static final Component ButtonReplaceAll = new Component(Notepad_Replace, "ButtonReplaceAll");
+
+        /** "EditBoxFind" Component in "Notepad_Replace". */
+        public static final Component EditBoxFind = new Component(Notepad_Replace, "EditBoxFind");
+
+        /** "ButtonCancel" Component in "Notepad_Replace". */
+        public static final Component ButtonCancel = new Component(Notepad_Replace, "ButtonCancel");
+    }
+
     /** "LogIn" Component and its children. */
     public static class LogIn {
 
@@ -1101,6 +1194,16 @@ public final class Map implements RuntimeDataAware {
 
         /** "UserName" Component in "LogIn". */
         public static final Component UserName = new Component(LogIn, "UserName");
+    }
+
+    /** "SAFS Monitor" Component and its children. */
+    public static class SAFS_Monitor {
+
+        // No use for a default constructor.
+        private SAFS_Monitor(){}
+
+        /** "SAFS Monitor" Window Component itself. */
+        public static final Component SAFS_Monitor = new Component("SAFS Monitor");
     }
 
     /** "RandomClicks" Component and its children. */

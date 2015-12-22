@@ -9,6 +9,7 @@ import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.selenium.webdriver.lib.SelectBrowser;
 
 import regression.testcases.AssertTests;
+import regression.testcases.AutoItTests;
 import regression.testcases.CheckBoxTests;
 import regression.testcases.ComboBoxTests;
 import regression.testcases.DriverMiscCommandTests;
@@ -102,6 +103,7 @@ public class Regression extends SeleniumPlus {
 		fail += TabControlTests.runRegressionTest(Runner, enabledDomains);
 		fail += TreeViewTests.runRegressionTest(Runner, enabledDomains);
 		fail += EditBoxTests.runRegressionTest(Runner, enabledDomains);
+		fail += AutoItTests.runRegressionTest(Runner, enabledDomains);
 		
 		if(fail > 0){
 			Logging.LogTestFailure("Regression reports "+ fail +" UNEXPECTED test failures!");
