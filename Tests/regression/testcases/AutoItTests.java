@@ -108,7 +108,50 @@ public class AutoItTests extends Regression{
 						Logging.LogTestWarning("Fail to verify the editbox value. Met "+StringUtils.debugmsg(e));
 					}
 					Misc.Pause(1);
-										
+					
+					//Open the "replace" popup, and replace some characters in editbox and verify
+					if(TypeKeys("%ER")){//Alt+E, then R
+						String replacedStr = "input";
+						String replacingStr = "INPUT";
+						
+						if(Window.SetFocus(Map.Notepad_Replace.EditBoxFind)){
+							if(!TypeChars(replacedStr)) trace(++fail); else Pause(1);
+							
+							if(Window.SetFocus(Map.Notepad_Replace.EditBoxReplace)){
+								if(!TypeChars(replacingStr)) trace(++fail); else Pause(1);
+							}else{
+								trace(++fail);
+							}
+							if(!Click(Map.Notepad_Replace.ButtonReplaceAll)) trace(++fail);
+							else{
+								Pause(1);
+								//dispose the "replace" dialog
+								if(Click(Map.Notepad_Replace.ButtonCancel)){
+									//verify the string has been replaced
+									try{
+										//Try to use AUTOIT to call its API directly
+										String result = it.controlGetText(panel.getWindowsRS(), "", panel.getComponentRS());
+										String expectedStr = text.replaceAll(replacedStr, replacingStr);
+										if(!expectedStr.equals(result)){
+											Logging.LogTestWarning("Notepad verification failed. Expected '"+expectedStr+"'!='"+result+"'");
+										}
+
+									}catch(Exception e){
+										Logging.LogTestWarning("Fail to verify the editbox value. Met "+StringUtils.debugmsg(e));
+									}
+								}else{
+									trace(++fail);
+								}
+							}
+							
+						}else{
+							trace(++fail);
+						}
+						
+					}else{
+						trace(++fail);
+					}
+					
 				}else{
 					trace(++fail);
 				}
