@@ -2,10 +2,12 @@ package regression.testcases;
 
 import java.io.File;
 
+import org.safs.StatusCodes;
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils.SubArea;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.DCDriverCommand;
+import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.text.FileUtilities;
 
 import regression.Map;
@@ -381,14 +383,17 @@ public class DriverMiscCommandTests extends Regression{
 							
 							Logging.LogTestSuccess("Executing Misc.GetURL('"+restURL+"', '"+contentVariable+"'), the result is \n", result.toString());
 						}else{
-							trace(++fail);
-							Logging.LogTestFailure("Fail to get content for url '"+restURL+"'!");
+							if(SeleniumPlus.prevResults.getStatusCode()!=StatusCodes.SCRIPT_NOT_EXECUTED){
+								trace(++fail);
+								Logging.LogTestFailure("Fail to get content for url '"+restURL+"'!");
+							}
 						}
 					}catch(Exception e){
 						trace(++fail);
 						Logging.LogTestFailure("Executing Misc.GetURL('"+restURL+"', '"+contentVariable+"'), met error ", StringUtils.debugmsg(e));
 					}
 					
+					boolean fileSaved = false;
 					String file = "product_content.txt";
 					String filecontent = null;
 					//2. Test Misc.SaveURLToFile
@@ -396,12 +401,15 @@ public class DriverMiscCommandTests extends Regression{
 						restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
 						
 						if(Misc.SaveURLToFile(restURL, file)){
+							fileSaved = true;
 							filecontent = FileUtilities.readStringFromUTF8File(utils.testFile(file));
-							
 							Logging.LogTestSuccess("Executing Misc.SaveURLToFile('"+restURL+"', '"+file+"'), the file content is \n", filecontent);
+							
 						}else{
-							trace(++fail);
-							Logging.LogTestFailure("Fail to get save url '"+restURL+"' to file '"+file+"'!");
+							if(SeleniumPlus.prevResults.getStatusCode()!=StatusCodes.SCRIPT_NOT_EXECUTED){
+								trace(++fail);
+								Logging.LogTestFailure("Fail to get save url '"+restURL+"' to file '"+file+"'!");
+							}
 						}
 					}catch(Exception e){
 						trace(++fail);
@@ -410,31 +418,39 @@ public class DriverMiscCommandTests extends Regression{
 					
 					//3. Test Misc.VerifyURLToFile
 					try{
-						//Move the test file to bench directory
-						FileUtilities.copyFileToFile(new File(utils.testFile(file)), new File(utils.benchFile(file)));
-						
-						restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
-						
-						if(Misc.VerifyURLToFile(restURL, file)){							
-							Logging.LogTestSuccess("Executing Misc.VerifyURLToFile('"+restURL+"', '"+file+"') succeed.");
+						if(fileSaved){
+							//Move the test file to bench directory
+							FileUtilities.copyFileToFile(new File(utils.testFile(file)), new File(utils.benchFile(file)));
+							
+							restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
+							
+							if(Misc.VerifyURLToFile(restURL, file)){							
+								Logging.LogTestSuccess("Executing Misc.VerifyURLToFile('"+restURL+"', '"+file+"') succeed.");
+							}else{
+								if(SeleniumPlus.prevResults.getStatusCode()!=StatusCodes.SCRIPT_NOT_EXECUTED){
+									trace(++fail);
+									Logging.LogTestFailure("Fail to get verify url '"+restURL+"' to file '"+file+"'!");
+								}
+							}
 						}else{
-							trace(++fail);
-							Logging.LogTestFailure("Fail to get verify url '"+restURL+"' to file '"+file+"'!");
+							Logging.LogTestWarning("Previous SaveURLToFile failed, NO file to verify. Skip VerifyURLToFile!");
 						}
 					}catch(Exception e){
 						trace(++fail);
 						Logging.LogTestFailure("Executing Misc.VerifyURLToFile('"+restURL+"', '"+file+"'), met error ", StringUtils.debugmsg(e));
 					}
 					
-					//3. Test Misc.VerifyURLContent
+					//4. Test Misc.VerifyURLContent
 					try{
 						restURL = Map.THOMAS_BAYER_SQLREST_PRODUCT_URL();
 						
 						if(Misc.VerifyURLContent(restURL, filecontent)){							
 							Logging.LogTestSuccess("Executing Misc.VerifyURLContent('"+restURL+"', '"+filecontent+"') succeed.");
 						}else{
-							trace(++fail);
-							Logging.LogTestFailure("Fail to get verify url '"+restURL+"' to content '"+filecontent+"'!");
+							if(SeleniumPlus.prevResults.getStatusCode()!=StatusCodes.SCRIPT_NOT_EXECUTED){
+								trace(++fail);
+								Logging.LogTestFailure("Fail to get verify url '"+restURL+"' to content '"+filecontent+"'!");
+							}
 						}
 					}catch(Exception e){
 						trace(++fail);
