@@ -102,7 +102,31 @@ public class GenericObjectTests extends Regression{
 		
 		//2. Test DragTo on PageFlow page "http://www.gojs.net/latest/samples/pageFlow.html"
 		Logging.LogMessage("Going to page 'Page Flow, try to test DragTo'");
-		if(Click(Map.GoJSSamples.MenuPageFlow)){
+		/**
+		 * Problem Statements:
+		 *     Using below '1-parameter version Click()' will make the 'DragTo()' fail with IE browser in VM environment.
+		 *     More specifically, after the '1-parameter version Click()', the 'getCurrentURL()' method in 'SearchObject.java',
+		 *     which will be called in the 'DragTo()' method, will throw 'Unable to get browser' exception.
+		 * 
+		 * Notes:
+		 *     1. If we use Chrome or Firefox, it can succeed in any environment.
+		 *     2. If we use IE in local, NOT in VM environment, it also can success.
+		 *  
+		 * Reason:
+		 *     This is probably due to the 3rd party Selenium's IE driver. 
+		 *         1. If we put a break point at 'Click(Map.GoJSSamples.MenuPageFlow)', then the whole test could pass successfully.
+		 *         2. If we make the IE lose the focus before executing 'Click(Map.GoJSSamples.MenuPageFlow)', then the test will succeed.     
+		 *     [Lei] The Selenium webdriver must do something extra in this situation. (This sounds strange, normally we need focus on component before performing
+		 *           something. But Selenium is different, it calls native methods/events and doesn't need focus.), I would consider this as Selenium IE driver's bug, not ours.
+		 * 
+		 * Solution:
+		 *     As it's Selenium's bug not ours, we'll leave it here with comments as no fix.
+		 *     In order to make the Regression test pass, we'll use the 'Click()' method with 
+		 *     coordinate, which will use Robot to execute the Click action.
+		 * 
+		 */
+//		if(Click(Map.GoJSSamples.MenuPageFlow)){
+		if(Click(Map.GoJSSamples.MenuPageFlow, "5,5")){
 			//Drag some component from "palate" to "my diagram"			
 			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "40, 20, 5%, 5%")) fail++;
 			Pause(1);
