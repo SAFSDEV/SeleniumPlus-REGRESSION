@@ -481,7 +481,7 @@ public class GenericMasterTests extends Regression{
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int testKeyboardInput() throws Throwable{
+	public static int testKeyboardInput(String browser) throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(KEYSTEST);
 		String CLEAR = "^a{DELETE}";
@@ -489,7 +489,7 @@ public class GenericMasterTests extends Regression{
 		Logging.LogMessage(KEYSTEST+" WDLibrary.setDelayBetweenKeystrokes(70).");
 		WDLibrary.setDelayBetweenKeystrokes(70); // direct calls often are too fast for UI without delayBetweenKeystrokes
 		
-		if(! StartWebBrowser("http://www.google.com", KEYSTEST, "explorer")) trace(++fail);
+		if(! StartWebBrowser(Map.GoogleURL(), KEYSTEST, browser)) trace(++fail);
 		if(fail == 0){
 			if(! Misc.SetApplicationMap("MiscTests")) trace(++fail);
 			if(! Click(Map.Google.SignIn)) trace(++fail);
@@ -818,7 +818,17 @@ public class GenericMasterTests extends Regression{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
-		fail += testKeyboardInput();
+		String browsers = Map.TestBrowserName();
+		if(browsers == null || browsers.trim().isEmpty()){
+			browsers = FF;
+			Logging.LogTestWarning(COUNTER + " cannot get TestBrowserName from map, use " + browsers);
+		}
+		browsers = browsers.replaceAll(" +", " ");
+		String[] browserArray = browsers.split(" ");
+
+		for(String browser: browserArray){
+			fail += testKeyboardInput(browser);
+		}
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
