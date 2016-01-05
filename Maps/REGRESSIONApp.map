@@ -2,6 +2,8 @@
 TestBrowserName="firefox"
 ;TestBrowserName="firefox chrome explorer"
 
+GoogleURL="http://www.google.com"
+
 # Window and Component definitions are added below.
 # Example:
 # 
