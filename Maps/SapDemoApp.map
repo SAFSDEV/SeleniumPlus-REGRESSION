@@ -1,5 +1,5 @@
 [ApplicationConstants]
-SAPDemoURL="http://***REMOVED***:8880/SAPDemo/"
+SAPDemoURL="http://safsdev:8880/SAPDemo/"
 
 Tab_basc_comp="Basc.Comp"
 Tab_mort_calc="Mort.Calc"
