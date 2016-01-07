@@ -31,5 +31,6 @@ Echo "Project has been compiled."
 
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression
 
-Echo "Test Job is Done."
+Echo "Test Job is Done with exit code %ERRORLEVEL%"
+Exit /b %ERRORLEVEL%
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
