@@ -1,12 +1,18 @@
 package regression.testruns;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.xml.transform.TransformerException;
+
 import org.safs.Domains;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.selenium.webdriver.lib.SelectBrowser;
+import org.safs.tools.CaseInsensitiveFile;
+import org.safs.xml.XMLTransformer;
 
 import regression.testcases.AssertTests;
 import regression.testcases.AutoItTests;
@@ -50,6 +56,8 @@ public class Regression extends SeleniumPlus {
 	public static final String MAP_FILE_DOJOAPP = "DojoApp.map";
 	public static final String MAP_FILE_HTMLAPP = "HtmlApp.map";
 
+	public static File logsdir = null; //deduced at runtime 
+	
 	protected static String generateID(){
 		return String.valueOf((new Date()).getTime());
 	}
@@ -80,6 +88,9 @@ public class Regression extends SeleniumPlus {
 	 */
 	@Override
 	public void runTest() throws Throwable {
+		
+		preparePostProcessing();
+				
 		List<String> enabledDomains = new ArrayList<String>();
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
@@ -111,7 +122,47 @@ public class Regression extends SeleniumPlus {
 			Logging.LogTestSuccess("Regression did not report any UNEXPECTED test failures!");
 		}
 		
+		//if running from Eclipse, no local main() is needed.
+		//but if running from command-line, a local main() is usually needed.
 		setExitCode(fail);
+		setAllowExit(false); // already false by default, but just in-case
+	}
+	
+	/**
+	 * Internal. Can only be run AFTER the test runtime environment is initialized.
+	 * Called at the beginning of our local runTest()
+	 */
+	void preparePostProcessing(){
+		try{ logsdir = new CaseInsensitiveFile(Runner.jsafs().getLogsDir()).toFile();}
+		catch(Throwable t){ /* ignore for now */ }
+	}
+	
+	/** Added to accomodate post-test processing for HTML reports. */
+	public static void main(String[] args){
+		
+		SeleniumPlus.main(args);
+		
+		// Continue with post-test processing of HTML reports.
+		
+		if(logsdir instanceof File){
+			try {
+				File xmlfile = new CaseInsensitiveFile(logsdir, "Regression.xml").toFile();
+				File xslfile = new CaseInsensitiveFile(logsdir, "regressionsummary.xsl").toFile();
+				File outfile = new File(logsdir, "Regression_Summary.htm");
+				XMLTransformer.transform(xmlfile, xslfile, outfile);
+				
+				xslfile = new CaseInsensitiveFile(logsdir, "failuresummary.xsl").toFile();
+				outfile = new File(logsdir, "Regression_Failures.htm");
+				XMLTransformer.transform(xmlfile, xslfile, outfile);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+		System.exit(exitCode);
 	}
 	
 }
