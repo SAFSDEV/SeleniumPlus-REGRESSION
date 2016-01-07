@@ -110,5 +110,8 @@ public class Regression extends SeleniumPlus {
 		}else{
 			Logging.LogTestSuccess("Regression did not report any UNEXPECTED test failures!");
 		}
+		
+		setExitCode(fail);
 	}
+	
 }
