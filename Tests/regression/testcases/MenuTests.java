@@ -140,6 +140,7 @@ public class MenuTests extends Regression{
 		expectedStatus = "Enabled Bitmap";
 		path = "Tools->JTree Viewer";
 		indexPath = "";
+		Logging.LogFailureOK("Expected Failure: for path '"+path+"', its status is not '"+expectedStatus+"'. VerifyMenuItem will fail.");
 		if(Menu.VerifyMenuItem(menubar, path, expectedStatus, indexPath)) trace(++fail);
 
 		expectedStatus = "Enabled Menu With 10 MenuItems";
