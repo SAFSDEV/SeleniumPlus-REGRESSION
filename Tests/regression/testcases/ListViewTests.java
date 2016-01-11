@@ -168,6 +168,7 @@ public class ListViewTests extends Regression{
 			if(!ListView.VerifySelectedItem(listview, text)) trace(++fail);
 
 			text = "Arkansas";//this is the first "sas" in list, should not be selected, should fail
+			Logging.LogFailureOK("Expected Failure: 'Arkansas' is the first 'sas' in list, and it is not selected, verification will fail.");
 			if(ListView.VerifySelectedItem(listview, text)) trace(++fail);
 
 			//Arkansas not selected, will pass
@@ -183,6 +184,8 @@ public class ListViewTests extends Regression{
 			//Verify the selection
 			if(!ListView.VerifySelectedItem(listview, text)) trace(++fail);
 
+			//'Arkansas' is selected, VerifyItemUnselected will fail
+			Logging.LogFailureOK("Expected Failure: 'Arkansas' is selected, VerifyItemUnselected will fail.");
 			if(ListView.VerifyItemUnselected(listview, text)) trace(++fail);
 
 		}else{
@@ -197,9 +200,11 @@ public class ListViewTests extends Regression{
 		if(!ListView.SelectIndexItem(listview, index)) trace(++fail);
 
 		index = -1;//out of boundary, should fail
+		Logging.LogFailureOK("Expected Failure: the index '"+index+"' is out of boundary, SelectIndex will fail.");
 		if(ListView.SelectIndex(listview, index)) trace(++fail);
 
 		index = 282;//out of boundary, should fail
+		Logging.LogFailureOK("Expected Failure: the index '"+index+"' is out of boundary, SelectIndex will fail.");
 		if(ListView.SelectIndexItem(listview, index)) trace(++fail);
 
 		text = "Montana";
