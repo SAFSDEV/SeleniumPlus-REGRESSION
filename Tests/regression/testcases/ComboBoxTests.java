@@ -6,6 +6,7 @@ import java.util.List;
 import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
+import org.safs.selenium.webdriver.SeleniumPlus.ComboBox;
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -131,6 +132,14 @@ public class ComboBoxTests extends Regression{
 		if(!ComboBox.CaptureItemsToFile(combobox, "ComboBoxDataUTF8.txt", "UTF-8")) trace(++fail);
 
 		String item = null;
+		
+		item = "Some Text";
+		if(!ComboBox.SetTextValue(combobox, item)) trace(++fail);
+		Pause(1);
+		
+		item = "Some Text with special keys +(abcd)";
+		if(!ComboBox.SetTextValue(combobox, item)) trace(++fail);
+		Pause(1);
 
 		item = "Alaska";
 		if(!ComboBox.Select(combobox, item)) trace(++fail);
