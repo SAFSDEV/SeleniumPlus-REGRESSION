@@ -234,7 +234,7 @@ public class ListViewTests extends Regression{
 
 		if(ListView.CaptureItemsToFile(listview, quote(filename))){
 			if(Files.CopyFile(quote(utils.testFile(filename)), quote(utils.benchFile(filename)))){
-				if(!SeleniumPlus.VerifyFileToFile(utils.testFile(filename), utils.benchFile(filename))) trace(++fail);
+				if(!SeleniumPlus.VerifyFileToFile(quote(utils.testFile(filename)), quote(utils.benchFile(filename)))) trace(++fail);
 			}else{
 				Logging.LogTestWarning(debugmsg+"CopyFile Failed. Some tests missed.");
 				trace(++fail);
