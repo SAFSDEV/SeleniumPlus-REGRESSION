@@ -123,7 +123,8 @@ public class MenuTests extends Regression{
 		if(!Menu.SelectMenuItem(menubar, path)) trace(++fail);
 
 		path =  "Tools->Basic Components";
-		if(!Menu.SelectMenuItem(menubar, path, "1->1")) trace(++fail);
+		indexPath = "1->1";
+		if(!Menu.SelectMenuItem(menubar, path, indexPath)) trace(++fail);
 
 		path =  "Too->Viewer";
 		indexPath = "1->3";
