@@ -56,7 +56,7 @@ public class GenericMasterTests extends Regression{
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
 			browsers = FF;
-			Logging.LogTestWarning(COUNTER+" cannot get TestBrowserName from map, use "+browsers);
+			Logging.LogTestWarning("testAPI cannot get TestBrowserName from map, use "+browsers);
 		}
 		browsers = browsers.replaceAll(" +", " ");
 		String[] browserArray = browsers.split(" ");
@@ -161,14 +161,17 @@ public class GenericMasterTests extends Regression{
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview6.png", Map.subarea, Map.FilteredAreas2())) trace(++fail);
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview7.png", "", quote(FILTER+"="+Map.FilteredAreas2))) trace(++fail);
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview8.png", Map.subarea, quote(FILTER+"="+Map.FilteredAreas2()))) trace(++fail);
+			
 			//GetGUIImage with warnings
-			Logging.LogMessage(COUNTER+" ==== 2 Warnings Expected: Without prefix '"+FILTER+"', the parameter FilteredAreas will be ignore, and GetGUIImage produces Warning.");
+			Logging.LogWarningOK("GetGUIImage Warnings Expected: Without prefix '"+FILTER+"', the parameter FilteredAreas will be ignored. GetGUIImage produces Warning, but passes.");
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview9.png", "", Map.FilteredAreas1)) trace(++fail);//Without prefix Filter
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview10.png", "", Map.FilteredAreas1())) trace(++fail);//Without prefix Filter
-			Logging.LogMessage(COUNTER+" ==== 1 Warning Expected: Part of 'FilteredAreasWithWarning' are wrong and will be ignore, and GetGUIImage produces Warnings.");
+			
+			Logging.LogWarningOK("GetGUIImage Warnings Expected: Part of 'FilteredAreasWithWarning' are wrong and will be ignored. GetGUIImage produces Warnings, but passes.");
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview11.png", "", "FilteredAreasWithWarning")) trace(++fail);//Part of areas are wrong
+
 			//GetGUIImage with error
-			Logging.LogMessage(COUNTER+" ==== 2 Errors Expected: All filtered areas are wrong and will be ignore, and GetGUIImage produces Error.");
+			Logging.LogFailureOK("GetGUIImage 2 Errors Expected: All filtered areas are wrong and will be ignored. GetGUIImage produces Error.");
 			if(GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview12.png", "", quote(FILTER+"=0,0,%,15%"))) trace(++fail);//all areas are wrong
 			if(GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview13.png", "", "FilteredAreasWithError")) trace(++fail);//all areas are wrong
 
@@ -195,16 +198,31 @@ public class GenericMasterTests extends Regression{
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", Map.FilteredAreas2())) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"="+Map.FilteredAreas2))) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"="+Map.FilteredAreas2()))) trace(++fail);
-				//VerifyGUIImageToFile with warnings
-				Logging.LogMessage(COUNTER+" ==== 2 Warnings Expected: Without prefix '"+FILTER+"', the parameter FilteredAreas will be ignore, and VerifyGUIImageToFile produces Warning.");
+				
+				//VerifyGUIImageToFile passes with warnings
+				Logging.LogWarningOK("VerifyGuiImageToFile 2 Warnings Expected: Bad parameter FilteredAreas will be ignored. VerifyGUIImageToFile produces Warnings, but passes.");
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", Map.FilteredAreas1)) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", Map.FilteredAreas1())) trace(++fail);
-				Logging.LogMessage(COUNTER+" ==== 1 Warning Expected: Part of 'FilteredAreasWithWarning' are wrong and will be ignore, and VerifyGUIImageToFile produces Warnings.");
+				
+				//VerifyGUIImageToFile passes with warnings
+				Logging.LogWarningOK("VerifyGuiImageToFile Multiple Warnings Expected: 'FilteredAreasWithWarning' are wrong and will be ignored. VerifyGUIImageToFile produces Warnings, but passes.");
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", "FilteredAreasWithWarning")) trace(++fail);
-				//VerifyGUIImageToFile with error
-				Logging.LogMessage(COUNTER+" ==== 2 Errors Expected: All filtered areas are wrong, and VerifyGUIImageToFile produces Error.");
-				if(VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"=0,0,%,15%"))) trace(++fail);
-				if(VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", "FilteredAreasWithError")) trace(++fail);
+				
+				//VerifyGUIImageToFile errors with warnings
+				Logging.LogFailureOK("VerifyGuiImageToFile Failure Expected: All filtered areas are wrong. VerifyGUIImageToFile produces Warnings and fails.");
+				if(VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"=0,0,%,15%"))) {
+					trace(++fail);
+					Logging.LogTestFailure(quote("VerifyGuiImageToFile should NOT have passed with bad filter param: FILTER=0,0,%,15%"));
+				}
+				Logging.LogFailureOK("VerifyGuiImageToFile Failure Expected: Filter param is bad. VerifyGUIImageToFile produces Warnings and fails.");
+				if(VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", "FilteredAreasWithError")) {
+					trace(++fail);
+					Logging.LogTestFailure("VerifyGuiImageToFile should NOT have passed with bad filter param: FilteredAreasWithError");
+				}
+
+				Logging.LogWarningOK("VerifyGuiImageToFile Warning(s) Expected: Filter param(s) is too big. VerifyGUIImageToFile produces Warnings, but passes.");
+				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote("Filter=0,0,511,511 512,512,1024,1024"))) trace(++fail);
+				
 
 				//Remove all generated actual files.
 				deleteGeneratedActualFiles(listviewPic);
@@ -241,10 +259,11 @@ public class GenericMasterTests extends Regression{
 			}
 
 			if(benchReady){
-				Logging.LogMessage(COUNTER+" ==== 1 Error Expected: Tolerance is not enough, VerifyGUIImageToFile produces Error.");
+				Logging.LogFailureOK("VerifyGuiImageToFile Error Expected: Tolerance is not enough, VerifyGUIImageToFile produces Error.");
 				if(VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewBenchPic, "", "98")) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewBenchPic, "", "90")) trace(++fail);
 
+				Logging.LogFailureOK("VerifyBinaryFileToFile Error Expected: Tolerance is not enough, VerifyGUIImageToFile produces Error.");
 				if(VerifyBinaryFileToFile(listviewBenchPic, listviewPic, FilterMode.TOLERANCE.name, "98")) trace(++fail);
 				if(!VerifyBinaryFileToFile(listviewBenchPic, listviewPic, FilterMode.TOLERANCE.name, "90")) trace(++fail);
 
@@ -360,6 +379,7 @@ public class GenericMasterTests extends Regression{
 			containedValue = "HELVETICA";
 			if(!Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue, false)) trace(++fail);
 
+			Logging.LogFailureOK("VerifyPropertyContains should NOT contain the substring.");
 			if(Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue, true)){
 				Logging.LogTestWarning(debugmsg+"Unexpected: property '"+property+"' of '"+Map.SAPDemoPage.Basc_ComboBox.getName()+"' contains '"+containedValue+"'.");
 				trace(++fail);
@@ -808,6 +828,45 @@ public class GenericMasterTests extends Regression{
 		}
 	}
 
+	public static int testKeyboardInputAllBrowsers() throws Throwable{
+		int fail = 0;
+		String browsers = Map.TestBrowserName();
+		if(browsers == null || browsers.trim().isEmpty()){
+			browsers = FF;
+			Logging.LogTestWarning("testKeyboardInput cannot get TestBrowserName from map, use " + browsers);
+		}
+		browsers = browsers.replaceAll(" +", " ");
+		String[] browserArray = browsers.split(" ");
+
+		for(String browser: browserArray){
+			fail += testKeyboardInput(browser);
+		}
+		if(fail > 0){
+			Logging.LogTestFailure("testKeyboardInput reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess("testKeyboardInput did not report any UNEXPECTED test failures!");
+		}
+		return fail;
+	}
+	
+	public static int testAPIAllBrowsers(EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+		int fail = 0;
+		try{
+			for(String domain: enabledDomains) Domains.enableDomain(domain);
+			utils = new Utilities(Runner.jsafs());
+			fail += testAPI();
+		}catch(Throwable t){
+			trace(++fail);
+			Logging.LogTestFailure("testAPIAllBrowsers fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
+		}
+		if(fail > 0){
+			Logging.LogTestFailure("testAPI reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess("testAPI did not report any UNEXPECTED test failures!");
+		}
+		return fail;
+	}
+	
 	/**
 	 *
 	 * @param Runner EmbeddedHookDriverRunner
@@ -818,28 +877,11 @@ public class GenericMasterTests extends Regression{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
-		String browsers = Map.TestBrowserName();
-		if(browsers == null || browsers.trim().isEmpty()){
-			browsers = FF;
-			Logging.LogTestWarning(COUNTER + " cannot get TestBrowserName from map, use " + browsers);
-		}
-		browsers = browsers.replaceAll(" +", " ");
-		String[] browserArray = browsers.split(" ");
-
-		for(String browser: browserArray){
-			fail += testKeyboardInput(browser);
-		}
-
-		try{
-			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			utils = new Utilities(Runner.jsafs());
-			fail += testAPI();
-
-		}catch(Throwable t){
-			trace(++fail);
-			Logging.LogTestFailure(COUNTER +" fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
-		}
-
+		fail += testKeyboardInputAllBrowsers();
+		fail += testAPIAllBrowsers(Runner, enabledDomains);		
+		//utils = new Utilities(Runner.jsafs());
+		//fail += testAPIForSAP("chrome");
+				
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
 		Counters.LogCounterInfo(COUNTER);
@@ -853,9 +895,6 @@ public class GenericMasterTests extends Regression{
 	}
 
 	public void runTest() throws Throwable{
-
-		// TODO remove when run as part of runRegressionTest()
-		// testKeyboardInput();
 
 		List<String> enabledDomains = new ArrayList<String>();
 		enabledDomains.add(Domains.HTML_DOMAIN);
