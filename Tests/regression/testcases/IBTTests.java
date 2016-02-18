@@ -38,13 +38,43 @@ public class IBTTests extends SeleniumPlus {
 	}
 	
 	/**
+	 * Click on the SwingApp titlebar to activate the window. 
+	 * @return the number of unexpected failures encountered.
+	 * @throws Throwable
+	 */
+	public static int TestIBTWindows() throws Throwable{
+		int fail = 0;
+		if( ! Click(Map.SwingApp.TitleBar) ) fail++;
+		Pause(1);
+		if( ! Click(Map.SwingApp.JDragTab) ) fail++;
+		Pause(1);
+		TypeKeys("{RIGHT}");
+		Pause(1);
+		
+		if( ! Click(Map.IBTWinIR.TitleBar) ) fail++;
+		Pause(1);
+		if( ! Click(Map.IBTWinIR.JDragTab) ) fail++;
+		Pause(1);
+		TypeKeys("{RIGHT}");
+		Pause(1);
+		if( ! Click(Map.IBTWinSR.TitleBar) ) fail++;
+		Pause(1);
+		if( ! Click(Map.IBTWinSR.JDragTab) ) fail++;
+		Pause(1);
+		TypeKeys("{RIGHT}");
+		Pause(1);
+		
+		return fail;
+	}
+	
+	/**
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
 	 */
 	public static int SelectJDragTab() throws Throwable{
 		int fail = 0;
 		fail += ActivateSwingApp();
-		if( ! Click(Map.SwingApp.JDragTab) ) fail++;
+		if( ! DoubleClick(Map.SwingApp.JDragTab) ) fail++;
 		return fail;
 	}
 	
@@ -68,8 +98,14 @@ public class IBTTests extends SeleniumPlus {
 		int fail = 0;
 		if(! Misc.SetApplicationMap(IBTTESTS_APPMAP)) fail++;
 		fail += LaunchSwingApp();
+
 		fail += SelectJDragTab();
-		Pause(2);
+		Pause(1);
+		TypeKeys("{RIGHT}");
+		Pause(1);
+		
+		fail += TestIBTWindows();
+		
 		fail += CloseSwingApp();
 		if(fail > 0){
 			Logging.LogTestFailure("IBTTests reports "+ fail +" UNEXPECTED test failures!");

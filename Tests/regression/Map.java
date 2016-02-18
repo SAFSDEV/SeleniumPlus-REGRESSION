@@ -538,6 +538,9 @@ public final class Map implements RuntimeDataAware {
 
         /** "JDragTab" Component in "SwingApp". */
         public static final Component JDragTab = new Component(SwingApp, "JDragTab");
+
+        /** "TitleBar" Component in "SwingApp". */
+        public static final Component TitleBar = new Component(SwingApp, "TitleBar");
     }
 
     /** "Notepad" Component and its children. */
@@ -589,6 +592,22 @@ public final class Map implements RuntimeDataAware {
 
         /** "FirstImage" Component in "Bing". */
         public static final Component FirstImage = new Component(Bing, "FirstImage");
+    }
+
+    /** "IBTWinIR" Component and its children. */
+    public static class IBTWinIR {
+
+        // No use for a default constructor.
+        private IBTWinIR(){}
+
+        /** "IBTWinIR" Window Component itself. */
+        public static final Component IBTWinIR = new Component("IBTWinIR");
+
+        /** "JDragTab" Component in "IBTWinIR". */
+        public static final Component JDragTab = new Component(IBTWinIR, "JDragTab");
+
+        /** "TitleBar" Component in "IBTWinIR". */
+        public static final Component TitleBar = new Component(IBTWinIR, "TitleBar");
     }
 
     /** "InternalSecondPage" Component and its children. */
@@ -989,6 +1008,22 @@ public final class Map implements RuntimeDataAware {
         public static final Component Body = new Component(HtmlLinkTargetPage, "Body");
     }
 
+    /** "IBTWinSR" Component and its children. */
+    public static class IBTWinSR {
+
+        // No use for a default constructor.
+        private IBTWinSR(){}
+
+        /** "IBTWinSR" Window Component itself. */
+        public static final Component IBTWinSR = new Component("IBTWinSR");
+
+        /** "JDragTab" Component in "IBTWinSR". */
+        public static final Component JDragTab = new Component(IBTWinSR, "JDragTab");
+
+        /** "TitleBar" Component in "IBTWinSR". */
+        public static final Component TitleBar = new Component(IBTWinSR, "TitleBar");
+    }
+
     /** "Calculator" Component and its children. */
     public static class Calculator {
 
@@ -1045,6 +1080,22 @@ public final class Map implements RuntimeDataAware {
 
         /** "BtnMulp" Component in "Calculator". */
         public static final Component BtnMulp = new Component(Calculator, "BtnMulp");
+    }
+
+    /** "IBTWin0R" Component and its children. */
+    public static class IBTWin0R {
+
+        // No use for a default constructor.
+        private IBTWin0R(){}
+
+        /** "IBTWin0R" Window Component itself. */
+        public static final Component IBTWin0R = new Component("IBTWin0R");
+
+        /** "JDragTab" Component in "IBTWin0R". */
+        public static final Component JDragTab = new Component(IBTWin0R, "JDragTab");
+
+        /** "TitleBar" Component in "IBTWin0R". */
+        public static final Component TitleBar = new Component(IBTWin0R, "TitleBar");
     }
 
     /** "Google" Component and its children. */
@@ -1196,16 +1247,6 @@ public final class Map implements RuntimeDataAware {
         public static final Component UserName = new Component(LogIn, "UserName");
     }
 
-    /** "SAFS Monitor" Component and its children. */
-    public static class SAFS_Monitor {
-
-        // No use for a default constructor.
-        private SAFS_Monitor(){}
-
-        /** "SAFS Monitor" Window Component itself. */
-        public static final Component SAFS_Monitor = new Component("SAFS Monitor");
-    }
-
     /** "RandomClicks" Component and its children. */
     public static class RandomClicks {
 
@@ -1217,5 +1258,15 @@ public final class Map implements RuntimeDataAware {
 
         /** "AboutPopoverLink" Component in "RandomClicks". */
         public static final Component AboutPopoverLink = new Component(RandomClicks, "AboutPopoverLink");
+    }
+
+    /** "SAFS Monitor" Component and its children. */
+    public static class SAFS_Monitor {
+
+        // No use for a default constructor.
+        private SAFS_Monitor(){}
+
+        /** "SAFS Monitor" Window Component itself. */
+        public static final Component SAFS_Monitor = new Component("SAFS Monitor");
     }
 }
