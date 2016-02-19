@@ -18,6 +18,6 @@ JDragTab="Image=IBT/Images/SwingAppTab_JDrag;BT=95"
 TitleBar="Image=IBT/Images/SwingAppWin;BT=95"
 
 [IBTWinSR]
-IBTWinSR="SearchRectangle=5,5,700,100"
+IBTWinSR="SearchRectangle=6,6,50%,30%"
 JDragTab="Image=IBT/Images/SwingAppTab_JDrag;BT=95"
 TitleBar="Image=IBT/Images/SwingAppWin;BT=95"
