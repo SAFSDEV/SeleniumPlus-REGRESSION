@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.safs.ComponentFunction;
 import org.safs.Domains;
@@ -21,7 +20,6 @@ import org.safs.StringUtils;
 import org.safs.image.ImageUtils;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.SeleniumPlus;
-import org.safs.selenium.webdriver.SeleniumPlus.Component;
 import org.safs.selenium.webdriver.lib.SeleniumPlusException;
 import org.safs.selenium.webdriver.lib.WDLibrary;
 import org.safs.text.FileUtilities.FilterMode;
@@ -32,7 +30,7 @@ import regression.testruns.Regression;
 public class GenericMasterTests extends Regression{
 
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	public static final String KEYSTEST = "KeyboardInputTest";
+	public static final String KEYSTEST = COUNTER+".KeyboardInputTest";
 
 	static Utilities utils = null;
 	static final String FILTER = ComponentFunction.PARAM_FILTER;
@@ -842,9 +840,9 @@ public class GenericMasterTests extends Regression{
 			fail += testKeyboardInput(browser);
 		}
 		if(fail > 0){
-			Logging.LogTestFailure("testKeyboardInput reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(COUNTER+".testKeyboardInput reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("testKeyboardInput did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(COUNTER+".testKeyboardInput did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
@@ -860,9 +858,9 @@ public class GenericMasterTests extends Regression{
 			Logging.LogTestFailure("testAPIAllBrowsers fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
 		}
 		if(fail > 0){
-			Logging.LogTestFailure("testAPI reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(COUNTER+".testAPI reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("testAPI did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(COUNTER+".testAPI did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
