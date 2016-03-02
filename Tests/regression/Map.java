@@ -44,6 +44,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "W3CConfirmURL" */
+    public static final String W3CConfirmURL = "W3CConfirmURL";
+
+    /** The resolved runtime value of constant 'W3CConfirmURL', or null. */
+    public static String W3CConfirmURL(){
+        try{ return dataInterface.getVariable("W3CConfirmURL"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "GOJS_MINIMAL_URL" */
     public static final String GOJS_MINIMAL_URL = "GOJS_MINIMAL_URL";
 
@@ -89,12 +98,30 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "W3CAlertURL" */
+    public static final String W3CAlertURL = "W3CAlertURL";
+
+    /** The resolved runtime value of constant 'W3CAlertURL', or null. */
+    public static String W3CAlertURL(){
+        try{ return dataInterface.getVariable("W3CAlertURL"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "InternalSecondPageURL" */
     public static final String InternalSecondPageURL = "InternalSecondPageURL";
 
     /** The resolved runtime value of constant 'InternalSecondPageURL', or null. */
     public static String InternalSecondPageURL(){
         try{ return dataInterface.getVariable("InternalSecondPageURL"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "W3CPromptURL" */
+    public static final String W3CPromptURL = "W3CPromptURL";
+
+    /** The resolved runtime value of constant 'W3CPromptURL', or null. */
+    public static String W3CPromptURL(){
+        try{ return dataInterface.getVariable("W3CPromptURL"); }
         catch(Exception x){ return null; }
     }
 
@@ -638,6 +665,9 @@ public final class Map implements RuntimeDataAware {
         /** "LocationKey" Component in "ApplicationConstants". */
         public static final Component LocationKey = new Component(ApplicationConstants, "LocationKey");
 
+        /** "W3CConfirmURL" Component in "ApplicationConstants". */
+        public static final Component W3CConfirmURL = new Component(ApplicationConstants, "W3CConfirmURL");
+
         /** "GOJS_MINIMAL_URL" Component in "ApplicationConstants". */
         public static final Component GOJS_MINIMAL_URL = new Component(ApplicationConstants, "GOJS_MINIMAL_URL");
 
@@ -653,8 +683,14 @@ public final class Map implements RuntimeDataAware {
         /** "THOMAS_BAYER_SQLREST_ITEM_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_ITEM_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_ITEM_URL");
 
+        /** "W3CAlertURL" Component in "ApplicationConstants". */
+        public static final Component W3CAlertURL = new Component(ApplicationConstants, "W3CAlertURL");
+
         /** "InternalSecondPageURL" Component in "ApplicationConstants". */
         public static final Component InternalSecondPageURL = new Component(ApplicationConstants, "InternalSecondPageURL");
+
+        /** "W3CPromptURL" Component in "ApplicationConstants". */
+        public static final Component W3CPromptURL = new Component(ApplicationConstants, "W3CPromptURL");
 
         /** "THOMAS_BAYER_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_URL = new Component(ApplicationConstants, "THOMAS_BAYER_URL");
@@ -872,6 +908,19 @@ public final class Map implements RuntimeDataAware {
 
         /** "Palette" Component in "GoJSSamples". */
         public static final Component Palette = new Component(GoJSSamples, "Palette");
+    }
+
+    /** "W3CAlertPage" Component and its children. */
+    public static class W3CAlertPage {
+
+        // No use for a default constructor.
+        private W3CAlertPage(){}
+
+        /** "W3CAlertPage" Window Component itself. */
+        public static final Component W3CAlertPage = new Component("W3CAlertPage");
+
+        /** "Button" Component in "W3CAlertPage". */
+        public static final Component Button = new Component(W3CAlertPage, "Button");
     }
 
     /** "SAPDemoPage" Component and its children. */

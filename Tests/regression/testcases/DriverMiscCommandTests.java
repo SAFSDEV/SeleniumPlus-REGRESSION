@@ -1,5 +1,6 @@
 package regression.testcases;
 
+import java.awt.Point;
 import java.io.File;
 
 import org.safs.StatusCodes;
@@ -237,12 +238,14 @@ public class DriverMiscCommandTests extends Regression{
 	 * @throws Throwable
 	 * @see {@link #testAPI_WaitForGUI(String)}
 	 * @see {@link #testAPI_Misc_URL(String)}
+	 * @see #testAPI_Misc_Alert(String)
 	 */
 	private static int testAPI(String browser) throws Throwable{
 		int fail = 0;
 		
 		fail += testAPI_WaitForGUI(browser);
 		fail += testAPI_Misc_URL(browser);
+		fail += testAPI_Misc_Alert(browser);
 		
 		return fail;
 	}
@@ -471,10 +474,10 @@ public class DriverMiscCommandTests extends Regression{
 			
 		}catch(Exception e){
 			trace(++fail);
-			Logging.LogTestFailure(preMsg+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
+			Logging.LogTestFailure(preMsg+"Fail to test URL API in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
 		}finally{
 			if(ID!=null) if(!StopWebBrowser(ID)) fail++;
-			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
+			if(!Misc.CloseApplicationMap(MAP_FILE_HTMLAPP)) fail++;
 			Misc.Expressions(originalExpression);
 		}
 		
@@ -482,6 +485,113 @@ public class DriverMiscCommandTests extends Regression{
 			Logging.LogTestFailure(preMsg+" runRegressionTest reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
+		}
+		
+		return fail;
+	}
+	
+	/**
+	 * Test keywords:<br>
+	 * <pre>
+	 * {@link Misc#AlertAccept(String)}
+	 * {@link Misc#AlertDismiss(String)}
+	 * {@link #ClickUnverified(org.safs.model.Component, Point)}
+	 * </pre>
+	 * 
+	 * @return int, the total number of failures
+	 * @throws Throwable
+	 */
+	private static int testAPI_Misc_Alert(String browser) throws Throwable{
+		String preMsg = StringUtils.getMethodName(0, false);
+		int fail = 0;
+		String url = null;
+		String browserAlertID = null;
+		String browserConfirmID = null;
+		String browserPromptID = null;
+		
+		boolean originalExpression = Misc.isExpressionsOn();
+		
+		try{
+			if(!Misc.SetApplicationMap(MAP_FILE_HTMLAPP)){
+				trace(++fail);
+				return fail;
+			}
+			
+			//Turn off the expression
+			Misc.Expressions(false);
+			
+			//Test Alert
+			url = Map.W3CAlertURL();
+			browserAlertID = startBrowser(browser, url);
+			if(browserAlertID==null){
+				trace(++fail);
+				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");				
+			}else{
+				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+					Pause(1);
+					if(!Misc.AlertAccept()) trace(++fail);
+				}else{
+					trace(++fail);
+					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertAccept.");
+				}
+			}
+			
+			//Test Confirm
+			url = Map.W3CConfirmURL();
+			browserConfirmID = startBrowser(browser, url);
+			if(browserConfirmID==null){
+				trace(++fail);
+				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");
+			}else{
+				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+					Pause(1);
+					if(!Misc.AlertAccept()) trace(++fail);
+				}else{
+					trace(++fail);
+					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertAccept.");
+				}
+				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+					Pause(1);
+					if(!Misc.AlertDismiss()) trace(++fail);
+				}else{
+					trace(++fail);
+					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertDismiss.");
+				}
+			}
+			
+			//Test Prompt
+			url = Map.W3CPromptURL();
+			browserPromptID = startBrowser(browser, url);
+			if(browserPromptID==null){
+				trace(++fail);
+				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");				
+			}else{
+				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+					Pause(1);
+					if(!Misc.AlertAccept()) trace(++fail);
+				}else{
+					trace(++fail);
+					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertAccept.");
+				}
+				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+					Pause(1);
+					if(!Misc.AlertDismiss()) trace(++fail);
+				}else{
+					trace(++fail);
+					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertDismiss.");
+				}
+
+			}
+			
+		}catch(Exception e){
+			trace(++fail);
+			Logging.LogTestFailure(preMsg+"Fail to test Alert API! Unexpected Exception "+StringUtils.debugmsg(e));
+		}finally{
+			if(browserAlertID!=null) if(!StopWebBrowser(browserAlertID)) fail++;
+			if(browserConfirmID!=null) if(!StopWebBrowser(browserConfirmID)) fail++;
+			if(browserPromptID!=null) if(!StopWebBrowser(browserPromptID)) fail++;
+			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
+			Misc.Expressions(originalExpression);
 		}
 		
 		return fail;
@@ -511,7 +621,7 @@ public class DriverMiscCommandTests extends Regression{
 			String[] browserArray = browsers.split(" ");
 
 			for(String browser: browserArray){
-				fail += testAPI(browser);				
+				fail += testAPI(browser);
 			}
 			
 			fail += testAPIBrowserless();
