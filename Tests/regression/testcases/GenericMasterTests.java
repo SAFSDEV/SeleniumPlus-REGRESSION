@@ -692,7 +692,7 @@ public class GenericMasterTests extends Regression{
 				WDLibrary.inputKeys(textarea, "^{Num-}");
 				WDLibrary.inputKeys(textarea, "^{Num+ 4}");//zoom in 4 times
 				WDLibrary.inputKeys(textarea, "^{Num- 2}");//zoom out 2 times
-				WDLibrary.inputKeys(textarea, "^{Num0}");
+				WDLibrary.inputKeys(textarea, "^{0}");
 				Pause(5);
 			}catch(Exception e){
 				Logging.LogTestWarning(debugmsg+" Fail to zoom by WDLibrary Ctrl+/-. '"+StringUtils.debugmsg(e));
@@ -703,7 +703,7 @@ public class GenericMasterTests extends Regression{
 				//by keys Ctrl+, Ctrl-, Ctrl0, thru wrapper class Component
 				Component.InputKeys(Map.SAPDemoPage.Basc_TextArea, "^{Num+}");
 				Component.InputKeys(Map.SAPDemoPage.Basc_TextArea, "^{Num-}");
-				Component.InputKeys(Map.SAPDemoPage.Basc_TextArea, "^{Num0}");
+				Component.InputKeys(Map.SAPDemoPage.Basc_TextArea, "^{0}");
 				Pause(5);
 			}catch(Exception e){
 				Logging.LogTestWarning(debugmsg+" Fail to zoom by SeleniumPlus Ctrl+/-. '"+StringUtils.debugmsg(e));
