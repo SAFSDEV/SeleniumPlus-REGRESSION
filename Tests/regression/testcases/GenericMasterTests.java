@@ -690,7 +690,7 @@ public class GenericMasterTests extends Regression{
 				WDLibrary.inputKeys(textarea, "^{+}");//Will not work with Selenium API, Ctrl-down, Shift-down, Equals, Shift-Up, Ctrl-up
 				WDLibrary.inputKeys(textarea, "^{Num+}");//With Selenium API, Ctrl-down, Keys.ADD, Ctrl-up
 				WDLibrary.inputKeys(textarea, "^{Num-}");
-				WDLibrary.inputKeys(textarea, "^{Num+ 5}");//zoom in 5 times
+				WDLibrary.inputKeys(textarea, "^{Num+ 4}");//zoom in 4 times
 				WDLibrary.inputKeys(textarea, "^{Num- 2}");//zoom out 2 times
 				WDLibrary.inputKeys(textarea, "^{Num0}");
 				Pause(5);
