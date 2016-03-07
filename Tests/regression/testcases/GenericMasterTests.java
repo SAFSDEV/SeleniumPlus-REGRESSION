@@ -738,7 +738,7 @@ public class GenericMasterTests extends Regression{
 				
 				actions.sendKeys(Keys.ADD).perform();
 				actions.sendKeys(Keys.SUBTRACT).perform();
-				actions.sendKeys(Keys.valueOf("0")).perform();//can zoom to normal size
+				actions.sendKeys("0").perform();//can zoom to normal size
 				
 				actions.keyUp(Keys.CONTROL).perform();
 			}catch(Exception e){
