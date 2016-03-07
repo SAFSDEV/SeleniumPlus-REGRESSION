@@ -372,7 +372,15 @@ public class GenericMasterTests extends Regression{
 			// 						"Arial, Helvetica, sans-serif", IE driver will return "arial, helvetica, sans-serif", which makes the
 			// 						case-sensitive match failed.
 			// 						Chrome and Firefox don't have this problem.
-			if(!Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue)) trace(++fail);
+			//
+			// MAR 7, 2016 Tao Xie, according to "W3C Candidate Recommendation", the 'font-family' names should be case-insensitive.
+			// 						[Reference URL: http://www.w3.org/TR/css3-fonts/#font-family-prop,
+			// 				   						http://stackoverflow.com/questions/17967371/are-property-values-in-css-case-sensitive, and
+			// 				   						http://stackoverflow.com/questions/12533926/are-class-names-in-css-selectors-case-sensitive/12533957#12533957]
+			// 						So it may be meaningless to check the 'font-family' name with case-sensitive. I'll comment the 'font-family case-sensitive' test case below. 
+			// 			
+			//
+//			if(!Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue)) trace(++fail);
 
 			containedValue = "HELVETICA";
 			if(!Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue, false)) trace(++fail);
