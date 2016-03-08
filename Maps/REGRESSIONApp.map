@@ -1,6 +1,6 @@
 [ApplicationConstants]
-TestBrowserName="explorer"
-;TestBrowserName="explorer firefox chrome"
+TestBrowserName="chrome"  
+;TestBrowserName="firefox chrome explorer"
 
 GoogleURL="http://www.google.com"
 
