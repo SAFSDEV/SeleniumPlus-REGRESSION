@@ -5,7 +5,21 @@
   "steps": [
     {
       "type": "get",
-      "url": "https://www.google.com/?gws_rd=ssl"
+      "url": "${GoogleURL}"
+    },
+    {
+      "type": "waitForElementPresent",
+      "locator": {
+        "type": "id",
+        "value": "lst-ib"
+      },
+    },
+    {
+      "type": "waitForElementNotPresent",
+      "locator": {
+        "type": "id",
+        "value": "bogus-id"
+      },
     },
     {
       "type": "setElementText",
