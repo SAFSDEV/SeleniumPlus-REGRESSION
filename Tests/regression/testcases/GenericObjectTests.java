@@ -126,6 +126,7 @@ public class GenericObjectTests extends Regression{
 		 * 
 		 */
 //		if(Click(Map.GoJSSamples.MenuPageFlow)){
+		Component.ShowOnPage(Map.GoJSSamples.MenuPageFlow, "true");
 		if(Click(Map.GoJSSamples.MenuPageFlow, "5,5")){
 			//Drag some component from "palate" to "my diagram"			
 			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "40, 20, 5%, 5%")) fail++;
