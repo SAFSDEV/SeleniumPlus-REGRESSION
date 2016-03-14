@@ -6,7 +6,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Core"/>
 	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/seleniumplus.jar"/>
 	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/JSTAFEmbedded.jar"/>
 	<classpathentry kind="var" path="SELENIUMPLUS_HOME/libs/selenium-server-standalone-2.52.0.jar"/>
