@@ -9,6 +9,8 @@ import org.safs.image.ImageUtils.SubArea;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.DCDriverCommand;
 import org.safs.selenium.webdriver.SeleniumPlus;
+import org.safs.selenium.webdriver.lib.SeleniumPlusException;
+import org.safs.selenium.webdriver.lib.WDLibrary;
 import org.safs.text.FileUtilities;
 
 import regression.Map;
@@ -491,11 +493,44 @@ public class DriverMiscCommandTests extends Regression{
 	}
 	
 	/**
+	 * This method is only called by {@link #testAPI_Misc_Alert(String)}.<br> 
+	 * Test keywords:<br>
+	 * <pre>
+	 * {@link Misc#IsAlertPresent(String...)}
+	 * </pre>
+	 * 
+	 * @param timeout int, the timeout to wait for the presence of Alert
+	 * @param alertName String, "Alert", "Confirm" or "Prompt"
+	 * @return int the number of un-expected test error
+	 */
+	private static int test_misc_alert_presence(int timeout, String alertName){
+		int fail = 0;
+		
+		try {
+			String timeoutString = (timeout==0? "immediately" : "within "+timeout+" seconds");
+			boolean exist = false;
+			if(WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT==timeout){
+				exist = Misc.IsAlertPresent();
+			}else{
+				exist = Misc.IsAlertPresent(String.valueOf(timeout));
+			}
+			
+			if(exist) Logging.LogMessage(alertName+" has been detected "+timeoutString);
+			else Logging.LogMessage(alertName+" has NOT been detected "+timeoutString);
+		} catch (SeleniumPlusException e) {
+			return fail++;
+		}
+		
+		return fail;
+	}
+	
+	/**
 	 * Test keywords:<br>
 	 * <pre>
 	 * {@link Misc#AlertAccept(String)}
 	 * {@link Misc#AlertDismiss(String)}
-	 * {@link #ClickUnverified(org.safs.model.Component, Point)}
+	 * {@link SeleniumPlus#ClickUnverified(org.safs.model.Component, Point)}
+	 * {@link Misc#IsAlertPresent(String...)}
 	 * </pre>
 	 * 
 	 * @return int, the total number of failures
@@ -527,7 +562,11 @@ public class DriverMiscCommandTests extends Regression{
 				trace(++fail);
 				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");				
 			}else{
+				//Before Alert appears, we can not find the Alert.
+				fail += test_misc_alert_presence(WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT, "Alert");
+				
 				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+					fail += test_misc_alert_presence(WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT, "Alert");
 					Pause(1);
 					if(!Misc.AlertAccept()) trace(++fail);
 				}else{
@@ -543,19 +582,23 @@ public class DriverMiscCommandTests extends Regression{
 				trace(++fail);
 				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");
 			}else{
-				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+				//Before Confirm appears, we can not find the Alert.
+				fail += test_misc_alert_presence(0, "Confirm");
+				
+				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){					
 					Pause(1);
+					fail += test_misc_alert_presence(0, "Confirm");
 					if(!Misc.AlertAccept()) trace(++fail);
 				}else{
 					trace(++fail);
-					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertAccept.");
+					Logging.LogMessage(preMsg+" fail to click the button to show Confirm Dialog, cannot test AlertAccept.");
 				}
 				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
 					Pause(1);
 					if(!Misc.AlertDismiss()) trace(++fail);
 				}else{
 					trace(++fail);
-					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertDismiss.");
+					Logging.LogMessage(preMsg+" fail to click the button to show Confirm Dialog, cannot test AlertDismiss.");
 				}
 			}
 			
@@ -566,21 +609,24 @@ public class DriverMiscCommandTests extends Regression{
 				trace(++fail);
 				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");				
 			}else{
+				//Before Prompt appears, we can not find the Alert.
+				fail += test_misc_alert_presence(0, "Prompt");
+				
 				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
 					Pause(1);
+					fail += test_misc_alert_presence(0, "Prompt");
 					if(!Misc.AlertAccept()) trace(++fail);
 				}else{
 					trace(++fail);
-					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertAccept.");
+					Logging.LogMessage(preMsg+" fail to click the button to show Prompt Dialog, cannot test AlertAccept.");
 				}
 				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
 					Pause(1);
 					if(!Misc.AlertDismiss()) trace(++fail);
 				}else{
 					trace(++fail);
-					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertDismiss.");
+					Logging.LogMessage(preMsg+" fail to click the button to show Prompt Dialog, cannot test AlertDismiss.");
 				}
-
 			}
 			
 		}catch(Exception e){
