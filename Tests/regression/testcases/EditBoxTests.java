@@ -13,7 +13,6 @@ import regression.testruns.Regression;
 public class EditBoxTests extends Regression{
 
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	static Utilities utils = null;
 
 	/**
 	 * <B>NOTE:</B>
@@ -158,7 +157,6 @@ public class EditBoxTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			utils = new Utilities(Runner.jsafs());
 			fail += testAPI();
 
 		}catch(Throwable t){
@@ -183,7 +181,7 @@ public class EditBoxTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
-
+		initUtils();
 		runRegressionTest(Runner, enabledDomains);
 	}
 

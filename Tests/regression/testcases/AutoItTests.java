@@ -32,7 +32,6 @@ import autoitx4java.AutoItX;
  */
 public class AutoItTests extends Regression{
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	static Utilities utils = null;
 	public static final String MAP_FILE_AUTOITAPP = "AutoItApp.map";
 
 	/**
@@ -170,10 +169,6 @@ public class AutoItTests extends Regression{
 	}
 
 	/**
-	 * <B>NOTE:</B>
-	 * <pre>
-	 * 1. The static field 'utils' should be initialized, utils = new Utilities(Runner.jsafs());
-	 * </pre>
 	 * 
 	 * @param Runner EmbeddedHookDriverRunner
 	 * @return int, the number of unexpected failure.
@@ -185,7 +180,6 @@ public class AutoItTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			utils = new Utilities(Runner.jsafs());
 			
 			String mapID = MAP_FILE_AUTOITAPP;
 			if(Misc.SetApplicationMap(mapID)){
@@ -222,7 +216,7 @@ public class AutoItTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
-
+		initUtils();
 		runRegressionTest(Runner, enabledDomains);
 	}
 }

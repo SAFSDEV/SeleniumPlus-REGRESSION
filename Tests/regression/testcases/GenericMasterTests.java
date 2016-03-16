@@ -32,7 +32,6 @@ public class GenericMasterTests extends Regression{
 	public static final String COUNTER = StringUtils.getClassName(0, false);
 	public static final String KEYSTEST = COUNTER+".KeyboardInputTest";
 
-	static Utilities utils = null;
 	static final String FILTER = ComponentFunction.PARAM_FILTER;
 
 	/**
@@ -859,7 +858,6 @@ public class GenericMasterTests extends Regression{
 		int fail = 0;
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			utils = new Utilities(Runner.jsafs());
 			fail += testAPI();
 		}catch(Throwable t){
 			trace(++fail);
@@ -906,7 +904,7 @@ public class GenericMasterTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
-
+		initUtils();
 		runRegressionTest(Runner, enabledDomains);
 	}
 

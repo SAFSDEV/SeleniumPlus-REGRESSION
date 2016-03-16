@@ -19,7 +19,6 @@ import regression.testruns.Regression;
 public class DriverMiscCommandTests extends Regression{
 	
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	private static Utilities utils = null;
 	
 	/**
 	 * Test keywords:<br>
@@ -654,9 +653,6 @@ public class DriverMiscCommandTests extends Regression{
 		Counters.StartCounter(COUNTER);
 
 		try{
-			//Initialize Utilities
-			utils = new Utilities(Runner.jsafs());
-			
 			//Get initial browser informations
 			String browsers = Map.TestBrowserName();
 			if(browsers==null || browsers.trim().isEmpty()){
@@ -690,6 +686,7 @@ public class DriverMiscCommandTests extends Regression{
 	}
 
 	public void runTest() throws Throwable{
+		initUtils();
 		runRegressionTest(Runner);
 	}
 

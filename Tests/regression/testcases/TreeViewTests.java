@@ -19,7 +19,6 @@ import regression.testruns.Regression;
 public class TreeViewTests extends Regression{
 
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	static Utilities utils = null;
 	private static java.util.Map<String/*domain name*/, Set<String>/*a set of map ID*/> domain2Map = null;
 	
 	/** MUST be called from runTest(), or a method called from runTest()*/
@@ -295,7 +294,6 @@ public class TreeViewTests extends Regression{
 		Counters.StartCounter(COUNTER);
 
 		try{
-			utils = new Utilities(Runner.jsafs());
 			initializeDomain2Map();
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
 			fail += testAPI();
@@ -322,7 +320,7 @@ public class TreeViewTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
-
+		initUtils();
 		runRegressionTest(Runner, enabledDomains);
 	}
 

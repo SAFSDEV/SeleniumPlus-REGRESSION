@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils.SubArea;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
-import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.text.FileUtilities;
 import org.safs.text.FileUtilities.Access;
 import org.safs.text.FileUtilities.DateType;
@@ -19,19 +18,20 @@ import org.safs.text.FileUtilities.PatternFilterMode;
 import org.safs.text.FileUtilities.Placement;
 import org.safs.tools.ocr.OCREngine;
 
-public class FilesTests extends SeleniumPlus{
+import regression.testruns.Regression;
+
+public class FilesTests extends Regression{
 	
 	public static final String COUNTER = StringUtils.getClassName(0, false);
 	
 	/**
 	 * 
-	 * @param utils Utilities
 	 * @param cleanAll boolean, if user wants to keep the generated files/directories, then provide false.
 	 *                          if true, program will delete all the generated files/directories.
 	 * @return
 	 * @throws Throwable
 	 */
-	private static int testAPI(Utilities utils, boolean cleanAll) throws Throwable{
+	private static int testAPI(boolean cleanAll) throws Throwable{
 		boolean expression = Misc.isExpressionsOn();
 		if(expression){
 			if(!Misc.Expressions(false)){
@@ -548,8 +548,7 @@ public class FilesTests extends SeleniumPlus{
 		Counters.StartCounter(COUNTER);
 
 		try{
-			Utilities utils = new Utilities(Runner.jsafs());
-			fail += testAPI(utils, cleanAll);
+			fail += testAPI(cleanAll);
 			
 		}catch(Throwable t){
 			fail++;
@@ -569,6 +568,7 @@ public class FilesTests extends SeleniumPlus{
 	}
 
 	public void runTest() throws Throwable{
+		initUtils();
 		runRegressionTest(Runner, false);//the generated files/directories will be kept
 //		runRegressionTest(Runner, true);//the generated files/directories will be deleted
 	}

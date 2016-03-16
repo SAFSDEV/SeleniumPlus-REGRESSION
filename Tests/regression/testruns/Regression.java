@@ -9,6 +9,7 @@ import java.util.List;
 import javax.xml.transform.TransformerException;
 
 import org.safs.Domains;
+import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.selenium.webdriver.lib.SelectBrowser;
 import org.safs.tools.CaseInsensitiveFile;
@@ -31,6 +32,7 @@ import regression.testcases.SeBuilderTests;
 import regression.testcases.StringsTests;
 import regression.testcases.TabControlTests;
 import regression.testcases.TreeViewTests;
+import regression.util.Utilities;
 
 /** 
  * <pre>
@@ -55,8 +57,15 @@ public class Regression extends SeleniumPlus {
 	public static final String MAP_FILE_SAPDEMOAPP = "SapDemoApp.map";
 	public static final String MAP_FILE_DOJOAPP = "DojoApp.map";
 	public static final String MAP_FILE_HTMLAPP = "HtmlApp.map";
+	public static final String MAP_FILE_MISC = "MiscTests.map";
+	
+	public static final String MAP_FILE_LOCALE_SUFFIX_EN = "_en";
+	public static final String MAP_FILE_LOCALE_SUFFIX_ZH = "_zh";
 
 	public static File logsdir = null; //deduced at runtime 
+	
+	/** The utilities to deduce test folders, files and assets etc.*/
+	protected static Utilities utils = null;
 	
 	protected static String generateID(){
 		return String.valueOf((new Date()).getTime());
@@ -77,9 +86,34 @@ public class Regression extends SeleniumPlus {
 	 * Print out the stack-trace (where error occur) to console.
 	 * In the Eclipse console, it will be easy to trace the source code where the error occur by clicking the link.
 	 * @param errorCount int, the local error count.
+	 * @return int, the local error count.
 	 */
-	protected static void trace(int errorCount){
+	protected static int trace(int errorCount){
 		System.out.println("Regression Trace Error '"+errorCount+"' at "+Thread.currentThread().getStackTrace()[2]);
+		return errorCount;
+	}
+	
+	/**
+	 * Initialize the Utilities for getting test directories/files.<br>
+	 * Called at the beginning of our local {@link #runTest()} and 
+	 * the subclass's local runTest such as {@link FilesTests#runTest()}.<br>
+	 * @throws Throwable
+	 */
+	protected void initUtils() throws Throwable{
+		try {
+			if(utils==null) utils = new Utilities(Runner.jsafs());
+		} catch (Exception e) {
+			SeleniumPlus.AbortTest("Cannot initialize the Test Utilities! Met "+StringUtils.debugmsg(e));
+		}
+	}
+	
+	/**
+	 * Internal. Can only be run AFTER the test runtime environment is initialized.
+	 * Called at the beginning of our local runTest() and after calling of {@link #initUtils()}
+	 * 
+	 */
+	void preparePostProcessing(){
+		logsdir = utils.getLogsDir();
 	}
 	
 	/**
@@ -89,6 +123,7 @@ public class Regression extends SeleniumPlus {
 	@Override
 	public void runTest() throws Throwable {
 		
+		initUtils();
 		preparePostProcessing();
 				
 		List<String> enabledDomains = new ArrayList<String>();
@@ -126,15 +161,6 @@ public class Regression extends SeleniumPlus {
 		//but if running from command-line, a local main() is usually needed.
 		setExitCode(fail);
 		setAllowExit(false); // already false by default, but just in-case
-	}
-	
-	/**
-	 * Internal. Can only be run AFTER the test runtime environment is initialized.
-	 * Called at the beginning of our local runTest()
-	 */
-	void preparePostProcessing(){
-		try{ logsdir = new CaseInsensitiveFile(Runner.jsafs().getLogsDir()).toFile();}
-		catch(Throwable t){ /* ignore for now */ }
 	}
 	
 	/** Added to accomodate post-test processing for HTML reports. */

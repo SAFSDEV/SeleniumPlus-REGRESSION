@@ -13,13 +13,11 @@ import regression.testruns.Regression;
 public class MenuTests extends Regression{
 
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	static Utilities utils = null;
 
 	/**
 	 * <B>NOTE:</B>
 	 * <pre>
-	 * 1. The static field 'utils' should have been initialized, utils = new Utilities(Runner.jsafs());
-	 * 2. TestBrowserName is suggested to be defined in the map file, if not defined, only firefox browser will be tested.
+	 * 1. TestBrowserName is suggested to be defined in the map file, if not defined, only firefox browser will be tested.
 	 * [ApplicationContants]
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
@@ -199,7 +197,6 @@ public class MenuTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			utils = new Utilities(Runner.jsafs());
 			fail += testAPI();
 
 		}catch(Throwable t){
@@ -224,7 +221,7 @@ public class MenuTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
-
+		initUtils();
 		runRegressionTest(Runner, enabledDomains);
 	}
 
