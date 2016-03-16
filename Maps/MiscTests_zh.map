@@ -1,0 +1,7 @@
+﻿#-------------------------------------------------------------------------------
+# Application recognition string and constant here 
+# these constants will be used to test application with Chinese locale
+#-------------------------------------------------------------------------------
+
+[ApplicationConstants]
+nlsSignin="登录"
