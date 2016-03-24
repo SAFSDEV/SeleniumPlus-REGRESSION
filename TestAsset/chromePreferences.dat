@@ -1,4 +1,14 @@
-{ 
-  "lang":"zh-cn", 
-  "download.default_directory":"D:\\SeleniumPlus\\libs" 
+{
+	#Define chrome-commandline-options as key:value
+	#If the chrome-commandline-options doesn't need a value, then give an empty value to define as key:""
+	"lang":"zh-cn", 
+	#give an empty value for options without value
+	"start-maximized":"",
+	#"disable-smooth-scrolling":"",
+
+	#Define chrome preferences with key "seplus.chrome.preference.json.key"
+	"seplus.chrome.preference.json.key":
+	{	"intl.accept_languages"	:"zh-CN-pseudo",
+		"intl.charset_default"	:"utf-8"
+	}
 }
