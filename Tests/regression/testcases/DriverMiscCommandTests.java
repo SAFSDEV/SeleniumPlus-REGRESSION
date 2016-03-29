@@ -529,8 +529,12 @@ public class DriverMiscCommandTests extends Regression{
 	 * {@link Misc#AlertAccept(String)}
 	 * {@link Misc#AlertDismiss(String)}
 	 * {@link SeleniumPlus#ClickUnverified(org.safs.model.Component, Point)}
+	 * {@link SeleniumPlus#Click(org.safs.model.Component, String...)}
 	 * {@link Misc#IsAlertPresent(String...)}
 	 * </pre>
+	 * 
+	 * This method will test the ability of "turn off click listener if Alert is present" for {@link SeleniumPlus#Click(org.safs.model.Component, String...)}<br>
+	 * <br>
 	 * 
 	 * @return int, the total number of failures
 	 * @throws Throwable
@@ -584,7 +588,7 @@ public class DriverMiscCommandTests extends Regression{
 				//Before Confirm appears, we can not find the Alert.
 				fail += test_misc_alert_presence(0, "Confirm");
 				
-				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){					
+				if(Click(Map.W3CAlertPage.Button, "10, 10")){					
 					Pause(1);
 					fail += test_misc_alert_presence(0, "Confirm");
 					if(!Misc.AlertAccept()) trace(++fail);
@@ -592,7 +596,7 @@ public class DriverMiscCommandTests extends Regression{
 					trace(++fail);
 					Logging.LogMessage(preMsg+" fail to click the button to show Confirm Dialog, cannot test AlertAccept.");
 				}
-				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+				if(Click(Map.W3CAlertPage.Button, "10, 10")){
 					Pause(1);
 					if(!Misc.AlertDismiss()) trace(++fail);
 				}else{
@@ -611,7 +615,7 @@ public class DriverMiscCommandTests extends Regression{
 				//Before Prompt appears, we can not find the Alert.
 				fail += test_misc_alert_presence(0, "Prompt");
 				
-				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+				if(Click(Map.W3CAlertPage.Button, "10, 10")){
 					Pause(1);
 					fail += test_misc_alert_presence(0, "Prompt");
 					if(!Misc.AlertAccept()) trace(++fail);
@@ -619,7 +623,7 @@ public class DriverMiscCommandTests extends Regression{
 					trace(++fail);
 					Logging.LogMessage(preMsg+" fail to click the button to show Prompt Dialog, cannot test AlertAccept.");
 				}
-				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
+				if(Click(Map.W3CAlertPage.Button, "10, 10")){
 					Pause(1);
 					if(!Misc.AlertDismiss()) trace(++fail);
 				}else{
