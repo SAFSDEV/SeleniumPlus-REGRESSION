@@ -82,7 +82,9 @@ public class FilesTests extends Regression{
 		String[] files = {
 				utils.testAssetFile("safs_zh.properties"),
 				utils.testAssetFile("safs_zh_cn.properties"),
+				utils.testAssetFile("chromePreferences.dat"),
 				utils.testAssetFile("sample_escp.json"),
+				utils.testAssetFile("firefoxPreferences.dat"),
 				utils.testAssetFile("test.json"),
 				utils.testAssetFile("log.txt"),
 				utils.testAssetFile("history.dat"),
@@ -231,6 +233,20 @@ public class FilesTests extends Regression{
 			fail++;
 		}
 		
+		fileList = directory+"allFilesList.txt";
+		if(Files.GetFiles(directoryToCheck, fileList, new FileAttribute(Type.ALLFILES))){
+			String contents = FileUtilities.readStringFromUTF8File(fileList);
+			for(String afile:files){
+				if(!contents.contains(afile)){
+					fail++;
+					Logging.LogTestFailure(COUNTER+" GetFiles of type 'ALLFILES', miss return file '"+afile+"'");
+					break;
+				}
+			}
+		}else{
+			fail++;
+		}
+
 		directory = utils.appendDir(directory, "New Directory");
 		file = utils.appendDir(directory, "new test file3.txt");
 		if(Files.CreateDirectory(directory)){
