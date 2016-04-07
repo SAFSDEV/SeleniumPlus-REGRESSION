@@ -4,4 +4,4 @@ AmazonText="amazon"
 
 [GoogleResults]
 AmazonOfficialSiteLink="xpath=.//a[@href='http://www.amazon.com/']"
-AmazonAdCite="xpath=.//div[@class='ads-visurl']//cite[1]"
+AmazonAdCite="xpath=.//div[contains(@class, 'ads-visurl')]//cite[1]"
