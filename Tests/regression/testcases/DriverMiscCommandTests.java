@@ -254,8 +254,58 @@ public class DriverMiscCommandTests extends Regression{
 	/**
 	 * Test keywords:<br>
 	 * <pre>
+	 * {@link Misc#OnGUIExistsGotoBlockID(org.safs.model.Component, String, String...)}
+	 * {@link Misc#OnGUINotExistGotoBlockID(org.safs.model.Component, String, String...)}
+	 * </pre>
+	 * 
+	 * @param component		org.safs.model.Component, the component to test with
+	 * @param timeout		String, the timeout in seconds
+	 * @param expectedExist	boolean, the expectation of the component's existence
+	 * @return	int, the total unexpected failures happened in this method
+	 */
+	private static int test_ongui_xxx_gotoblockid(org.safs.model.Component component, String timeout/*in seconds*/, boolean expectedExist){
+		String dbg = StringUtils.debugmsg(false);
+		int fail = 0;
+		String BranchExist = component.getName()+"_Exist_Block";
+		String BranchNotExist = component.getName()+"_Not_Exist_Block";
+		
+		long start = System.currentTimeMillis();
+		String blockid = Misc.OnGUIExistsGotoBlockID(component, BranchExist, timeout);
+		Logging.LogMessage("OnGUIExistsGotoBlockID return blockid '"+blockid+"', time used: "+(System.currentTimeMillis()-start));
+		if(blockid==null) trace(++fail);
+		else{
+			if(expectedExist){
+				if(blockid.trim().isEmpty()) trace(++fail);
+			}else{
+				if(BranchExist.equals(blockid)) trace(++fail);			
+			}
+		}
+		
+		start = System.currentTimeMillis();
+		blockid = Misc.OnGUINotExistGotoBlockID(component, BranchNotExist, timeout);
+		Logging.LogMessage("OnGUINotExistGotoBlockID return blockid '"+blockid+"', time used: "+(System.currentTimeMillis()-start));
+		if(blockid==null) trace(++fail);
+		else{
+			if(expectedExist){
+				if(BranchNotExist.equals(blockid)) trace(++fail);			
+			}else{
+				if(blockid.trim().isEmpty()) trace(++fail);
+			}
+		}
+		
+		if(fail > 0) Logging.LogMessage(dbg+" sub reports "+ fail +" UNEXPECTED test failures!");
+		
+		return fail;
+	}
+	
+	/**
+	 * Test keywords:<br>
+	 * <pre>
 	 * {@link Misc#WaitForGUI(org.safs.model.Component, String...)}
 	 * {@link Misc#WaitForGUIGone(org.safs.model.Component, String...)}
+	 * {@link Misc#IsComponentExists(org.safs.model.Component, String...)}
+	 * {@link Misc#OnGUIExistsGotoBlockID(org.safs.model.Component, String, String...)}
+	 * {@link Misc#OnGUINotExistGotoBlockID(org.safs.model.Component, String, String...)}
 	 * </pre>
 	 * 
 	 * @return int, the total number of failures
@@ -275,16 +325,21 @@ public class DriverMiscCommandTests extends Regression{
 			ID = startBrowser(browser, Map.SAPDemoURL());
 			if(ID!=null){
 				
-				//9. ==============  Test WaitForGuiGone ======================
+				if(Misc.IsComponentExists(Map.SAPDemoPage.Basc_Button, "2")) trace(++fail);
+				fail += test_ongui_xxx_gotoblockid(Map.SAPDemoPage.Basc_Button, "2", false);
+				
 				if(Misc.WaitForGUI(Map.SAPDemoPage.Basc_Button, "2")){
 					fail++;
 				}else{
-					Logging.LogMessage(preMsg+" Expected failure: "+Map.SAPDemoPage.Basc_Button.getName()+" does show on page yet.");
+					Logging.LogMessage(preMsg+" Expected failure: "+Map.SAPDemoPage.Basc_Button.getName()+" does not show on page yet.");
 				}
 				
 				if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
 					if(!Misc.WaitForGUI(Map.SAPDemoPage.Basc_Button)) fail++;
 					if(Misc.WaitForGUIGone(Map.SAPDemoPage.Basc_Button, "2")) fail++;
+					
+					if(!Misc.IsComponentExists(Map.SAPDemoPage.Basc_Button)) trace(++fail);
+					fail += test_ongui_xxx_gotoblockid(Map.SAPDemoPage.Basc_Button, "2", true);
 					
 					if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_jpan())){
 						Misc.Delay(2000);
@@ -303,7 +358,7 @@ public class DriverMiscCommandTests extends Regression{
 					fail++;
 				}
 				
-				//8. ==============TODO Test SetContext SetFocus, Not implemented yet!!! ======================
+				// ==============TODO Test SetContext SetFocus, Not implemented yet!!! ======================
 //				TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp());
 //				Misc.SetFocus(Map.SAPDemoPage.SAPDemoPage);
 //				Misc.SetFocus(Map.SAPDemoPage.Basc_TextArea);
