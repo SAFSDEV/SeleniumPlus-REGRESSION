@@ -2,6 +2,18 @@
 SampleEscpScript="SeBuilder/Scripts/sample_escp.json"
 AmazonText="amazon"
 
+FormsTest="SeBuilder/Scripts/FormsSRTest.htm"
+FormsURL="http://safsdev.sourceforge.net/source/rrafs/tests/html/htm_src/forms.htm"
+FormsBrowser="FormsBrowser"
+
 [GoogleResults]
 AmazonOfficialSiteLink="xpath=.//a[@href='http://www.amazon.com/']"
 AmazonAdCite="xpath=.//div[contains(@class, 'ads-visurl')]//cite[1]"
+
+[FormsMain]
+FormsMain="xpath=/html"
+SingleLineText="xpath=//input[@name='T1']"
+MultiLineText="name=S1"
+CheckBox1="//input[@name='C1']"
+CheckBox2="xpath=//input[@name='C2']"
+CheckBox3="name=C3"

@@ -1,5 +1,6 @@
 package regression.testcases;
 
+import org.safs.selenium.util.JavaScriptFunctions;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 import org.safs.selenium.webdriver.lib.WDLibrary;
@@ -31,6 +32,22 @@ public class SeBuilderTests extends SeleniumPlus {
 	/** "SeBuilderTests.map" */
 	public static String SEBUILDERTESTS_APPMAP = "SeBuilderTests.map";
 
+	public static int runFormsTest()throws Throwable{
+		int fail = 0;
+		boolean launched = Misc.CallScript(Map.FormsTest());
+		if(!launched) fail++;
+		try{
+			WDLibrary.stopBrowser(Map.FormsBrowser());
+		}catch(Exception ignore){}
+				
+		if(fail > 0){
+			Logging.LogTestFailure("SeBuilderTest.FormsSRTest reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess("SeBuilderTest.FormsSRTest did not report any UNEXPECTED test failures!");
+		}
+		return fail;
+	}
+
 	/* 
 	 * Insert (generally) static testcase methods below. 
 	 * You call these from your TestRun runTest() method for normal testing, 
@@ -40,19 +57,16 @@ public class SeBuilderTests extends SeleniumPlus {
 	public static int runGoogleSampleEscp()throws Throwable{
 		int fail = 0;
 		boolean launched = Misc.CallScript(Map.SampleEscpScript());
-		if(launched){
-			if(! Misc.WaitForGUI(Map.GoogleResults.AmazonOfficialSiteLink, "7")) fail++;
-			if(! Component.VerifyPropertyContains(Map.GoogleResults.AmazonAdCite, "innerHTML", Map.AmazonText())) fail++;
-			String id = WDLibrary.getIDForWebDriver(WDLibrary.getWebDriver());
-			if(! StopWebBrowser(id)) fail++;
-		}else
-			fail++;
-				
+		if(!launched) fail++;
+		if(! Misc.WaitForGUI(Map.GoogleResults.AmazonOfficialSiteLink, "7")) fail++;
+		if(! Component.VerifyPropertyContains(Map.GoogleResults.AmazonAdCite, "innerHTML", Map.AmazonText())) fail++;
+		String id = WDLibrary.getIDForWebDriver(WDLibrary.getWebDriver());
+		if(! StopWebBrowser(id)) fail++;
 
 		if(fail > 0){
-			Logging.LogTestFailure("GoogleSampleEscp reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure("SeBuilderTest.GoogleSampleEscp reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("GoogleSampleEscp did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess("SeBuilderTest.GoogleSampleEscp did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
@@ -61,8 +75,13 @@ public class SeBuilderTests extends SeleniumPlus {
 		
 		Misc.SetApplicationMap(SEBUILDERTESTS_APPMAP);
 		
-		int fail = runGoogleSampleEscp();
-
+		// *****************************************
+		// JavaScriptFunctions.jsDebugLogEnable = true;
+		// *****************************************
+		
+		int fail = runFormsTest();		
+		fail += runGoogleSampleEscp();
+		
 		if(fail > 0){
 			Logging.LogTestFailure("SeBuilderTests reports "+ fail +" UNEXPECTED test failures!");
 		}else{
@@ -72,7 +91,6 @@ public class SeBuilderTests extends SeleniumPlus {
 	}
 	
 	
-
 	/** 
 	 * Normally not used for TestCase classes. 
 	 * Can be used to implement a Unit test for this TestCase class, or as a test suite. 
