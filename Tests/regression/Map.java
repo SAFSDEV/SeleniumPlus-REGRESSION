@@ -521,12 +521,39 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "FormsTest" */
+    public static final String FormsTest = "FormsTest";
+
+    /** The resolved runtime value of constant 'FormsTest', or null. */
+    public static String FormsTest(){
+        try{ return dataInterface.getVariable("FormsTest"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "FormsBrowser" */
+    public static final String FormsBrowser = "FormsBrowser";
+
+    /** The resolved runtime value of constant 'FormsBrowser', or null. */
+    public static String FormsBrowser(){
+        try{ return dataInterface.getVariable("FormsBrowser"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "AmazonText" */
     public static final String AmazonText = "AmazonText";
 
     /** The resolved runtime value of constant 'AmazonText', or null. */
     public static String AmazonText(){
         try{ return dataInterface.getVariable("AmazonText"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "FormsURL" */
+    public static final String FormsURL = "FormsURL";
+
+    /** The resolved runtime value of constant 'FormsURL', or null. */
+    public static String FormsURL(){
+        try{ return dataInterface.getVariable("FormsURL"); }
         catch(Exception x){ return null; }
     }
 
@@ -581,6 +608,31 @@ public final class Map implements RuntimeDataAware {
 
         /** "EditBox" Component in "Notepad". */
         public static final Component EditBox = new Component(Notepad, "EditBox");
+    }
+
+    /** "FormsMain" Component and its children. */
+    public static class FormsMain {
+
+        // No use for a default constructor.
+        private FormsMain(){}
+
+        /** "FormsMain" Window Component itself. */
+        public static final Component FormsMain = new Component("FormsMain");
+
+        /** "CheckBox3" Component in "FormsMain". */
+        public static final Component CheckBox3 = new Component(FormsMain, "CheckBox3");
+
+        /** "CheckBox2" Component in "FormsMain". */
+        public static final Component CheckBox2 = new Component(FormsMain, "CheckBox2");
+
+        /** "CheckBox1" Component in "FormsMain". */
+        public static final Component CheckBox1 = new Component(FormsMain, "CheckBox1");
+
+        /** "MultiLineText" Component in "FormsMain". */
+        public static final Component MultiLineText = new Component(FormsMain, "MultiLineText");
+
+        /** "SingleLineText" Component in "FormsMain". */
+        public static final Component SingleLineText = new Component(FormsMain, "SingleLineText");
     }
 
     /** "GoogleResults" Component and its children. */
@@ -824,8 +876,17 @@ public final class Map implements RuntimeDataAware {
         /** "Tab_jtree2" Component in "ApplicationConstants". */
         public static final Component Tab_jtree2 = new Component(ApplicationConstants, "Tab_jtree2");
 
+        /** "FormsTest" Component in "ApplicationConstants". */
+        public static final Component FormsTest = new Component(ApplicationConstants, "FormsTest");
+
+        /** "FormsBrowser" Component in "ApplicationConstants". */
+        public static final Component FormsBrowser = new Component(ApplicationConstants, "FormsBrowser");
+
         /** "AmazonText" Component in "ApplicationConstants". */
         public static final Component AmazonText = new Component(ApplicationConstants, "AmazonText");
+
+        /** "FormsURL" Component in "ApplicationConstants". */
+        public static final Component FormsURL = new Component(ApplicationConstants, "FormsURL");
 
         /** "SampleEscpScript" Component in "ApplicationConstants". */
         public static final Component SampleEscpScript = new Component(ApplicationConstants, "SampleEscpScript");
