@@ -632,6 +632,7 @@ public class DriverMiscCommandTests extends Regression{
 					Logging.LogMessage(preMsg+" fail to click the button to show Alert Dialog, cannot test AlertAccept.");
 				}
 			}
+			if(browserAlertID!=null) if(!StopWebBrowser(browserAlertID)) fail++;
 			
 			//Test Confirm
 			url = Map.W3CConfirmURL();
@@ -659,6 +660,7 @@ public class DriverMiscCommandTests extends Regression{
 					Logging.LogMessage(preMsg+" fail to click the button to show Confirm Dialog, cannot test AlertDismiss.");
 				}
 			}
+			if(browserConfirmID!=null) if(!StopWebBrowser(browserConfirmID)) fail++;
 			
 			//Test Prompt
 			url = Map.W3CPromptURL();
@@ -686,14 +688,12 @@ public class DriverMiscCommandTests extends Regression{
 					Logging.LogMessage(preMsg+" fail to click the button to show Prompt Dialog, cannot test AlertDismiss.");
 				}
 			}
+			if(browserPromptID!=null) if(!StopWebBrowser(browserPromptID)) fail++;
 			
 		}catch(Exception e){
 			trace(++fail);
 			Logging.LogTestFailure(preMsg+"Fail to test Alert API! Unexpected Exception "+StringUtils.debugmsg(e));
 		}finally{
-			if(browserAlertID!=null) if(!StopWebBrowser(browserAlertID)) fail++;
-			if(browserConfirmID!=null) if(!StopWebBrowser(browserConfirmID)) fail++;
-			if(browserPromptID!=null) if(!StopWebBrowser(browserPromptID)) fail++;
 			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
 			Misc.Expressions(originalExpression);
 		}
