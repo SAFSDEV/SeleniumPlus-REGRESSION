@@ -33,7 +33,11 @@ Echo "Project has been compiled."
 :: How to load external App Map order file
 :: EXAMPLE:  %EXECUTE% -cp %CMDCLASSPATH%;bin regression.testruns.Regression -Dtestdesigner.appmap.order=AppMap_en.order
 
+if "%1" == "" (
+"%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression
+) else (
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression -safsvar:TestBrowserName=%1
+)
 
 Echo "Test Job is Done with exit code %ERRORLEVEL%"
 Exit /b %ERRORLEVEL%
