@@ -34,8 +34,10 @@ Echo "Project has been compiled."
 :: EXAMPLE:  %EXECUTE% -cp %CMDCLASSPATH%;bin regression.testruns.Regression -Dtestdesigner.appmap.order=AppMap_en.order
 
 if "%1" == "" (
+Echo "Run Regression with 'TestBrowserName' value in MAP file."
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression
 ) else (
+Echo "Run Regression with 'TestBrowserName' value: '%1'."
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression -safsvar:TestBrowserName=%1
 )
 
