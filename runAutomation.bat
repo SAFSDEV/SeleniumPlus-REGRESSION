@@ -33,7 +33,7 @@ Echo "Project has been compiled."
 :: How to load external App Map order file
 :: EXAMPLE:  %EXECUTE% -cp %CMDCLASSPATH%;bin regression.testruns.Regression -Dtestdesigner.appmap.order=AppMap_en.order
 
-if "%1" == "" (
+if [%1] == [] (
 Echo "Run Regression with 'TestBrowserName' value in MAP file."
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression
 ) else (
