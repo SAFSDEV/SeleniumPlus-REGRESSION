@@ -41,6 +41,9 @@ Echo "Run Regression with 'TestBrowserName' value: '%1'."
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression -safsvar:TestBrowserName=%1
 )
 
+:: Terminate the relevant processes before exit.
+%SELENIUM_PLUS%/extra/RemoteServerTerminate.bat
+
 Echo "Test Job is Done with exit code %ERRORLEVEL%"
 Exit /b %ERRORLEVEL%
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
