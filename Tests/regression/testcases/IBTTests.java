@@ -1,9 +1,12 @@
 package regression.testcases;
 
+import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
+import org.safs.selenium.webdriver.SeleniumPlus.Counters;
 import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 
 import regression.Map;
+import regression.testruns.Regression;
 
 /** 
  * <pre>
@@ -12,7 +15,8 @@ import regression.Map;
  * @see org.safs.selenium.webdriver.SeleniumPlus#main(java.lang.String[])
  */ 
 public class IBTTests extends SeleniumPlus {
-
+	public static final String COUNTER = StringUtils.getClassName(0, false);
+	
 	/** "IBTImageTests.MAP" */
 	public static String IBTTESTS_APPMAP = "IBTImageTests.MAP";
 
@@ -21,29 +25,50 @@ public class IBTTests extends SeleniumPlus {
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
 	 */
-	public static int LaunchSwingApp() throws Throwable{
-		if(! Misc.LaunchApplication(Map.SwingAppID(), quote("java -jar "+ Map.SwingAppJar()))) return 1;
-		Pause(2);
-		return 0;
-	}
-	
-	/**
-	 * Click on the SwingApp titlebar to activate the window. 
-	 * @return the number of unexpected failures encountered.
-	 * @throws Throwable
-	 */
-	public static int ActivateSwingApp() throws Throwable{
-		if( ! Click(Map.SwingApp.SwingApp) ) return 1;
-		return 0;
-	}
-	
-	/**
-	 * Click on the SwingApp titlebar to activate the window. 
-	 * @return the number of unexpected failures encountered.
-	 * @throws Throwable
-	 */
-	public static int TestIBTWindows() throws Throwable{
+	public static int LaunchSwingApp(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
+		if(! Misc.LaunchApplication(Map.SwingAppID(), quote("java -jar "+ Map.SwingAppJar()))) fail++;
+		Pause(2);		
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
+		return fail;
+	}
+	
+	/**
+	 * Click on the SwingApp titlebar to activate the window. 
+	 * @return the number of unexpected failures encountered.
+	 * @throws Throwable
+	 */
+	public static int ActivateSwingApp(String counterPrefix) throws Throwable{
+		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
+		if( ! Click(Map.SwingApp.SwingApp) ) fail++;
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
+		return fail;
+	}
+	
+	/**
+	 * Click on the SwingApp titlebar to activate the window. 
+	 * @return the number of unexpected failures encountered.
+	 * @throws Throwable
+	 */
+	public static int TestIBTWindows(String counterPrefix) throws Throwable{
+		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
 		if( ! Click(Map.SwingApp.TitleBar) ) fail++;
 		Pause(1);
 		if( ! Click(Map.SwingApp.JDragTab) ) fail++;
@@ -63,6 +88,10 @@ public class IBTTests extends SeleniumPlus {
 		Pause(1);
 		TypeKeys("{RIGHT}");
 		Pause(1);
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -71,10 +100,18 @@ public class IBTTests extends SeleniumPlus {
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
 	 */
-	public static int SelectJDragTab() throws Throwable{
+	public static int SelectJDragTab(String counterPrefix) throws Throwable{
 		int fail = 0;
-		fail += ActivateSwingApp();
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
+		fail += ActivateSwingApp(counterID);
 		if( ! DoubleClick(Map.SwingApp.JDragTab) ) fail++;
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	
@@ -82,10 +119,18 @@ public class IBTTests extends SeleniumPlus {
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
 	 */
-	public static int CloseSwingApp() throws Throwable{
+	public static int CloseSwingApp(String counterPrefix) throws Throwable{
 		int fail = 0;
-		fail += ActivateSwingApp();
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
+		fail += ActivateSwingApp(counterID);
 		if(! TypeKeys(quote("%{F4}"))) fail++;
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -96,22 +141,30 @@ public class IBTTests extends SeleniumPlus {
 	 */
 	public static int runRegressionTest() throws Throwable{
 		int fail = 0;
+		Counters.StartCounter(COUNTER);
+		
 		if(! Misc.SetApplicationMap(IBTTESTS_APPMAP)) fail++;
-		fail += LaunchSwingApp();
+		fail += LaunchSwingApp(COUNTER);
 
-		fail += SelectJDragTab();
+		fail += SelectJDragTab(COUNTER);
 		Pause(1);
 		TypeKeys("{RIGHT}");
 		Pause(1);
 		
-		fail += TestIBTWindows();
+		fail += TestIBTWindows(COUNTER);
 		
-		fail += CloseSwingApp();
+		fail += CloseSwingApp(COUNTER);
+		
 		if(fail > 0){
 			Logging.LogTestFailure("IBTTests reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess("IBTTests did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(COUNTER);
+		Counters.StoreCounterInfo(COUNTER, COUNTER);
+		Counters.LogCounterInfo(COUNTER);
+		
 		return fail;
 	}
 	
