@@ -1,5 +1,6 @@
 package regression.testcases;
 
+import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.tools.counters.CountStatusInterface;
 
@@ -10,6 +11,7 @@ import org.safs.tools.counters.CountStatusInterface;
  * @see org.safs.selenium.webdriver.SeleniumPlus#main(java.lang.String[])
  */ 
 public class AssertTests extends SeleniumPlus {
+	public static final String COUNTER = StringUtils.getClassName(0, false);
 
 	static CountStatusInterface equalsCounter = null;
 	static CountStatusInterface notEqualCounter = null;
@@ -19,10 +21,10 @@ public class AssertTests extends SeleniumPlus {
 	/**
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
-	public static int NotEqualTests(){
-		final String NOTEQUAL = "AssertNotEqual";
+	public static int NotEqualTests(String counterPrefix){
+		final String counterID = counterPrefix + ".NotEqualTests";
 		int fail = 0;
-		Counters.StartCounter(NOTEQUAL);
+		Counters.StartCounter(counterID);
 
 		if(! Assert.NotNull("String Object")){ fail++;                                 // test_passes
         Logging.LogTestFailure("'String Object' should have passed Asset.NotNull test.");}
@@ -58,25 +60,25 @@ public class AssertTests extends SeleniumPlus {
 		
 		
 		
-		Counters.StopCounter(NOTEQUAL);		
-		Counters.StoreCounterInfo(NOTEQUAL, NOTEQUAL);
-		Counters.LogCounterInfo(NOTEQUAL);
-		notEqualCounter = Counters.GetCounterStatus(NOTEQUAL);
+		Counters.StopCounter(counterID);		
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		notEqualCounter = Counters.GetCounterStatus(counterID);
 
 		if(fail == 0){
 			if(notEqualCounter.getTestFailures() != 5 ){
-				Logging.LogTestFailure("AssertTests.NotEqualTests expected Test Failure count of 5, but got "+ equalsCounter.getTestFailures());
+				Logging.LogTestFailure(counterID + " expected Test Failure count of 5, but got "+ equalsCounter.getTestFailures());
 				fail++;
 			}
 			if(notEqualCounter.getTestPasses() != 5 ){
-				Logging.LogTestFailure("AssertTests.NotEqualTests expected Test Passes count of 5, but got "+ equalsCounter.getTestPasses());
+				Logging.LogTestFailure(counterID + " expected Test Passes count of 5, but got "+ equalsCounter.getTestPasses());
 				fail++;
 			}
 		}
 		if(fail > 0){
-			Logging.LogTestFailure("AssertTests.NotEqualTests reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("AssertTests.NotEqualTests did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
@@ -84,11 +86,11 @@ public class AssertTests extends SeleniumPlus {
 	/**
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
-	public static int EqualsTests(){
-		final String EQUALS = "AssertEquals";
+	public static int EqualsTests(String counterPrefix){
+		final String counterID = counterPrefix + ".EqualsTests";
 		int fail = 0;
 
-		Counters.StartCounter(EQUALS);
+		Counters.StartCounter(counterID);
 		
 		String expected = "String Object";
 		
@@ -143,25 +145,25 @@ public class AssertTests extends SeleniumPlus {
 		if(Assert.Equals(-4, 4)){ fail++;                                           // test_failures
           Logging.LogTestFailure("'-4' should NOT compare as Equal to '4'.");}
 
-		Counters.StopCounter(EQUALS);
-		Counters.StoreCounterInfo(EQUALS, EQUALS);
-		Counters.LogCounterInfo(EQUALS);
-		equalsCounter = Counters.GetCounterStatus(EQUALS);
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		equalsCounter = Counters.GetCounterStatus(counterID);
 		
 		if(fail == 0){
 			if(equalsCounter.getTestFailures() != 3 ){
-				Logging.LogTestFailure("AssertTests.EqualsTests expected Test Failure count of 3, but got "+ equalsCounter.getTestFailures());
+				Logging.LogTestFailure(counterID + " expected Test Failure count of 3, but got "+ equalsCounter.getTestFailures());
 				fail++;
 			}
 			if(equalsCounter.getTestPasses() != 12 ){
-				Logging.LogTestFailure("AssertTests.EqualsTests expected Test Passes count of 12, but got "+ equalsCounter.getTestPasses());
+				Logging.LogTestFailure(counterID + " expected Test Passes count of 12, but got "+ equalsCounter.getTestPasses());
 				fail++;
 			}
 		}
 		if(fail > 0){
-			Logging.LogTestFailure("AssertTests.EqualsTests reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("AssertTests.EqualsTests did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
@@ -169,11 +171,11 @@ public class AssertTests extends SeleniumPlus {
 	/**
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
-	public static int ObjectTests() throws Throwable{
-		final String OBJECT = "AssertObject";
+	public static int ObjectTests(String counterPrefix) throws Throwable{
+		final String counterID = counterPrefix + ".ObjectTests";
 		int fail = 0;
 
-		Counters.StartCounter(OBJECT);
+		Counters.StartCounter(counterID);
 		
 		String expected = "String Object";
 		
@@ -194,25 +196,25 @@ public class AssertTests extends SeleniumPlus {
 		if(Assert.Same(new Object(), new Object())){fail++;                                                       // test_failures 
           Logging.LogTestFailure("'new Object()' should not compare the Same as 'new Object()'.");}
 		
-		Counters.StopCounter(OBJECT);
-		Counters.StoreCounterInfo(OBJECT, OBJECT);
-		Counters.LogCounterInfo(OBJECT);
-		objectCounter = Counters.GetCounterStatus(OBJECT);
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		objectCounter = Counters.GetCounterStatus(counterID);
 		
 		if(fail == 0){
 			if(objectCounter.getTestFailures() != 1 ){
-				Logging.LogTestFailure("AssertTests.ObjectTests expected Test Failure count of 1, but got "+ equalsCounter.getTestFailures());
+				Logging.LogTestFailure(counterID + " expected Test Failure count of 1, but got "+ equalsCounter.getTestFailures());
 				fail++;
 			}
 			if(objectCounter.getTestPasses() != 4 ){
-				Logging.LogTestFailure("AssertTests.ObjectTests expected Test Passes count of 4, but got "+ equalsCounter.getTestPasses());
+				Logging.LogTestFailure(counterID + " expected Test Passes count of 4, but got "+ equalsCounter.getTestPasses());
 				fail++;
 			}
 		}
 		if(fail > 0){
-			Logging.LogTestFailure("AssertTests.ObjectTests reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("AssertTests.ObjectTests did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
@@ -220,11 +222,11 @@ public class AssertTests extends SeleniumPlus {
 	/**
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
-	public static int BooleanTests() throws Throwable{
-		final String BOOLEAN = "AssertBoolean";
+	public static int BooleanTests(String counterPrefix) throws Throwable{
+		final String counterID = counterPrefix + ".BooleanTests";
 		int fail = 0;
 
-		Counters.StartCounter(BOOLEAN);
+		Counters.StartCounter(counterID);
 		
 		String expected = "String Object";
 	
@@ -247,25 +249,25 @@ public class AssertTests extends SeleniumPlus {
 		if(Assert.True(expected != "String Object")){ fail++;                                               // test_failures
           Logging.LogTestFailure("'expected!=expected' should NOT Assert True.");}
 
-		Counters.StopCounter(BOOLEAN);
-		Counters.StoreCounterInfo(BOOLEAN, BOOLEAN);
-		Counters.LogCounterInfo(BOOLEAN);
-		booleanCounter = Counters.GetCounterStatus(BOOLEAN);
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		booleanCounter = Counters.GetCounterStatus(counterID);
 
 		if(fail == 0){
 			if(booleanCounter.getTestFailures() != 2 ){
-				Logging.LogTestFailure("AssertTests.BooleanTests expected Test Failure count of 2, but got "+ equalsCounter.getTestFailures());
+				Logging.LogTestFailure(counterID + " expected Test Failure count of 2, but got "+ equalsCounter.getTestFailures());
 				fail++;
 			}
 			if(booleanCounter.getTestPasses() != 3 ){
-				Logging.LogTestFailure("AssertTests.BooleanTests expected Test Passes count of 3, but got "+ equalsCounter.getTestPasses());
+				Logging.LogTestFailure(counterID + " expected Test Passes count of 3, but got "+ equalsCounter.getTestPasses());
 				fail++;
 			}
 		}
 		if(fail > 0){
-			Logging.LogTestFailure("AssertTests.BooleanTests reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("AssertTests.BooleanTests did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
 		return fail;
 	}
@@ -294,18 +296,23 @@ public class AssertTests extends SeleniumPlus {
 	 * @throws Throwable
 	 */
 	public static int runRegressionTest() throws Throwable{
-
+		Counters.StartCounter(COUNTER); 
 		int fail = 0;
-	    fail += EqualsTests();
-	    fail += NotEqualTests();
-	    fail += ObjectTests();
-	    fail += BooleanTests();
+	    fail += EqualsTests(COUNTER);
+	    fail += NotEqualTests(COUNTER);
+	    fail += ObjectTests(COUNTER);
+	    fail += BooleanTests(COUNTER);
 	    
 		if(fail > 0){
 			Logging.LogTestFailure("AssertTests reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess("AssertTests did not report any UNEXPECTED test failures!");
 		}
+		
+		Counters.StopCounter(COUNTER);
+		Counters.StoreCounterInfo(COUNTER, COUNTER);
+		Counters.LogCounterInfo(COUNTER); 
+
 		return fail;
 	}
 
