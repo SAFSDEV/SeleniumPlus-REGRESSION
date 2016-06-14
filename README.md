@@ -45,7 +45,7 @@ public class AXXXZTests extends Regression{
     public static final String COUNTER = StringUtils.getClassName(0, false);
     
     private static int testAPI(String counterPrefix) throws Throwable{ 
-        String counterID = counterPrefix + ".testAPI"; 
+        String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
         int fail = 0;
         Counters.StartCounter(counterID);
 
@@ -82,7 +82,7 @@ public class AXXXZTests extends Regression{
     public static final String COUNTER = StringUtils.getClassName(0, false);
     
     private static int testAPIForSAP(String browser, String counterPrefix) throws Throwable{   
-        String counterID = counterPrefix + ".testAPIForSAP"; 
+        String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
         int fail = 0;
         Counters.StartCounter(counterID);
 
@@ -97,7 +97,7 @@ public class AXXXZTests extends Regression{
 
     
     private static int testAPI(String counterPrefix) throws Throwable{ 
-        String counterID = counterPrefix + ".testAPI"; 
+        String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
         int fail = 0;
         Counters.StartCounter(counterID);
 
