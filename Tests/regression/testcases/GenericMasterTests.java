@@ -30,7 +30,6 @@ import regression.testruns.Regression;
 public class GenericMasterTests extends Regression{
 
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	public static final String KEYSTEST = COUNTER+".KeyboardInputTest";
 
 	static final String FILTER = ComponentFunction.PARAM_FILTER;
 
@@ -47,8 +46,10 @@ public class GenericMasterTests extends Regression{
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
-	private static int testAPI() throws Throwable{
+	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI";
+		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
@@ -59,68 +60,93 @@ public class GenericMasterTests extends Regression{
 		String[] browserArray = browsers.split(" ");
 
 		for(String browser: browserArray){
-			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(browser);
-			if(Domains.isDojoEnabled()) fail += testAPIForDojo(browser);
-			if(Domains.isSapEnabled()) fail+= testAPIForSAP(browser);
+			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(counterID, browser);
+			if(Domains.isDojoEnabled()) fail += testAPIForDojo(counterID, browser);
+			if(Domains.isSapEnabled()) fail+= testAPIForSAP(counterID, browser);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForHtml(String browser) throws Throwable{
+	private static int testAPIForHtml(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForHtml";
+		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_HTMLAPP)){
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_HTMLAPP+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+MAP_FILE_HTMLAPP+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForDojo(String browser) throws Throwable{
+	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForDojo";
+		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_DOJOAPP)){
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_DOJOAPP+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+MAP_FILE_DOJOAPP+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForSAP(String browser) throws Throwable{
+	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForSAP";
+		Counters.StartCounter(counterID);
+		
 		if(Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
 			String ID = null;
 
 			try{
 				ID = startBrowser(browser, Map.SAPDemoURL());
 				if(ID!=null){
-					fail +=testAPIForSAP_property();
-					fail +=testAPIForSAP_CaptureData();
-					fail +=testAPIForSAP_Diverse();
-					fail +=testAPIForSAP_Image();
-					fail +=testExecuteScript();
-					fail +=testZoomInOut();
-					fail +=testShowOnPage();
+					fail +=testAPIForSAP_property(counterID);
+					fail +=testAPIForSAP_CaptureData(counterID);
+					fail +=testAPIForSAP_Diverse(counterID);
+					fail +=testAPIForSAP_Image(counterID);
+					fail +=testExecuteScript(counterID);
+					fail +=testZoomInOut(counterID);
+					fail +=testShowOnPage(counterID);
 
 				}else{
-					Logging.LogTestWarning(COUNTER+"StartWebBrowser '"+browser+"' Unsuccessful.");
+					Logging.LogTestWarning(counterID+"StartWebBrowser '"+browser+"' Unsuccessful.");
 					trace(++fail);
 				}
 			}catch(Exception e){
 				trace(++fail);
-				Logging.LogTestFailure(COUNTER+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
+				Logging.LogTestFailure(counterID+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
 			}finally{
 				if(ID!=null) if(!StopWebBrowser(ID)) trace(++fail);
 			}
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_SAPDEMOAPP+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+MAP_FILE_SAPDEMOAPP+"', cannot test in browser '"+browser+"'!");
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -133,8 +159,10 @@ public class GenericMasterTests extends Regression{
 	 * SaveTextFromGUI
 	 * </pre>
 	 */
-	private static int testAPIForSAP_Image() throws SeleniumPlusException{
+	private static int testAPIForSAP_Image(String counterPrefix) throws SeleniumPlusException{
 		String debugmsg = StringUtils.debugmsg(false);
+		String counterID = counterPrefix + ".testAPIForSAP_Image";
+		Counters.StartCounter(counterID);
 
 		int fail = 0;
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -180,7 +208,7 @@ public class GenericMasterTests extends Regression{
 				//Remove all generated actual files.
 				deleteGeneratedActualFiles(listviewPic);
 			}else{
-				Logging.LogTestFailure(COUNTER+"Fail copy '"+listviewPic+"' to bench folder, CANNOT do VerifyGUIImageToFile!");
+				Logging.LogTestFailure(counterID+"Fail copy '"+listviewPic+"' to bench folder, CANNOT do VerifyGUIImageToFile!");
 				trace(++fail);
 			}
 
@@ -225,7 +253,7 @@ public class GenericMasterTests extends Regression{
 				deleteGeneratedActualFiles(listviewPic);
 
 			}else{
-				Logging.LogTestFailure(COUNTER+"Fail copy '"+listviewPic+"' to bench folder, CANNOT do VerifyGUIImageToFile!");
+				Logging.LogTestFailure(counterID+"Fail copy '"+listviewPic+"' to bench folder, CANNOT do VerifyGUIImageToFile!");
 				trace(++fail);
 			}
 
@@ -290,6 +318,10 @@ public class GenericMasterTests extends Regression{
 			trace(++fail);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -305,10 +337,13 @@ public class GenericMasterTests extends Regression{
 	 * VerifyPropertiesToFile
 	 * </pre>
 	 */
-	private static int testAPIForSAP_property() throws SeleniumPlusException{
+	private static int testAPIForSAP_property(String counterPrefix) throws SeleniumPlusException{
 		String debugmsg = StringUtils.debugmsg(false);
 
 		int fail = 0;
+
+		String counterID = counterPrefix + ".testAPIForSAP_property";
+		Counters.StartCounter(counterID);
 
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
 
@@ -320,7 +355,7 @@ public class GenericMasterTests extends Regression{
 
 				if(!VerifyValues(label, labelContent)){
 					trace(++fail);
-					Logging.LogTestFailure(COUNTER+" the value of property '"+property+"' is '"+label+"', NOT equal to '"+labelContent+"'!");
+					Logging.LogTestFailure(counterID+" the value of property '"+property+"' is '"+label+"', NOT equal to '"+labelContent+"'!");
 				}
 			}else{
 				trace(++fail);
@@ -403,6 +438,11 @@ public class GenericMasterTests extends Regression{
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_basc_comp()+"', some APIs not tested!");
 			trace(++fail);
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -413,8 +453,10 @@ public class GenericMasterTests extends Regression{
 	 * CaptureTreeDataToFile
 	 * </pre>
 	 */
-	private static int testAPIForSAP_CaptureData() throws SeleniumPlusException{
+	private static int testAPIForSAP_CaptureData(String counterPrefix) throws SeleniumPlusException{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForSAP_CaptureData";
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		if(!Component.CaptureObjectDataToFile(Map.SAPDemoPage.MenuBar, "menubar.dat", quote("utf-8"))) trace(++fail);
@@ -452,6 +494,10 @@ public class GenericMasterTests extends Regression{
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_jtree2()+"', some APIs not tested!");
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	/**
@@ -461,8 +507,10 @@ public class GenericMasterTests extends Regression{
 	 * LocateScreenImage
 	 * </pre>
 	 */
-	private static int testAPIForSAP_Diverse() throws SeleniumPlusException{
+	private static int testAPIForSAP_Diverse(String counterPrefix) throws SeleniumPlusException{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForSAP_Diverse";
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -498,6 +546,10 @@ public class GenericMasterTests extends Regression{
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_basc_comp()+"', some APIs not tested!");
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -506,15 +558,16 @@ public class GenericMasterTests extends Regression{
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int testKeyboardInput(String browser) throws Throwable{
+	public static int testKeyboardInput(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		Counters.StartCounter(KEYSTEST);
+		String counterID = counterPrefix + ".testKeyboardInput";
+		Counters.StartCounter(counterID);
 		String CLEAR = "^a{DELETE}";
 
-		Logging.LogMessage(KEYSTEST+" WDLibrary.setDelayBetweenKeystrokes(70).");
+		Logging.LogMessage(counterID+" WDLibrary.setDelayBetweenKeystrokes(70).");
 		WDLibrary.setDelayBetweenKeystrokes(70); // direct calls often are too fast for UI without delayBetweenKeystrokes
 		
-		if(! StartWebBrowser(Map.GoogleURL(), KEYSTEST, browser)) trace(++fail);
+		if(! StartWebBrowser(Map.GoogleURL(), counterID, browser)) trace(++fail);
 		if(fail == 0){
 			if(! Misc.SetApplicationMap("MiscTests")) trace(++fail);
 			if(! Click(Map.Google.SignIn)) trace(++fail);
@@ -532,22 +585,22 @@ public class GenericMasterTests extends Regression{
 			if(e != null){
 				
 				try{
-					Logging.LogMessage(KEYSTEST+" attempting WebElement.clear().");
+					Logging.LogMessage(counterID+" attempting WebElement.clear().");
 					// Here may need clear the Edit box because of the setting focus action of WDLibrary.inputChars()
 					e.clear();
 
 					if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
-					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputChars "+ Map.GoogleUser());
+					Logging.LogMessage(counterID+" attempting WDLibary.inputChars "+ Map.GoogleUser());
 					WDLibrary.inputChars(e,  Map.GoogleUser());
 				}catch(Throwable t){ 
 					trace(++fail);
-					Logging.LogTestFailure(KEYSTEST+" failed WDLibrary.inputChars "+ Map.GoogleUser());}
+					Logging.LogTestFailure(counterID+" failed WDLibrary.inputChars "+ Map.GoogleUser());}
 				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
 				try{ 
-					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeys "+ CLEAR);
+					Logging.LogMessage(counterID+" attempting WDLibary.inputKeys "+ CLEAR);
 					// DOES NOT TAKE ^a and DELETE reliably. 
 					// MUST separate unless DelayBetweenKeystrokes
 					WDLibrary.inputKeys(e,  CLEAR); 
@@ -555,21 +608,21 @@ public class GenericMasterTests extends Regression{
 					// WDLibrary.inputKeys(e,  "{DELETE}");
 				}catch(Throwable t){ 
 					trace(++fail);
-					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeys "+ CLEAR);}
+					Logging.LogTestFailure(counterID+" failed WDLibary.inputKeys "+ CLEAR);}
 				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
 				try{
-					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeys "+ Map.GoogleUser());
+					Logging.LogMessage(counterID+" attempting WDLibary.inputKeys "+ Map.GoogleUser());
 					WDLibrary.inputKeys(e,  Map.GoogleUser());
 					}catch(Throwable t){ 
 						trace(++fail);
-					    Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeys "+ Map.GoogleUser());}
+					    Logging.LogTestFailure(counterID+" failed WDLibary.inputKeys "+ Map.GoogleUser());}
 				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
 				try{ 
-					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeysSAFS2Selenium "+ CLEAR);
+					Logging.LogMessage(counterID+" attempting WDLibary.inputKeysSAFS2Selenium "+ CLEAR);
 					
 					/**
 					 * DEC 16, 2015    (Tao Xie)
@@ -584,33 +637,36 @@ public class GenericMasterTests extends Regression{
 //					WDLibrary.inputKeysSAFS2Selenium(e,  "{DELETE}");
 				}catch(Throwable t){ 
 					trace(++fail);
-					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ CLEAR);}
+					Logging.LogTestFailure(counterID+" failed WDLibary.inputKeysSAFS2Selenium "+ CLEAR);}
 				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
 				try{ 
-					Logging.LogMessage(KEYSTEST+" attempting WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());
+					Logging.LogMessage(counterID+" attempting WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());
 					WDLibrary.inputKeysSAFS2Selenium(e,  Map.GoogleUser());
 				}catch(Throwable t){ 
 					trace(++fail);
-					Logging.LogTestFailure(KEYSTEST+" failed WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());}
+					Logging.LogTestFailure(counterID+" failed WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());}
 				
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 			}else{
 				fail++;
-				Logging.LogTestFailure(KEYSTEST+" failed to retrieve Google UserName EditBox field for testing.");
+				Logging.LogTestFailure(counterID+" failed to retrieve Google UserName EditBox field for testing.");
 			}
 
-			if(! StopWebBrowser(KEYSTEST)) trace(++fail);
+			if(! StopWebBrowser(counterID)) trace(++fail);
 		}
-		Counters.StopCounter(KEYSTEST);
-		Counters.StoreCounterInfo(KEYSTEST, KEYSTEST);
-		Counters.LogCounterInfo(KEYSTEST);
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		if(fail > 0){
-			Logging.LogTestFailure(KEYSTEST+" reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID+" reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess(KEYSTEST+" did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID+" did not report any UNEXPECTED test failures!");
 		}
+		
 		return fail;
 	}
 
@@ -621,8 +677,10 @@ public class GenericMasterTests extends Regression{
 	 * executeScript
 	 * </pre>
 	 */
-	private static int testExecuteScript() throws Throwable{
+	private static int testExecuteScript(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testExecuteScript";
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -660,6 +718,10 @@ public class GenericMasterTests extends Regression{
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_basc_comp()+"', some APIs not tested!");
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -672,8 +734,10 @@ public class GenericMasterTests extends Regression{
 	 * {@link WDLibrary#inputKeys(WebElement, String)}
 	 * </pre>
 	 */
-	private static int testZoomInOut() throws Throwable{
+	private static int testZoomInOut(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testZoomInOut";
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 		
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -749,12 +813,18 @@ public class GenericMasterTests extends Regression{
 			trace(++fail);
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_basc_comp()+"', some APIs not tested!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
 	
-	private static int testShowOnPage() throws Throwable{
+	private static int testShowOnPage(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testShowOnPage";
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 		
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -798,6 +868,10 @@ public class GenericMasterTests extends Regression{
 			trace(++fail);
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_basc_comp()+"', some APIs not tested!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -833,9 +907,12 @@ public class GenericMasterTests extends Regression{
 		}
 	}
 
-	public static int testKeyboardInputAllBrowsers() throws Throwable{
+	public static int testKeyboardInputAllBrowsers(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testKeyboardInputAllBrowsers";
+		Counters.StartCounter(counterID);
 		String browsers = Map.TestBrowserName();
+		
 		if(browsers == null || browsers.trim().isEmpty()){
 			browsers = FF;
 			Logging.LogTestWarning("testKeyboardInput cannot get TestBrowserName from map, use " + browsers);
@@ -844,30 +921,45 @@ public class GenericMasterTests extends Regression{
 		String[] browserArray = browsers.split(" ");
 
 		for(String browser: browserArray){
-			fail += testKeyboardInput(browser);
+			fail += testKeyboardInput(counterID, browser);
 		}
+		
 		if(fail > 0){
-			Logging.LogTestFailure(COUNTER+".testKeyboardInput reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID+".testKeyboardInput reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess(COUNTER+".testKeyboardInput did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID+".testKeyboardInput did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	
-	public static int testAPIAllBrowsers(EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+	public static int testAPIAllBrowsers(String counterPrefix, EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIAllBrowsers";
+		Counters.StartCounter(counterID);
+		
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			fail += testAPI();
+			fail += testAPI(counterID);
 		}catch(Throwable t){
 			trace(++fail);
 			Logging.LogTestFailure("testAPIAllBrowsers fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
 		}
+		
 		if(fail > 0){
-			Logging.LogTestFailure(COUNTER+".testAPI reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(counterID+".testAPI reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess(COUNTER+".testAPI did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(counterID+".testAPI did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	
@@ -881,10 +973,10 @@ public class GenericMasterTests extends Regression{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
-		fail += testKeyboardInputAllBrowsers();
-		fail += testAPIAllBrowsers(Runner, enabledDomains);		
+		fail += testKeyboardInputAllBrowsers(COUNTER);
+		fail += testAPIAllBrowsers(COUNTER, Runner, enabledDomains);		
 		//utils = new Utilities(Runner.jsafs());
-		//fail += testAPIForSAP("chrome");
+		//fail += testAPIForSAP(COUNTER, "chrome");
 				
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
