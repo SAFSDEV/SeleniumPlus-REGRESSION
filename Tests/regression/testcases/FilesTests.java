@@ -31,11 +31,13 @@ public class FilesTests extends Regression{
 	 * @return
 	 * @throws Throwable
 	 */
-	private static int testAPI(boolean cleanAll) throws Throwable{
+	private static int testAPI(String counterPrefix, boolean cleanAll) throws Throwable{
+		String counterID = counterPrefix + ".testAPI";
+		Counters.StartCounter(counterID);
 		boolean expression = Misc.isExpressionsOn();
 		if(expression){
 			if(!Misc.Expressions(false)){
-				Logging.LogTestWarning(COUNTER+" Fail to turn off Expression! Some APIs may fail!");
+				Logging.LogTestWarning(counterID+" Fail to turn off Expression! Some APIs may fail!");
 			}
 		}
 		
@@ -51,7 +53,7 @@ public class FilesTests extends Regression{
 		
 		//CreateDirectory
 		if(!Files.CreateDirectory(directory)){
-			throw new Exception(COUNTER+" Fail create directory '"+directory+"', cannot continue.");
+			throw new Exception(counterID+" Fail create directory '"+directory+"', cannot continue.");
 		}
 		
 		//CopyFile
@@ -73,7 +75,7 @@ public class FilesTests extends Regression{
 			}catch(Exception ignore){}
 			
 			if(!verified){
-				Logging.LogTestFailure(COUNTER+"'"+dest+"' still contains string '"+stringToReplace+"'.");
+				Logging.LogTestFailure(counterID+"'"+dest+"' still contains string '"+stringToReplace+"'.");
 				fail++;
 			}
 		}
@@ -103,10 +105,10 @@ public class FilesTests extends Regression{
 			try{
 				attributes = Integer.parseInt(resultValue);
 				attribute = FileAttribute.instance(attributes);
-				Logging.LogTestSuccess(COUNTER+" GetFileProtections: code="+resultValue+" "+attribute.toString());
+				Logging.LogTestSuccess(counterID+" GetFileProtections: code="+resultValue+" "+attribute.toString());
 			}catch(NumberFormatException ufe){
 				fail++;
-				Logging.LogTestFailure(COUNTER+" GetFileProtections: code'"+resultValue+"' is not a number!");
+				Logging.LogTestFailure(counterID+" GetFileProtections: code'"+resultValue+"' is not a number!");
 			}
 		}else{
 			fail++;
@@ -125,11 +127,11 @@ public class FilesTests extends Regression{
 					attribute = FileAttribute.instance(attributes);
 					if(!expectedAttribute.equals(attribute)){
 						fail++;
-						Logging.LogTestFailure(COUNTER+" SetFileProtections: fail to set as '"+expectedAttribute+"', it is '"+attribute+"'");
+						Logging.LogTestFailure(counterID+" SetFileProtections: fail to set as '"+expectedAttribute+"', it is '"+attribute+"'");
 					}
 				}catch(NumberFormatException ufe){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFileProtections: code'"+resultValue+"' is not a number!");
+					Logging.LogTestFailure(counterID+" GetFileProtections: code'"+resultValue+"' is not a number!");
 				}
 			}else{
 				fail++;
@@ -151,7 +153,7 @@ public class FilesTests extends Regression{
 			for(String afile:files){
 				if(!contents.contains(afile)){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
+					Logging.LogTestFailure(counterID+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
 					break;
 				}
 			}
@@ -165,7 +167,7 @@ public class FilesTests extends Regression{
 			for(String afile:files){
 				if(!contents.contains(afile)){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
+					Logging.LogTestFailure(counterID+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
 					break;
 				}
 			}
@@ -189,7 +191,7 @@ public class FilesTests extends Regression{
 			for(String afile:archiveFiles){
 				if(!contents.contains(afile)){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
+					Logging.LogTestFailure(counterID+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
 					break;
 				}
 			}
@@ -207,7 +209,7 @@ public class FilesTests extends Regression{
 			for(String afile:hiddenFiles){
 				if(!contents.contains(afile)){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
+					Logging.LogTestFailure(counterID+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
 					break;
 				}
 			}
@@ -225,7 +227,7 @@ public class FilesTests extends Regression{
 			for(String afile:archiveAndhiddenFiles){
 				if(!contents.contains(afile)){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
+					Logging.LogTestFailure(counterID+" GetFiles of type '"+expectedAttribute.toString()+"', miss return file '"+afile+"'");
 					break;
 				}
 			}
@@ -239,7 +241,7 @@ public class FilesTests extends Regression{
 			for(String afile:files){
 				if(!contents.contains(afile)){
 					fail++;
-					Logging.LogTestFailure(COUNTER+" GetFiles of type 'ALLFILES', miss return file '"+afile+"'");
+					Logging.LogTestFailure(counterID+" GetFiles of type 'ALLFILES', miss return file '"+afile+"'");
 					break;
 				}
 			}
@@ -254,7 +256,7 @@ public class FilesTests extends Regression{
 			if(Files.CreateFile(file, Mode.OUTPUT, Access.W, result)){
 				fileNo = GetVariableValue(result);
 				
-				Logging.LogMessage(COUNTER+" '"+file+"' is created and opened with file number '"+fileNo+"' for output.");
+				Logging.LogMessage(counterID+" '"+file+"' is created and opened with file number '"+fileNo+"' for output.");
 				
 				int charsToWrite = 10;
 				String content = "'Files.CreateFile(file, Mode.OUTPUT, Access.W, result)'";
@@ -288,13 +290,13 @@ public class FilesTests extends Regression{
 				if(!Files.GetFileDateTime(file, result, true, DateType.LASTMODIFIED)) fail++;
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+" Fail to CreateFile '"+file+"', WriteFileChars/PrintToFile/CloseFile/GetFileSize/GetFileDateTime APIs are not tested!!!");
+				Logging.LogTestFailure(counterID+" Fail to CreateFile '"+file+"', WriteFileChars/PrintToFile/CloseFile/GetFileSize/GetFileDateTime APIs are not tested!!!");
 				fail++;
 			}
 			
 			if(Files.OpenFile(file, Mode.INPUT, Access.R, result)){
 				fileNo = GetVariableValue(result);
-				Logging.LogMessage(COUNTER+" '"+file+"' has been opened with file number '"+fileNo+"' for input.");
+				Logging.LogMessage(counterID+" '"+file+"' has been opened with file number '"+fileNo+"' for input.");
 				int charsToRead = 15;
 				if(!Files.ReadFileChars(fileNo, charsToRead, result)) fail++;
 				
@@ -312,7 +314,7 @@ public class FilesTests extends Regression{
 						//do some thing with the line
 					}else{
 						fail++;
-						Logging.LogTestFailure(COUNTER+" IsEndOfFile failed, can NOT continue!!!");
+						Logging.LogTestFailure(counterID+" IsEndOfFile failed, can NOT continue!!!");
 						break;
 					}
 				}
@@ -320,13 +322,13 @@ public class FilesTests extends Regression{
 				if(!Files.CloseFile(fileNo)) fail++;
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+" Fail to OpenFile '"+file+"', ReadFileChars/ReadFileLine/IsEndOfFile/CloseFile APIs may not be tested!!!");
+				Logging.LogTestFailure(counterID+" Fail to OpenFile '"+file+"', ReadFileChars/ReadFileLine/IsEndOfFile/CloseFile APIs may not be tested!!!");
 				fail++;
 			}
 			
 			if(Files.OpenFile(file, Mode.APPEND, Access.W, result)){
 				fileNo = GetVariableValue(result);
-				Logging.LogMessage(COUNTER+" '"+file+"' has been opened with file number '"+fileNo+"' for append.");
+				Logging.LogMessage(counterID+" '"+file+"' has been opened with file number '"+fileNo+"' for append.");
 				
 				String separator = "====================  APPENDING CONTENT =============================";
 				if(!Files.PrintToFile(fileNo, separator, Placement.NEWLINE)) fail++;
@@ -338,7 +340,7 @@ public class FilesTests extends Regression{
 				if(!Files.CloseFile(fileNo)) fail++;
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+" Fail to OpenFile '"+file+"', PrintToFile/WriteFileChars/CloseFile APIs may not be tested!!!");
+				Logging.LogTestFailure(counterID+" Fail to OpenFile '"+file+"', PrintToFile/WriteFileChars/CloseFile APIs may not be tested!!!");
 				fail++;
 			}
 			
@@ -370,12 +372,12 @@ public class FilesTests extends Regression{
 
 							if(pattern.matcher(line).find()){
 								fail++;
-								Logging.LogTestFailure(COUNTER+" IsEndOfFile failed, can NOT continue!!!");
+								Logging.LogTestFailure(counterID+" IsEndOfFile failed, can NOT continue!!!");
 								break;
 							}
 						}else{
 							fail++;
-							Logging.LogTestFailure(COUNTER+" IsEndOfFile failed, can NOT continue!!!");
+							Logging.LogTestFailure(counterID+" IsEndOfFile failed, can NOT continue!!!");
 							break;
 						}
 					}
@@ -395,7 +397,7 @@ public class FilesTests extends Regression{
 			if(Files.GetSubstringsInFile(file, regexStart, regexStop, method)){
 				int count = Integer.parseInt(GetVariableValue(countVar));
 				for(int i=0;i<count;i++){
-					Logging.LogMessage(COUNTER+" "+method+(i+1)+"="+GetVariableValue(method+(i+1)));
+					Logging.LogMessage(counterID+" "+method+(i+1)+"="+GetVariableValue(method+(i+1)));
 				}
 			}else{
 				fail++;
@@ -404,7 +406,7 @@ public class FilesTests extends Regression{
 			file = utils.appendDir(directory, "UTF8 FILE.txt");
 			if(Files.OpenUTF8File(file, Mode.OUTPUT, Access.W, result)){
 				fileNo = GetVariableValue(result);
-				Logging.LogMessage(COUNTER+" '"+file+"' is created and opened with file number '"+fileNo+"' for output UTF8 strings.");
+				Logging.LogMessage(counterID+" '"+file+"' is created and opened with file number '"+fileNo+"' for output UTF8 strings.");
 				
 				int charsToWrite = 10;
 				String content = "中文字符  输入UTF8 文件 saturday sat sunday sun";
@@ -424,7 +426,7 @@ public class FilesTests extends Regression{
 				if(!Files.CloseFile(fileNo)) fail++;
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+" Fail to OpenFile '"+file+"', WriteFileChars/PrintToFile/CloseFile APIs may not be tested!!!");
+				Logging.LogTestFailure(counterID+" Fail to OpenFile '"+file+"', WriteFileChars/PrintToFile/CloseFile APIs may not be tested!!!");
 				fail++;
 			}
 			
@@ -449,12 +451,12 @@ public class FilesTests extends Regression{
 
 								if(pattern.matcher(line).find()){
 									fail++;
-									Logging.LogTestFailure(COUNTER+" IsEndOfFile failed, can NOT continue!!!");
+									Logging.LogTestFailure(counterID+" IsEndOfFile failed, can NOT continue!!!");
 									break;
 								}
 							}else{
 								fail++;
-								Logging.LogTestFailure(COUNTER+" IsEndOfFile failed, can NOT continue!!!");
+								Logging.LogTestFailure(counterID+" IsEndOfFile failed, can NOT continue!!!");
 								break;
 							}
 						}
@@ -484,7 +486,7 @@ public class FilesTests extends Regression{
 			if(!Files.IfExistDir(directory, fileDriverCommand, newdir)) fail++;
 			
 		}else{
-			Logging.LogTestFailure(COUNTER+" Fail to CreateDirctory '"+directory+"', A LOF OF APIs not tested!!!");
+			Logging.LogTestFailure(counterID+" Fail to CreateDirctory '"+directory+"', A LOF OF APIs not tested!!!");
 			fail++;
 		}
 		
@@ -526,10 +528,10 @@ public class FilesTests extends Regression{
 		if(cleanAll){
 			//Test to delete non-empty folder
 			if(Files.DeleteDirectory(directory)){//"New Directory"
-				Logging.LogTestFailure(COUNTER+" directory '"+directory+"' is not empty, should NOT be deleted");
+				Logging.LogTestFailure(counterID+" directory '"+directory+"' is not empty, should NOT be deleted");
 				fail++;
 			}else{
-				Logging.LogMessage(COUNTER+" Expected result: directory '"+directory+"' is not empty, cannot be deleted.");
+				Logging.LogMessage(counterID+" Expected result: directory '"+directory+"' is not empty, cannot be deleted.");
 			}
 			
 			if(!Files.DeleteDirectoryContents(directory)) fail++;
@@ -547,6 +549,10 @@ public class FilesTests extends Regression{
 			//Delete the whole test folder
 			if(!Files.DeleteDirectoryContents(baseDirecotory, true)) fail++;
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -564,7 +570,7 @@ public class FilesTests extends Regression{
 		Counters.StartCounter(COUNTER);
 
 		try{
-			fail += testAPI(cleanAll);
+			fail += testAPI(COUNTER, cleanAll);
 			
 		}catch(Throwable t){
 			fail++;
