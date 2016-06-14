@@ -54,7 +54,7 @@ public class DriverMiscCommandTests extends Regression{
 	 */
 	private static int testAPIBrowserless(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIBrowserless";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		
 		//1. ============== Test Map related APIs =======================
@@ -249,7 +249,7 @@ public class DriverMiscCommandTests extends Regression{
 	 */
 	private static int testAPI(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPI";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		
 		fail += testAPI_WaitForGUI(counterID, browser);
@@ -278,7 +278,7 @@ public class DriverMiscCommandTests extends Regression{
 	private static int test_ongui_xxx_gotoblockid(String counterPrefix, org.safs.model.Component component, String timeout/*in seconds*/, boolean expectedExist){
 		String dbg = StringUtils.debugmsg(false);
 		int fail = 0;
-		String counterID = counterPrefix + ".test_ongui_xxx_gotoblockid";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String BranchExist = component.getName()+"_Exist_Block";
 		String BranchNotExist = component.getName()+"_Not_Exist_Block";
@@ -332,7 +332,7 @@ public class DriverMiscCommandTests extends Regression{
 	private static int testAPI_WaitForGUI(String counterPrefix, String browser) throws Throwable{
 		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPI_WaitForGUI";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String ID = null;
 		try{
@@ -425,7 +425,7 @@ public class DriverMiscCommandTests extends Regression{
 	private static int testAPI_Misc_URL(String counterPrefix, String browser) throws Throwable{
 		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPI_Misc_URL";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String ID = null;
 		
@@ -589,7 +589,7 @@ public class DriverMiscCommandTests extends Regression{
 	 */
 	private static int test_misc_alert_presence(String counterPrefix, int timeout, String alertName){
 		int fail = 0;
-		String counterID = counterPrefix + ".test_misc_alert_presence";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		
 		try {
@@ -633,7 +633,7 @@ public class DriverMiscCommandTests extends Regression{
 	private static int testAPI_Misc_Alert(String counterPrefix, String browser) throws Throwable{
 		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPI_Misc_Alert";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String url = null;
 		String browserAlertID = null;

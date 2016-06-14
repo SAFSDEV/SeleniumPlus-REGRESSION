@@ -43,7 +43,7 @@ public class AutoItTests extends Regression{
 		int fail = 0;
 		String applicationID = "calculator";
 		String executableCalc = "calc.exe";
-		String counterID = counterPrefix + ".testCaculator";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		if(Misc.LaunchApplication(applicationID, executableCalc)){
@@ -84,7 +84,7 @@ public class AutoItTests extends Regression{
 		String executableNotepad = "notepad.exe";
 		AutoItX it = null;
 		AutoItRs panel = null;
-		String counterID = counterPrefix + ".testNotepad"; 
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false)); 
 		Counters.StartCounter(counterID);
 
 

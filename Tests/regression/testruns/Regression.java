@@ -71,6 +71,22 @@ public class Regression extends SeleniumPlus {
 		return String.valueOf((new Date()).getTime());
 	}
 	
+	/**
+	 * Generate the counterID for testing method.
+	 * @param counterPrefix, the counterID of the method calling current method.
+	 * @param methodName, the current method's full name. E.g. 'className.lastMethodName'.
+	 * @return 'counterID.lastMethodName' format String.
+	 */
+	public static String generateCounterID(String counterPrefix, String methodName){
+		int pos = methodName.lastIndexOf(".");
+		
+		if (-1 == pos) {
+			return counterPrefix + "." + methodName;
+		} else{			
+			return counterPrefix + methodName.substring(methodName.lastIndexOf("."), methodName.length());
+		}
+	}
+	
 	public static String startBrowser(String browser, String url, String... params){
 		if(browser==null) browser = SelectBrowser.BROWSER_NAME_FIREFOX;
 		String browserID = generateID();

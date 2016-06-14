@@ -48,7 +48,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPI";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
@@ -74,7 +74,7 @@ public class GenericMasterTests extends Regression{
 
 	private static int testAPIForHtml(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIForHtml";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_HTMLAPP)){
 
@@ -92,7 +92,7 @@ public class GenericMasterTests extends Regression{
 
 	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIForDojo";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_DOJOAPP)){
 
@@ -110,7 +110,7 @@ public class GenericMasterTests extends Regression{
 
 	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIForSAP";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		
 		if(Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
@@ -161,7 +161,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	private static int testAPIForSAP_Image(String counterPrefix) throws SeleniumPlusException{
 		String debugmsg = StringUtils.debugmsg(false);
-		String counterID = counterPrefix + ".testAPIForSAP_Image";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		int fail = 0;
@@ -342,7 +342,7 @@ public class GenericMasterTests extends Regression{
 
 		int fail = 0;
 
-		String counterID = counterPrefix + ".testAPIForSAP_property";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
@@ -455,7 +455,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	private static int testAPIForSAP_CaptureData(String counterPrefix) throws SeleniumPlusException{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIForSAP_CaptureData";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
@@ -509,7 +509,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	private static int testAPIForSAP_Diverse(String counterPrefix) throws SeleniumPlusException{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIForSAP_Diverse";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
@@ -560,7 +560,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	public static int testKeyboardInput(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testKeyboardInput";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String CLEAR = "^a{DELETE}";
 
@@ -679,7 +679,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	private static int testExecuteScript(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testExecuteScript";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
@@ -736,7 +736,7 @@ public class GenericMasterTests extends Regression{
 	 */
 	private static int testZoomInOut(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testZoomInOut";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 		
@@ -823,7 +823,7 @@ public class GenericMasterTests extends Regression{
 	
 	private static int testShowOnPage(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testShowOnPage";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 		
@@ -909,7 +909,7 @@ public class GenericMasterTests extends Regression{
 
 	public static int testKeyboardInputAllBrowsers(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testKeyboardInputAllBrowsers";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String browsers = Map.TestBrowserName();
 		
@@ -939,7 +939,7 @@ public class GenericMasterTests extends Regression{
 	
 	public static int testAPIAllBrowsers(String counterPrefix, EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIAllBrowsers";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		
 		try{

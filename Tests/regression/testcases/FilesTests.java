@@ -32,7 +32,7 @@ public class FilesTests extends Regression{
 	 * @throws Throwable
 	 */
 	private static int testAPI(String counterPrefix, boolean cleanAll) throws Throwable{
-		String counterID = counterPrefix + ".testAPI";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		boolean expression = Misc.isExpressionsOn();
 		if(expression){

@@ -4,6 +4,8 @@ import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.tools.counters.CountStatusInterface;
 
+import regression.testruns.Regression;
+
 /** 
  * <pre>
  * 	 java -cp %CLASSPATH% regression.testcases.AssertTests
@@ -22,7 +24,7 @@ public class AssertTests extends SeleniumPlus {
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
 	public static int NotEqualTests(String counterPrefix){
-		final String counterID = counterPrefix + ".NotEqualTests";
+		final String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		int fail = 0;
 		Counters.StartCounter(counterID);
 
@@ -87,7 +89,7 @@ public class AssertTests extends SeleniumPlus {
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
 	public static int EqualsTests(String counterPrefix){
-		final String counterID = counterPrefix + ".EqualsTests";
+		final String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		int fail = 0;
 
 		Counters.StartCounter(counterID);
@@ -172,7 +174,7 @@ public class AssertTests extends SeleniumPlus {
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
 	public static int ObjectTests(String counterPrefix) throws Throwable{
-		final String counterID = counterPrefix + ".ObjectTests";
+		final String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		int fail = 0;
 
 		Counters.StartCounter(counterID);
@@ -223,7 +225,7 @@ public class AssertTests extends SeleniumPlus {
 	 * @return the number of UNEXPECTED failures encountered. 
 	 */ 
 	public static int BooleanTests(String counterPrefix) throws Throwable{
-		final String counterID = counterPrefix + ".BooleanTests";
+		final String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		int fail = 0;
 
 		Counters.StartCounter(counterID);

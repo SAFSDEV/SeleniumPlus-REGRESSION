@@ -29,7 +29,7 @@ public class CheckBoxTests extends Regression{
 	 */
 	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPI";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
@@ -56,7 +56,7 @@ public class CheckBoxTests extends Regression{
 	private static int testAPIForHtml(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
 		String mapID = MAP_FILE_HTMLAPP;
-		String counterID = counterPrefix + ".testAPIForHtml";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		if(Misc.SetApplicationMap(mapID)){
@@ -75,7 +75,7 @@ public class CheckBoxTests extends Regression{
 
 	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".testAPIForDojo";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_DOJOAPP;
 
@@ -96,7 +96,7 @@ public class CheckBoxTests extends Regression{
 	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
 		String mapID = MAP_FILE_SAPDEMOAPP;
-		String counterID = counterPrefix + ".testAPIForSAP";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
@@ -138,7 +138,7 @@ public class CheckBoxTests extends Regression{
 
 	private static int sap_test_checkbox(String counterPrefix, org.safs.model.Component checkbox) throws Throwable{
 		int fail = 0;
-		String counterID = counterPrefix + ".sap_test_checkbox";
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		if(!CheckBox.Check(checkbox)) trace(++fail);
