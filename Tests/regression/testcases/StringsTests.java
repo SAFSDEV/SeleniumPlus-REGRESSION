@@ -31,7 +31,7 @@ public class StringsTests extends SeleniumPlus{
 		boolean expression = Misc.isExpressionsOn();
 		if(expression){
 			if(!Misc.Expressions(false)){
-				Logging.LogTestWarning(COUNTER+" Fail to turn off Expression! Some SeleniumPlus Strings API may fail!");
+				Logging.LogTestWarning(counterID+" Fail to turn off Expression! Some SeleniumPlus Strings API may fail!");
 			}
 		}
 		
