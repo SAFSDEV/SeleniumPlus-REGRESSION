@@ -28,8 +28,10 @@ public class GenericObjectTests extends Regression{
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
-	private static int testAPI() throws Throwable{
+	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI";
+		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
@@ -40,23 +42,30 @@ public class GenericObjectTests extends Regression{
 		String[] browserArray = browsers.split(" ");
 
 		for(String browser: browserArray){
-			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(browser);
-			if(Domains.isDojoEnabled()) fail += testAPIForDojo(browser);
-			if(Domains.isSapEnabled()) fail += testAPIForSAP(browser);
+			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(counterID, browser);
+			if(Domains.isDojoEnabled()) fail += testAPIForDojo(counterID, browser);
+			if(Domains.isSapEnabled()) fail += testAPIForSAP(counterID, browser);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForHtml(String browser) throws Throwable{
+	private static int testAPIForHtml(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForHtml";
+		Counters.StartCounter(counterID);
+		
 		if(Misc.SetApplicationMap(MAP_FILE_HTMLAPP)){
 			String ID = null;
 			
 			try{
 				ID = startBrowser(browser, Map.GOJS_MINIMAL_URL());
 				if(ID!=null){
-					fail +=html_gojs_testDrag();
+					fail +=html_gojs_testDrag(counterID);
 					
 				}else{
 					Logging.LogTestWarning(COUNTER+"StartWebBrowser '"+browser+"' Unsuccessful.");
@@ -73,12 +82,18 @@ public class GenericObjectTests extends Regression{
 			fail++;
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_HTMLAPP+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
 	
-	private static int html_gojs_testDrag(){
+	private static int html_gojs_testDrag(String counterPrefix){
 		int fail = 0;
+		String counterID = counterPrefix + ".html_gojs_testDrag";
+		Counters.StartCounter(counterID);
 	
 		//1. Test some drag keywords on Minimal page "http://www.gojs.net/latest/samples/minimal.html"
 		//Drag one node
@@ -137,29 +152,47 @@ public class GenericObjectTests extends Regression{
 		}else{
 			fail++;
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
 	
-	private static int testAPIForDojo(String browser) throws Throwable{
+	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;	
+		String counterID = counterPrefix + ".testAPIForDojo";
+		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_DOJOAPP)){
 	
 		}else{
 			fail++;
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_DOJOAPP+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	
-	private static int testAPIForSAP(String browser) throws Throwable{
+	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;	
+		String counterID = counterPrefix + ".testAPIForSAP";
+		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
 	
 		}else{
 			fail++;
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_SAPDEMOAPP+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	/**
@@ -174,7 +207,7 @@ public class GenericObjectTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			fail += testAPI();
+			fail += testAPI(COUNTER);
 
 		}catch(Throwable t){
 			fail++;
@@ -190,6 +223,7 @@ public class GenericObjectTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(COUNTER+" did not report any UNEXPECTED test failures!");
 		}
+		
 		return fail;
 	}
 
