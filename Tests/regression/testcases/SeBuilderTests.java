@@ -1,11 +1,14 @@
 package regression.testcases;
 
+import org.safs.StringUtils;
 import org.safs.selenium.util.JavaScriptFunctions;
 import org.safs.selenium.webdriver.SeleniumPlus;
+import org.safs.selenium.webdriver.SeleniumPlus.Counters;
 import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 import org.safs.selenium.webdriver.lib.WDLibrary;
 
 import regression.Map;
+import regression.testruns.Regression;
 
 /** 
  * Used to hold a number of related testcase methods invocable from any class needing them. 
@@ -27,15 +30,19 @@ import regression.Map;
  * @see org.safs.selenium.webdriver.SeleniumPlus#main(java.lang.String[])
  */ 
 public class SeBuilderTests extends SeleniumPlus {
-
+	public static final String COUNTER = StringUtils.getClassName(0, false);
 
 	/** "SeBuilderTests.map" */
 	public static String SEBUILDERTESTS_APPMAP = "SeBuilderTests.map";
 
-	public static int runFormsTest()throws Throwable{
+	public static int runFormsTest(String counterPrefix)throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		boolean launched = Misc.CallScript(Map.FormsTest());
+		
 		if(!launched) fail++;
+		
 		try{
 			WDLibrary.stopBrowser(Map.FormsBrowser());
 		}catch(Exception ignore){}
@@ -45,6 +52,11 @@ public class SeBuilderTests extends SeleniumPlus {
 		}else{
 			Logging.LogTestSuccess("SeBuilderTest.FormsSRTest did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -54,9 +66,13 @@ public class SeBuilderTests extends SeleniumPlus {
  	 * your TestCase runTest() method for Unit testing, 
 	 * or from other testcases, testcase classes, or anywhere they are needed. 
 	 */ 
-	public static int runGoogleSampleEscp()throws Throwable{
+	public static int runGoogleSampleEscp(String counterPrefix)throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
 		boolean launched = Misc.CallScript(Map.SampleEscpScript());
+		
 		if(!launched) fail++;
 		if(! Misc.WaitForGUI(Map.GoogleResults.AmazonOfficialSiteLink, "7")) fail++;
 		if(! Component.VerifyPropertyContains(Map.GoogleResults.AmazonAdCite, "innerHTML", Map.AmazonText())) fail++;
@@ -68,10 +84,16 @@ public class SeBuilderTests extends SeleniumPlus {
 		}else{
 			Logging.LogTestSuccess("SeBuilderTest.GoogleSampleEscp did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
 	public static int runRegressionTest() throws Throwable{
+		Counters.StartCounter(COUNTER);
 		
 		Misc.SetApplicationMap(SEBUILDERTESTS_APPMAP);
 		
@@ -79,14 +101,19 @@ public class SeBuilderTests extends SeleniumPlus {
 		// JavaScriptFunctions.jsDebugLogEnable = true;
 		// *****************************************
 		
-		int fail = runFormsTest();		
-		fail += runGoogleSampleEscp();
+		int fail = runFormsTest(COUNTER);		
+		fail += runGoogleSampleEscp(COUNTER);
 		
 		if(fail > 0){
 			Logging.LogTestFailure("SeBuilderTests reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess("SeBuilderTests did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(COUNTER);
+		Counters.StoreCounterInfo(COUNTER, COUNTER);
+		Counters.LogCounterInfo(COUNTER);
+		
 		return fail;
 	}
 	
