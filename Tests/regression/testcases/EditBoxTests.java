@@ -35,7 +35,7 @@ public class EditBoxTests extends Regression{
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
 			browsers = FF;
-			Logging.LogTestWarning(COUNTER+" cannot get TestBrowserName from map, use "+browsers);
+			Logging.LogTestWarning(counterID+" cannot get TestBrowserName from map, use "+browsers);
 		}
 		browsers = browsers.replaceAll(" +", " ");
 		String[] browserArray = browsers.split(" ");
@@ -70,7 +70,7 @@ public class EditBoxTests extends Regression{
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
 
 		Counters.StopCounter(counterID);
@@ -90,7 +90,7 @@ public class EditBoxTests extends Regression{
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
 
 		Counters.StopCounter(counterID);
@@ -121,12 +121,12 @@ public class EditBoxTests extends Regression{
 						trace(++fail);
 					}
 				}else{
-					Logging.LogTestWarning(COUNTER+"StartWebBrowser '"+browser+"' Unsuccessful.");
+					Logging.LogTestWarning(counterID+"StartWebBrowser '"+browser+"' Unsuccessful.");
 					trace(++fail);
 				}
 			}catch(Exception e){
 				trace(++fail);
-				Logging.LogTestFailure(COUNTER+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
+				Logging.LogTestFailure(counterID+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
 			}finally{
 				if(ID!=null) if(!StopWebBrowser(ID)) trace(++fail);
 			}
@@ -134,7 +134,7 @@ public class EditBoxTests extends Regression{
 			Misc.CloseApplicationMap(mapID);
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
 
 		Counters.StopCounter(counterID);
