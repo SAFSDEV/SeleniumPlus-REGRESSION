@@ -39,10 +39,12 @@ public class AutoItTests extends Regression{
 	 * @return int, the number of unexpected failure.
 	 * @throws Throwable
 	 */
-	private static int testCaculator() throws Throwable{
+	private static int testCaculator(String counterPrefix) throws Throwable{
 		int fail = 0;
 		String applicationID = "calculator";
 		String executableCalc = "calc.exe";
+		String counterID = counterPrefix + ".testCaculator";
+		Counters.StartCounter(counterID);
 
 		if(Misc.LaunchApplication(applicationID, executableCalc)){
 
@@ -63,6 +65,11 @@ public class AutoItTests extends Regression{
 		}
 		
 		Pause(1);
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+
 		return fail;
 	}
 	
@@ -71,12 +78,15 @@ public class AutoItTests extends Regression{
 	 * @return int, the number of unexpected failure.
 	 * @throws Throwable
 	 */
-	private static int testNotepad() throws Throwable{
+	private static int testNotepad(String counterPrefix) throws Throwable{
 		int fail = 0;
 		String applicationID = "notepad";
 		String executableNotepad = "notepad.exe";
 		AutoItX it = null;
 		AutoItRs panel = null;
+		String counterID = counterPrefix + ".testNotepad"; 
+		Counters.StartCounter(counterID);
+
 
 		if(Misc.LaunchApplication(applicationID, executableNotepad)){
 			try{
@@ -165,6 +175,10 @@ public class AutoItTests extends Regression{
 			trace(++fail);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+
 		return fail;
 	}
 
@@ -184,8 +198,8 @@ public class AutoItTests extends Regression{
 			String mapID = MAP_FILE_AUTOITAPP;
 			if(Misc.SetApplicationMap(mapID)){
 				
-				fail += testCaculator();
-				fail += testNotepad();
+				fail += testCaculator(COUNTER);
+				fail += testNotepad(COUNTER);
 				
 				if(!Misc.CloseApplicationMap(mapID)) trace(++fail);
 				
