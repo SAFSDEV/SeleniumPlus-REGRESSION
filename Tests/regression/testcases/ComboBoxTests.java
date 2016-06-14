@@ -27,8 +27,10 @@ public class ComboBoxTests extends Regression{
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
-	private static int testAPI() throws Throwable{
+	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI";
+		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
@@ -39,16 +41,22 @@ public class ComboBoxTests extends Regression{
 		String[] browserArray = browsers.split(" ");
 
 		for(String browser: browserArray){
-			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(browser);
-			if(Domains.isDojoEnabled()) fail += testAPIForDojo(browser);
-			if(Domains.isSapEnabled()) fail+= testAPIForSAP(browser);
+			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(counterID, browser);
+			if(Domains.isDojoEnabled()) fail += testAPIForDojo(counterID, browser);
+			if(Domains.isSapEnabled()) fail+= testAPIForSAP(counterID, browser);
 		}
-
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForHtml(String browser) throws Throwable{
+	private static int testAPIForHtml(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForHtml";
+		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_HTMLAPP;
 
 		if(Misc.SetApplicationMap(mapID)){
@@ -57,11 +65,18 @@ public class ComboBoxTests extends Regression{
 			trace(++fail);
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForDojo(String browser) throws Throwable{
+	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForDojo";
+		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_DOJOAPP;
 
 		if(Misc.SetApplicationMap(mapID)){
@@ -70,11 +85,18 @@ public class ComboBoxTests extends Regression{
 			trace(++fail);
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForSAP(String browser) throws Throwable{
+	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIForSAP";
+		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_SAPDEMOAPP;
 		String debugmsg = StringUtils.debugmsg(false);
 
@@ -85,7 +107,7 @@ public class ComboBoxTests extends Regression{
 				ID = startBrowser(browser, Map.SAPDemoURL());
 				if(ID!=null){
 					if(TabControl.SelectTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
-						fail += sap_test_combobox(Map.SAPDemoPage.Basc_ComboBox);
+						fail += sap_test_combobox(counterID, Map.SAPDemoPage.Basc_ComboBox);
 					}else{
 						Logging.LogTestWarning(debugmsg+"SelectTab Fail to select tab '"+Map.Tab_basc_comp()+"'. All tests missed.");
 						trace(++fail);
@@ -107,11 +129,17 @@ public class ComboBoxTests extends Regression{
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int sap_test_combobox(org.safs.model.Component combobox) throws Throwable{
+	private static int sap_test_combobox(String counterPrefix, org.safs.model.Component combobox) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".sap_test_combobox";
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		boolean originalExpressionOn = Misc.isExpressionsOn();
@@ -164,6 +192,10 @@ public class ComboBoxTests extends Regression{
 			trace(++fail);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -179,7 +211,7 @@ public class ComboBoxTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			fail += testAPI();
+			fail += testAPI(COUNTER);
 
 		}catch(Throwable t){
 			trace(++fail);
