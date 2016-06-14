@@ -2,6 +2,9 @@ package regression.testcases;
 
 import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
+import org.safs.selenium.webdriver.SeleniumPlus.Counters;
+
+import regression.testruns.Regression;
 
 public class StringsTests extends SeleniumPlus{
 	
@@ -21,7 +24,10 @@ public class StringsTests extends SeleniumPlus{
 		}
 	}
 
-	protected static int testAPI() throws Throwable{
+	protected static int testAPI(String counterPrefix) throws Throwable{
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
 		boolean expression = Misc.isExpressionsOn();
 		if(expression){
 			if(!Misc.Expressions(false)){
@@ -167,6 +173,11 @@ public class StringsTests extends SeleniumPlus{
 		if(!(Strings.Trim(source, result) && verify(expectedResult, result))) fail++;
 
 		Misc.Expressions(expression);
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -175,7 +186,7 @@ public class StringsTests extends SeleniumPlus{
 		Counters.StartCounter(COUNTER);
 
 		try{
-			fail += testAPI();
+			fail += testAPI(COUNTER);
 		}catch(Throwable t){
 			fail++;
 			Logging.LogTestFailure(COUNTER +" fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
