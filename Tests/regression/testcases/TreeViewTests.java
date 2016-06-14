@@ -10,6 +10,7 @@ import java.util.Set;
 import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
+import org.safs.selenium.webdriver.SeleniumPlus.Counters;
 import org.safs.selenium.webdriver.lib.SeleniumPlusException;
 import org.safs.tools.stringutils.StringUtilities;
 
@@ -94,8 +95,10 @@ public class TreeViewTests extends Regression{
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
-	private static int testAPI() throws Throwable{
+	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
@@ -106,16 +109,23 @@ public class TreeViewTests extends Regression{
 		String[] browserArray = browsers.split(" ");
 
 		for(String browser: browserArray){
-			if(Domains.isHtmlEnabled()) fail += testAPI(browser, Domains.HTML_DOMAIN);
-			if(Domains.isDojoEnabled()) fail += testAPI(browser, Domains.HTML_DOJO_DOMAIN);
-			if(Domains.isSapEnabled()) fail+= testAPI(browser, Domains.HTML_SAP_DOMAIN);
+			if(Domains.isHtmlEnabled()) fail += testAPI(counterID, browser, Domains.HTML_DOMAIN);
+			if(Domains.isDojoEnabled()) fail += testAPI(counterID, browser, Domains.HTML_DOJO_DOMAIN);
+			if(Domains.isSapEnabled()) fail+= testAPI(counterID, browser, Domains.HTML_SAP_DOMAIN);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 	
-	private static int testAPI(String browser, String domain) throws Throwable{
+	private static int testAPI(String counterPrefix, String browser, String domain) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
 		//Load domain-related maps, the map order???
 		Set<String> mapIDs = getMapIDs(domain);
 		Set<String> openedMapIDs = new HashSet<String>();
@@ -131,9 +141,9 @@ public class TreeViewTests extends Regression{
 		
 		//If we have successfully opened some maps, then we should try the test
 		if(!openedMapIDs.isEmpty()){
-			if(Domains.HTML_SAP_DOMAIN.equals(domain)) fail += sap_test(browser);
-			if(Domains.HTML_DOJO_DOMAIN.equals(domain)) fail += dojo_test(browser);
-			if(Domains.HTML_DOMAIN.equals(domain)) fail += html_test(browser);
+			if(Domains.HTML_SAP_DOMAIN.equals(domain)) fail += sap_test(counterID, browser);
+			if(Domains.HTML_DOJO_DOMAIN.equals(domain)) fail += dojo_test(counterID, browser);
+			if(Domains.HTML_DOMAIN.equals(domain)) fail += html_test(counterID, browser);
 			
 			//After testing, close the Map files
 			for(String mapid:openedMapIDs){
@@ -145,15 +155,42 @@ public class TreeViewTests extends Regression{
 		}else{
 			Logging.LogTestFailure(COUNTER+"No related map is loaded, cannot test in browser '"+browser+"' for domain '"+domain+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
 
-	private static int html_test(String browser){return 0;}
-	private static int dojo_test(String browser){return 0;}
-	
-	private static int sap_test(String browser){
+	private static int html_test(String counterPrefix, String browser){
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		return fail;
+	}
+	
+	private static int dojo_test(String counterPrefix, String browser){
+		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		return fail;
+	}
+	
+	private static int sap_test(String counterPrefix, String browser){
+		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 		String ID = null;
 		
@@ -162,7 +199,7 @@ public class TreeViewTests extends Regression{
 			if(ID!=null){
 				String tab = Map.Tab_jtree2();
 				if(TabControl.SelectTab(Map.SAPDemoPage.TabControl, tab)){
-					fail += sap_test_treeview(Map.SAPDemoPage.TreeView);
+					fail += sap_test_treeview(counterID, Map.SAPDemoPage.TreeView);
 					
 				}else{
 					Logging.LogTestWarning(debugmsg+"SelectTab Fail to select tab '"+tab+"'. All tests missed.");
@@ -178,12 +215,18 @@ public class TreeViewTests extends Regression{
 		}finally{
 			if(ID!=null) if(!StopWebBrowser(ID)) trace(++fail);
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
 	
-	private static int sap_test_treeview(org.safs.model.Component treeview) throws Throwable{
+	private static int sap_test_treeview(String counterPrefix, org.safs.model.Component treeview) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		String path =  "Jim Goodnight->Armistead Sapp";
@@ -279,6 +322,10 @@ public class TreeViewTests extends Regression{
 			Logging.LogTestWarning(debugmsg+" Fail to turn expression back to '"+originalExpressionOn+"'.");
 			trace(++fail);
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -296,7 +343,7 @@ public class TreeViewTests extends Regression{
 		try{
 			initializeDomain2Map();
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			fail += testAPI();
+			fail += testAPI(COUNTER);
 
 		}catch(Throwable t){
 			trace(++fail);
