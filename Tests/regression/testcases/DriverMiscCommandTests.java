@@ -52,8 +52,10 @@ public class DriverMiscCommandTests extends Regression{
 	 * @return int, the total number of failures
 	 * @throws Throwable
 	 */
-	private static int testAPIBrowserless() throws Throwable{
+	private static int testAPIBrowserless(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPIBrowserless";
+		Counters.StartCounter(counterID);
 		
 		//1. ============== Test Map related APIs =======================
 		String mapID = "DriverMiscCommand.map";
@@ -61,7 +63,7 @@ public class DriverMiscCommandTests extends Regression{
 		
 		if(Misc.SetApplicationMap(mapID)){
 			String defaultMapID = Runner.jsafs().getMapsInterface().getDefaultMap().getUniqueID().toString();
-			Logging.LogMessage(COUNTER+" current default map ID = "+defaultMapID);
+			Logging.LogMessage(counterID + " current default map ID = "+defaultMapID);
 			if(!mapID.equals(defaultMapID)) fail++;
 			
 			//Before SetApplicationMap
@@ -69,41 +71,41 @@ public class DriverMiscCommandTests extends Regression{
 			String tComponent = Misc.GetAppMapValue(Map.T_Window.T_Component);
 			
 			if(Misc.SetApplicationMap(overridingMapID)){
-				Logging.LogMessage(COUNTER+" The default map has been set to '"+overridingMapID+"'");			
+				Logging.LogMessage(counterID + " The default map has been set to '"+overridingMapID+"'");			
 				//SetApplicationMap, the map value should change
 				if(Misc.GetAppMapValue(Map.LocationKey).equals(locationKey)){
-					Logging.LogTestFailure(COUNTER+"'"+Map.LocationKey+"' map value SHOULD change!");
+					Logging.LogTestFailure(counterID + "'"+Map.LocationKey+"' map value SHOULD change!");
 					fail++;
 				}
 				if(Misc.GetAppMapValue(Map.T_Window.T_Component).equals(tComponent)){
-					Logging.LogTestFailure(COUNTER+"'"+Map.T_Window.T_Component.getName()+"' map value SHOULD change!");
+					Logging.LogTestFailure(counterID + "'"+Map.T_Window.T_Component.getName()+"' map value SHOULD change!");
 					fail++;
 				}
 				
 				//CloseApplicationMap
-				Logging.LogMessage(COUNTER+" Close map '"+overridingMapID+"'");			
+				Logging.LogMessage(counterID + " Close map '"+overridingMapID+"'");			
 				if(Misc.CloseApplicationMap(overridingMapID)){
 					if(!Misc.GetAppMapValue(Map.LocationKey).equals(locationKey)){
-						Logging.LogTestFailure(COUNTER+"'"+Map.LocationKey+"' map value should NOT change!");
+						Logging.LogTestFailure(counterID + "'"+Map.LocationKey+"' map value should NOT change!");
 						fail++;
 					}
 					if(!Misc.GetAppMapValue(Map.T_Window.T_Component).equals(tComponent)){
-						Logging.LogTestFailure(COUNTER+"'"+Map.T_Window.T_Component.getName()+"' map value should NOT change!");
+						Logging.LogTestFailure(counterID + "'"+Map.T_Window.T_Component.getName()+"' map value should NOT change!");
 						fail++;
 					}
 				}else{
-					Logging.LogTestFailure(COUNTER+" Fail to close Map '"+overridingMapID+"'");
+					Logging.LogTestFailure(counterID + " Fail to close Map '"+overridingMapID+"'");
 					fail++;
 				}
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+" Fail to set Map '"+overridingMapID+"'");
+				Logging.LogTestFailure(counterID + " Fail to set Map '"+overridingMapID+"'");
 				fail++;
 			}
 			
 			if(!Misc.CloseApplicationMap(mapID)) fail++;
 		}else{
-			Logging.LogTestFailure(COUNTER+" Fail to set Map '"+mapID+"'");
+			Logging.LogTestFailure(counterID + " Fail to set Map '"+mapID+"'");
 			fail++;
 		}
 		
@@ -132,27 +134,27 @@ public class DriverMiscCommandTests extends Regression{
 		if(Misc.WaitForRegistryKeyExists(key, keyValue)){
 			if(Misc.GetRegistryKeyValue(key, keyValue, result)){
 				expectedValue = GetVariableValue(result);
-				Logging.LogMessage(COUNTER+" get registry key "+key+":"+keyValue+"="+expectedValue);
+				Logging.LogMessage(counterID + " get registry key "+key+":"+keyValue+"="+expectedValue);
 				if(!expectedValue.equals(Misc.GetRegistryKeyValue(key, keyValue))) fail++;
 			}else{
 				fail++;
 			}
 			
 			if(!Misc.WaitForRegistryKeyValue(key, keyValue, expectedValue, "2")){
-				Logging.LogTestWarning(COUNTER+" "+key+":"+keyValue+" does NOT equal to "+expectedValue);
+				Logging.LogTestWarning(counterID + " "+key+":"+keyValue+" does NOT equal to "+expectedValue);
 				fail++;
 			}
 		}else{
-			Logging.LogTestFailure(COUNTER+" Cannot wait registry key "+key+":"+keyValue);
+			Logging.LogTestFailure(counterID + " Cannot wait registry key "+key+":"+keyValue);
 			fail++;
 		}
 		
 		//4. ============== Test SystemDataTime=======================
-		Logging.LogMessage(COUNTER+"SystemDate "+Misc.GetSystemDate());
-		Logging.LogMessage(COUNTER+"Military SystemTime "+Misc.GetSystemTime(true));
-		Logging.LogMessage(COUNTER+"SystemTime "+Misc.GetSystemTime(false));
-		Logging.LogMessage(COUNTER+"Military SystemDateTime "+Misc.GetSystemDateTime(true));
-		Logging.LogMessage(COUNTER+"SystemDateTime "+Misc.GetSystemDateTime(false));
+		Logging.LogMessage(counterID + "SystemDate "+Misc.GetSystemDate());
+		Logging.LogMessage(counterID + "Military SystemTime "+Misc.GetSystemTime(true));
+		Logging.LogMessage(counterID + "SystemTime "+Misc.GetSystemTime(false));
+		Logging.LogMessage(counterID + "Military SystemDateTime "+Misc.GetSystemDateTime(true));
+		Logging.LogMessage(counterID + "SystemDateTime "+Misc.GetSystemDateTime(false));
 		
 		
 		//5. ============== Test ClipBoards=======================
@@ -163,7 +165,7 @@ public class DriverMiscCommandTests extends Regression{
 				if(Files.CopyFile(quote(utils.testFile(clipboardFile)), quote(utils.benchFile(clipboardFile)))){
 					if(!Misc.VerifyClipboardToFile(clipboardFile)) fail++;
 				}else{
-					Logging.LogTestFailure(COUNTER+"Fail to copy test file '"+clipboardFile+"' to bench directory, cannot verify.");
+					Logging.LogTestFailure(counterID + "Fail to copy test file '"+clipboardFile+"' to bench directory, cannot verify.");
 					fail++;
 				}
 				
@@ -176,20 +178,20 @@ public class DriverMiscCommandTests extends Regression{
 							fail++;
 						}
 					}else{
-						Logging.LogTestFailure(COUNTER+"Fail to clear clipboard");
+						Logging.LogTestFailure(counterID + "Fail to clear clipboard");
 						fail++;
 					}
 				}else{
-					Logging.LogTestFailure(COUNTER+"Fail to assign clipboard value to variable '"+result+"'.");
+					Logging.LogTestFailure(counterID + "Fail to assign clipboard value to variable '"+result+"'.");
 					fail++;
 				}
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+"Fail to save clipboard value to file.");
+				Logging.LogTestFailure(counterID + "Fail to save clipboard value to file.");
 				fail++;
 			}
 		}else{
-			Logging.LogTestFailure(COUNTER+"Fail to set clipboard.");
+			Logging.LogTestFailure(counterID + "Fail to set clipboard.");
 			fail++;
 		}
 		
@@ -217,7 +219,7 @@ public class DriverMiscCommandTests extends Regression{
 				if(!usernameValue.equals(GetVariableValue(usernamevar))) fail++;
 				
 			}else{
-				Logging.LogTestFailure(COUNTER+"Fail to clear variable '"+usernamevar+"'.");
+				Logging.LogTestFailure(counterID + "Fail to clear variable '"+usernamevar+"'.");
 				fail++;
 			}
 		}else{
@@ -229,6 +231,10 @@ public class DriverMiscCommandTests extends Regression{
 		SubArea subarea = new SubArea(0,0,"20%","30%");
 		if(!Misc.TakeScreenShot("screenshot.png")) fail++;
 		if(!Misc.TakeScreenShot("sub_screenshot.png", subarea)) fail++;
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -241,12 +247,18 @@ public class DriverMiscCommandTests extends Regression{
 	 * @see {@link #testAPI_Misc_URL(String)}
 	 * @see #testAPI_Misc_Alert(String)
 	 */
-	private static int testAPI(String browser) throws Throwable{
+	private static int testAPI(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI";
+		Counters.StartCounter(counterID);
 		
-		fail += testAPI_WaitForGUI(browser);
-		fail += testAPI_Misc_URL(browser);
-		fail += testAPI_Misc_Alert(browser);
+		fail += testAPI_WaitForGUI(counterID, browser);
+		fail += testAPI_Misc_URL(counterID, browser);
+		fail += testAPI_Misc_Alert(counterID, browser);
+		
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -263,9 +275,11 @@ public class DriverMiscCommandTests extends Regression{
 	 * @param expectedExist	boolean, the expectation of the component's existence
 	 * @return	int, the total unexpected failures happened in this method
 	 */
-	private static int test_ongui_xxx_gotoblockid(org.safs.model.Component component, String timeout/*in seconds*/, boolean expectedExist){
+	private static int test_ongui_xxx_gotoblockid(String counterPrefix, org.safs.model.Component component, String timeout/*in seconds*/, boolean expectedExist){
 		String dbg = StringUtils.debugmsg(false);
 		int fail = 0;
+		String counterID = counterPrefix + ".test_ongui_xxx_gotoblockid";
+		Counters.StartCounter(counterID);
 		String BranchExist = component.getName()+"_Exist_Block";
 		String BranchNotExist = component.getName()+"_Not_Exist_Block";
 		
@@ -293,7 +307,11 @@ public class DriverMiscCommandTests extends Regression{
 			}
 		}
 		
-		if(fail > 0) Logging.LogMessage(dbg+" sub reports "+ fail +" UNEXPECTED test failures!");
+		if(fail > 0) Logging.LogMessage(dbg+" sub reports "+ fail +" UNEXPECTED test failures!");		
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -311,9 +329,11 @@ public class DriverMiscCommandTests extends Regression{
 	 * @return int, the total number of failures
 	 * @throws Throwable
 	 */
-	private static int testAPI_WaitForGUI(String browser) throws Throwable{
+	private static int testAPI_WaitForGUI(String counterPrefix, String browser) throws Throwable{
 		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI_WaitForGUI";
+		Counters.StartCounter(counterID);
 		String ID = null;
 		try{
 			if(!Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
@@ -326,7 +346,7 @@ public class DriverMiscCommandTests extends Regression{
 			if(ID!=null){
 				
 				if(Misc.IsComponentExists(Map.SAPDemoPage.Basc_Button, "2")) trace(++fail);
-				fail += test_ongui_xxx_gotoblockid(Map.SAPDemoPage.Basc_Button, "2", false);
+				fail += test_ongui_xxx_gotoblockid(counterID, Map.SAPDemoPage.Basc_Button, "2", false);
 				
 				if(Misc.WaitForGUI(Map.SAPDemoPage.Basc_Button, "2")){
 					fail++;
@@ -339,7 +359,7 @@ public class DriverMiscCommandTests extends Regression{
 					if(Misc.WaitForGUIGone(Map.SAPDemoPage.Basc_Button, "2")) fail++;
 					
 					if(!Misc.IsComponentExists(Map.SAPDemoPage.Basc_Button)) trace(++fail);
-					fail += test_ongui_xxx_gotoblockid(Map.SAPDemoPage.Basc_Button, "2", true);
+					fail += test_ongui_xxx_gotoblockid(counterID, Map.SAPDemoPage.Basc_Button, "2", true);
 					
 					if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_jpan())){
 						Misc.Delay(2000);
@@ -382,6 +402,10 @@ public class DriverMiscCommandTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -398,9 +422,11 @@ public class DriverMiscCommandTests extends Regression{
 	 * @return int, the total number of failures
 	 * @throws Throwable
 	 */
-	private static int testAPI_Misc_URL(String browser) throws Throwable{
+	private static int testAPI_Misc_URL(String counterPrefix, String browser) throws Throwable{
 		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI_Misc_URL";
+		Counters.StartCounter(counterID);
 		String ID = null;
 		
 		boolean originalExpression = Misc.isExpressionsOn();
@@ -542,6 +568,10 @@ public class DriverMiscCommandTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -557,8 +587,10 @@ public class DriverMiscCommandTests extends Regression{
 	 * @param alertName String, "Alert", "Confirm" or "Prompt"
 	 * @return int the number of un-expected test error
 	 */
-	private static int test_misc_alert_presence(int timeout, String alertName){
+	private static int test_misc_alert_presence(String counterPrefix, int timeout, String alertName){
 		int fail = 0;
+		String counterID = counterPrefix + ".test_misc_alert_presence";
+		Counters.StartCounter(counterID);
 		
 		try {
 			String timeoutString = (timeout==0? "immediately" : "within "+timeout+" seconds");
@@ -574,6 +606,10 @@ public class DriverMiscCommandTests extends Regression{
 		} catch (SeleniumPlusException e) {
 			return fail++;
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -594,9 +630,11 @@ public class DriverMiscCommandTests extends Regression{
 	 * @return int, the total number of failures
 	 * @throws Throwable
 	 */
-	private static int testAPI_Misc_Alert(String browser) throws Throwable{
+	private static int testAPI_Misc_Alert(String counterPrefix, String browser) throws Throwable{
 		String preMsg = StringUtils.getMethodName(0, false);
 		int fail = 0;
+		String counterID = counterPrefix + ".testAPI_Misc_Alert";
+		Counters.StartCounter(counterID);
 		String url = null;
 		String browserAlertID = null;
 		String browserConfirmID = null;
@@ -621,10 +659,10 @@ public class DriverMiscCommandTests extends Regression{
 				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");				
 			}else{
 				//Before Alert appears, we can not find the Alert.
-				fail += test_misc_alert_presence(WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT, "Alert");
+				fail += test_misc_alert_presence(counterID, WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT, "Alert");
 				
 				if(ClickUnverified(Map.W3CAlertPage.Button, new Point(10,10))){
-					fail += test_misc_alert_presence(WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT, "Alert");
+					fail += test_misc_alert_presence(counterID, WDLibrary.DEFAULT_TIMEOUT_WAIT_ALERT, "Alert");
 					Pause(1);
 					if(!Misc.AlertAccept()) trace(++fail);
 				}else{
@@ -642,11 +680,11 @@ public class DriverMiscCommandTests extends Regression{
 				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");
 			}else{
 				//Before Confirm appears, we can not find the Alert.
-				fail += test_misc_alert_presence(0, "Confirm");
+				fail += test_misc_alert_presence(counterID, 0, "Confirm");
 				
 				if(Click(Map.W3CAlertPage.Button, "10, 10")){					
 					Pause(1);
-					fail += test_misc_alert_presence(0, "Confirm");
+					fail += test_misc_alert_presence(counterID, 0, "Confirm");
 					if(!Misc.AlertAccept()) trace(++fail);
 				}else{
 					trace(++fail);
@@ -670,11 +708,11 @@ public class DriverMiscCommandTests extends Regression{
 				Logging.LogTestFailure(preMsg+"StartWebBrowser '"+url+"' Unsuccessful.");				
 			}else{
 				//Before Prompt appears, we can not find the Alert.
-				fail += test_misc_alert_presence(0, "Prompt");
+				fail += test_misc_alert_presence(counterID, 0, "Prompt");
 				
 				if(Click(Map.W3CAlertPage.Button, "10, 10")){
 					Pause(1);
-					fail += test_misc_alert_presence(0, "Prompt");
+					fail += test_misc_alert_presence(counterID, 0, "Prompt");
 					if(!Misc.AlertAccept()) trace(++fail);
 				}else{
 					trace(++fail);
@@ -697,6 +735,10 @@ public class DriverMiscCommandTests extends Regression{
 			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
 			Misc.Expressions(originalExpression);
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
 		
 		return fail;
 	}
@@ -722,10 +764,10 @@ public class DriverMiscCommandTests extends Regression{
 			String[] browserArray = browsers.split(" ");
 
 			for(String browser: browserArray){
-				fail += testAPI(browser);
+				fail += testAPI(COUNTER, browser);
 			}
 			
-			fail += testAPIBrowserless();
+			fail += testAPIBrowserless(COUNTER);
 			
 		}catch(Throwable t){
 			fail++;
