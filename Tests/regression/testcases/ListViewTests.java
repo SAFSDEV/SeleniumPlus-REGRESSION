@@ -7,6 +7,7 @@ import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.SeleniumPlus;
+import org.safs.selenium.webdriver.SeleniumPlus.Counters;
 import org.safs.tools.stringutils.StringUtilities;
 
 import regression.Map;
@@ -28,54 +29,76 @@ public class ListViewTests extends Regression{
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
-	private static int testAPI() throws Throwable{
+	private static int testAPI(String counterPrefix) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 
 		String browsers = Map.TestBrowserName();
 		if(browsers==null || browsers.trim().isEmpty()){
 			browsers = FF;
-			Logging.LogTestWarning(COUNTER+" cannot get TestBrowserName from map, use "+browsers);
+			Logging.LogTestWarning(counterID+" cannot get TestBrowserName from map, use "+browsers);
 		}
 		browsers = browsers.replaceAll(" +", " ");
 		String[] browserArray = browsers.split(" ");
 
 		for(String browser: browserArray){
-			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(browser);
-			if(Domains.isDojoEnabled()) fail += testAPIForDojo(browser);
-			if(Domains.isSapEnabled()) fail+= testAPIForSAP(browser);
+			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(counterID, browser);
+			if(Domains.isDojoEnabled()) fail += testAPIForDojo(counterID, browser);
+			if(Domains.isSapEnabled()) fail+= testAPIForSAP(counterID, browser);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForHtml(String browser) throws Throwable{
+	private static int testAPIForHtml(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_HTMLAPP;
 
 		if(Misc.SetApplicationMap(mapID)){
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForDojo(String browser) throws Throwable{
+	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_DOJOAPP;
 
 		if(Misc.SetApplicationMap(mapID)){
 
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int testAPIForSAP(String browser) throws Throwable{
+	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String mapID = MAP_FILE_SAPDEMOAPP;
 		String debugmsg = StringUtils.debugmsg(false);
 
@@ -86,20 +109,20 @@ public class ListViewTests extends Regression{
 				ID = startBrowser(browser, Map.SAPDemoURL());
 				if(ID!=null){
 					if(TabControl.SelectTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
-						fail += sap_test_selection(Map.SAPDemoPage.ListView);
-						fail += sap_test_capturedata(Map.SAPDemoPage.ListView);
-						fail += sap_test_rs_defined_list_item();//Test list-item in Map.SAPDemoPage.ListView						
+						fail += sap_test_selection(counterID, Map.SAPDemoPage.ListView);
+						fail += sap_test_capturedata(counterID, Map.SAPDemoPage.ListView);
+						fail += sap_test_rs_defined_list_item(counterID);//Test list-item in Map.SAPDemoPage.ListView						
 					}else{
 						Logging.LogTestWarning(debugmsg+"SelectTab Fail to select tab '"+Map.Tab_basc_comp()+"'. All tests missed.");
 						trace(++fail);
 					}
 				}else{
-					Logging.LogTestWarning(COUNTER+"StartWebBrowser '"+browser+"' Unsuccessful.");
+					Logging.LogTestWarning(counterID+"StartWebBrowser '"+browser+"' Unsuccessful.");
 					trace(++fail);
 				}
 			}catch(Exception e){
 				trace(++fail);
-				Logging.LogTestFailure(COUNTER+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
+				Logging.LogTestFailure(counterID+"Fail to test SAP Application in browser '"+browser+"'! Unexpected Exception "+StringUtils.debugmsg(e));
 			}finally{
 				if(ID!=null) if(!StopWebBrowser(ID)) trace(++fail);
 			}
@@ -107,14 +130,21 @@ public class ListViewTests extends Regression{
 			Misc.CloseApplicationMap(mapID);
 		}else{
 			trace(++fail);
-			Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
+			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int sap_test_selection(org.safs.model.Component listview) throws Throwable{
+	private static int sap_test_selection(String counterPrefix, org.safs.model.Component listview) throws Throwable{
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		
 		String text = "Kansas";
 		int index = -1;
 		String variable = "existence";
@@ -221,11 +251,17 @@ public class ListViewTests extends Regression{
 			trace(++fail);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int sap_test_capturedata(org.safs.model.Component listview){
+	private static int sap_test_capturedata(String counterPrefix, org.safs.model.Component listview){
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		String filename = "listview_content.txt";
@@ -251,11 +287,17 @@ public class ListViewTests extends Regression{
 		filename = "./Actuals/listview-project3.txt";
 		if(!ListView.CaptureItemsToFile(listview, quote(filename))) trace(++fail);
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
-	private static int sap_test_rs_defined_list_item(){
+	private static int sap_test_rs_defined_list_item(String counterPrefix){
 		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
 
 		String file = "ListViewItem26_ComputedStyle.dat";
@@ -297,6 +339,10 @@ public class ListViewTests extends Regression{
 			trace(++fail);
 		}
 
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+		
 		return fail;
 	}
 
@@ -312,7 +358,7 @@ public class ListViewTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			fail += testAPI();
+			fail += testAPI(COUNTER);
 
 		}catch(Throwable t){
 			trace(++fail);
