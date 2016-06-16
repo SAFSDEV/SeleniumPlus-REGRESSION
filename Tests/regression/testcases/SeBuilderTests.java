@@ -1,10 +1,7 @@
 package regression.testcases;
 
 import org.safs.StringUtils;
-import org.safs.selenium.util.JavaScriptFunctions;
 import org.safs.selenium.webdriver.SeleniumPlus;
-import org.safs.selenium.webdriver.SeleniumPlus.Counters;
-import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 import org.safs.selenium.webdriver.lib.WDLibrary;
 
 import regression.Map;
@@ -46,16 +43,16 @@ public class SeBuilderTests extends SeleniumPlus {
 		try{
 			WDLibrary.stopBrowser(Map.FormsBrowser());
 		}catch(Exception ignore){}
-				
-		if(fail > 0){
-			Logging.LogTestFailure("SeBuilderTest.FormsSRTest reports "+ fail +" UNEXPECTED test failures!");
-		}else{
-			Logging.LogTestSuccess("SeBuilderTest.FormsSRTest did not report any UNEXPECTED test failures!");
-		}
-
+		
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
 		
 		return fail;
 	}
@@ -78,16 +75,16 @@ public class SeBuilderTests extends SeleniumPlus {
 		if(! Component.VerifyPropertyContains(Map.GoogleResults.AmazonAdCite, "innerHTML", Map.AmazonText())) fail++;
 		String id = WDLibrary.getIDForWebDriver(WDLibrary.getWebDriver());
 		if(! StopWebBrowser(id)) fail++;
-
-		if(fail > 0){
-			Logging.LogTestFailure("SeBuilderTest.GoogleSampleEscp reports "+ fail +" UNEXPECTED test failures!");
-		}else{
-			Logging.LogTestSuccess("SeBuilderTest.GoogleSampleEscp did not report any UNEXPECTED test failures!");
-		}
-
+		
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
 		
 		return fail;
 	}
@@ -104,16 +101,16 @@ public class SeBuilderTests extends SeleniumPlus {
 		int fail = runFormsTest(COUNTER);		
 		fail += runGoogleSampleEscp(COUNTER);
 		
-		if(fail > 0){
-			Logging.LogTestFailure("SeBuilderTests reports "+ fail +" UNEXPECTED test failures!");
-		}else{
-			Logging.LogTestSuccess("SeBuilderTests did not report any UNEXPECTED test failures!");
-		}
-
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
 		Counters.LogCounterInfo(COUNTER);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(COUNTER + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(COUNTER + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
