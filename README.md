@@ -127,3 +127,43 @@ public class AXXXZTests extends Regression{
     }
 }
 ~~~~
+
+#### 3. Specification of using 'Counters.LogCounterInfo()'
+For every concrete testing method, we have ```Counters``` structure ```Counters.StartCounter()``` and ```Counters.LogCounterInfo()```. And, before we return the ```fail```, which is the number of failures in one testing method, we will log the failures information. And this logging behavior should just be following the ```Counters.LogCounterInfo()``` but before ```return fail;``` like this:
+~~~~
+private static int testXXXAPI(String counterPrefix) throws Throwable{ 
+    String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+    int fail = 0;
+    Counters.StartCounter(counterID);
+
+    ... ... ... 
+
+    Counters.StopCounter(counterID);
+    Counters.StoreCounterInfo(counterID, counterID);
+    Counters.LogCounterInfo(counterID);
+
+//  booleanCounter = Counters.GetCounterStatus(counterID);
+//	if(fail == 0){
+//		if(booleanCounter.getTestFailures() != 2 ){
+//			Logging.LogTestFailure(counterID + " expected Test Failure count of 2, but got "+ equalsCounter.getTestFailures());
+//			fail++;
+//		}
+//
+//		if(booleanCounter.getTestPasses() != 3 ){
+//			Logging.LogTestFailure(counterID + " expected Test Passes count of 3, but got "+ equalsCounter.getTestPasses());
+//			fail++;
+//		}
+//	}
+
+    if(fail > 0){
+		Logging.LogTestFailure(counterID + " "+ fail +" UNEXPECTED test failures!");
+	}else{
+		Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+	}
+
+    return fail;
+}
+~~~~
+One reason that we call ```Counters.LogCounterInfo()``` before logging failure is: sometimes the ```Counters``` will be used before logging, just like the above comments shows. And also, the consistent order of ```Counters.LogCounterInfo()``` and *logging failure information* will make the Summary Report abstraction easier.
+
+
