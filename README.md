@@ -145,18 +145,18 @@ private static int testXXXAPI(String counterPrefix) throws Throwable{
 //  booleanCounter = Counters.GetCounterStatus(counterID);
 //	if(fail == 0){
 //		if(booleanCounter.getTestFailures() != 2 ){
-//			Logging.LogTestFailure(counterID + " expected Test Failure count of 2, but got "+ equalsCounter.getTestFailures());
+//			Logging.LogTestFailure(counterID + " expected Test Failure count of 2, but got " + equalsCounter.getTestFailures());
 //			fail++;
 //		}
 //
 //		if(booleanCounter.getTestPasses() != 3 ){
-//			Logging.LogTestFailure(counterID + " expected Test Passes count of 3, but got "+ equalsCounter.getTestPasses());
+//			Logging.LogTestFailure(counterID + " expected Test Passes count of 3, but got " + equalsCounter.getTestPasses());
 //			fail++;
 //		}
 //	}
 
     if(fail > 0){
-		Logging.LogTestFailure(counterID + " "+ fail +" UNEXPECTED test failures!");
+		Logging.LogTestFailure(counterID + " " + fail + " UNEXPECTED test failures!");
 	}else{
 		Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 	}

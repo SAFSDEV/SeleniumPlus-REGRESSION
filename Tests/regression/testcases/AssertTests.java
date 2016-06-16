@@ -304,16 +304,16 @@ public class AssertTests extends SeleniumPlus {
 	    fail += NotEqualTests(COUNTER);
 	    fail += ObjectTests(COUNTER);
 	    fail += BooleanTests(COUNTER);
+		
+		Counters.StopCounter(COUNTER);
+		Counters.StoreCounterInfo(COUNTER, COUNTER);
+		Counters.LogCounterInfo(COUNTER); 
 	    
 		if(fail > 0){
 			Logging.LogTestFailure("AssertTests reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess("AssertTests did not report any UNEXPECTED test failures!");
 		}
-		
-		Counters.StopCounter(COUNTER);
-		Counters.StoreCounterInfo(COUNTER, COUNTER);
-		Counters.LogCounterInfo(COUNTER); 
 
 		return fail;
 	}
