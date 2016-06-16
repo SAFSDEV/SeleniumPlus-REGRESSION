@@ -6,6 +6,7 @@ import java.util.List;
 import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
+import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -49,7 +50,13 @@ public class CheckBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-
+		
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+		
 		return fail;
 	}
 
@@ -69,6 +76,12 @@ public class CheckBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
 		
 		return fail;
 	}
@@ -89,6 +102,12 @@ public class CheckBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
+		
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
 		
 		return fail;
 	}
@@ -133,6 +152,12 @@ public class CheckBoxTests extends Regression{
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
 
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+		
 		return fail;
 	}
 
