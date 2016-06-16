@@ -56,7 +56,13 @@ public class EditBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
@@ -76,7 +82,13 @@ public class EditBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
@@ -96,7 +108,13 @@ public class EditBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
@@ -140,7 +158,13 @@ public class EditBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
@@ -173,7 +197,13 @@ public class EditBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
