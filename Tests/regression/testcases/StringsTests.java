@@ -2,7 +2,6 @@ package regression.testcases;
 
 import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
-import org.safs.selenium.webdriver.SeleniumPlus.Counters;
 
 import regression.testruns.Regression;
 
@@ -177,7 +176,13 @@ public class StringsTests extends SeleniumPlus{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
