@@ -2,8 +2,6 @@ package regression.testcases;
 
 import org.safs.StringUtils;
 import org.safs.selenium.webdriver.SeleniumPlus;
-import org.safs.selenium.webdriver.SeleniumPlus.Counters;
-import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -36,7 +34,13 @@ public class IBTTests extends SeleniumPlus {
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -55,7 +59,13 @@ public class IBTTests extends SeleniumPlus {
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -92,7 +102,13 @@ public class IBTTests extends SeleniumPlus {
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -111,7 +127,13 @@ public class IBTTests extends SeleniumPlus {
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -130,7 +152,13 @@ public class IBTTests extends SeleniumPlus {
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 
@@ -155,16 +183,16 @@ public class IBTTests extends SeleniumPlus {
 		
 		fail += CloseSwingApp(COUNTER);
 		
-		if(fail > 0){
-			Logging.LogTestFailure("IBTTests reports "+ fail +" UNEXPECTED test failures!");
-		}else{
-			Logging.LogTestSuccess("IBTTests did not report any UNEXPECTED test failures!");
-		}
-
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
 		Counters.LogCounterInfo(COUNTER);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(COUNTER + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(COUNTER + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
