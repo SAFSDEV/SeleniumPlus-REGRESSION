@@ -235,7 +235,13 @@ public class DriverMiscCommandTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -259,7 +265,13 @@ public class DriverMiscCommandTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -397,16 +409,16 @@ public class DriverMiscCommandTests extends Regression{
 			if(!Misc.CloseApplicationMap(MAP_FILE_SAPDEMOAPP)) fail++;
 		}
 		
-		if(fail > 0){
-			Logging.LogTestFailure(preMsg+" runRegressionTest reports "+ fail +" UNEXPECTED test failures!");
-		}else{
-			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
-		}
-
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -563,16 +575,16 @@ public class DriverMiscCommandTests extends Regression{
 			Misc.Expressions(originalExpression);
 		}
 		
-		if(fail > 0){
-			Logging.LogTestFailure(preMsg+" runRegressionTest reports "+ fail +" UNEXPECTED test failures!");
-		}else{
-			Logging.LogTestSuccess(preMsg+" did not report any UNEXPECTED test failures!");
-		}
-
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
@@ -739,7 +751,13 @@ public class DriverMiscCommandTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
 		return fail;
 	}
 	
