@@ -129,7 +129,7 @@ public class AXXXZTests extends Regression{
 ~~~~
 
 #### 3. Specification of using 'Counters.LogCounterInfo()'
-For every concrete testing method, we have ```Counters``` structure ```Counters.StartCounter()``` and ```Counters.LogCounterInfo()```. And, before we return the ```fail```, which is the number of failures in one testing method, we will log the failures information. And this logging behavior should just be following the ```Counters.LogCounterInfo()``` but before ```return fail;``` like this:
+For every concrete testing method, we have ```Counters``` structure ```Counters.StartCounter()``` and ```Counters.LogCounterInfo()```. And, before we return the ```fail```, which is the number of failures in one testing method, we **should** log the failures information. And this logging behavior should just be following the ```Counters.LogCounterInfo()``` but before ```return fail;``` like this:
 ~~~~
 private static int testXXXAPI(String counterPrefix) throws Throwable{ 
     String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));

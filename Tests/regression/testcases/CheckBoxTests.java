@@ -6,7 +6,6 @@ import java.util.List;
 import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
-import org.safs.selenium.webdriver.SeleniumPlus.Logging;
 
 import regression.Map;
 import regression.testruns.Regression;
