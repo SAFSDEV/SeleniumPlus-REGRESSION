@@ -310,9 +310,9 @@ public class AssertTests extends SeleniumPlus {
 		Counters.LogCounterInfo(COUNTER); 
 	    
 		if(fail > 0){
-			Logging.LogTestFailure("AssertTests reports "+ fail +" UNEXPECTED test failures!");
+			Logging.LogTestFailure(COUNTER + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
-			Logging.LogTestSuccess("AssertTests did not report any UNEXPECTED test failures!");
+			Logging.LogTestSuccess(COUNTER + " did not report any UNEXPECTED test failures!");
 		}
 
 		return fail;
