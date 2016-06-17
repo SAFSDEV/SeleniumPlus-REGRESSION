@@ -21,7 +21,7 @@
         } 
     </SCRIPT>
 
-        <HEAD>            
+        <HEAD>
             <SCRIPT language="JavaScript">
                 document.write("<TITLE>"+ getTestName() +" Test Results</TITLE>");
             </SCRIPT>
@@ -36,28 +36,49 @@
                 document.write(document.lastModified);
             </SCRIPT>
         <HR />
+        
+                
         <TABLE>
-            <TR><TD>Test Start: </TD>
-                <TD><B>
-                    <xsl:value-of select="/SAFS_LOG/LOG_OPENED/@time"/><xsl:text>&#160;&#160;</xsl:text>
-                    </B>
+            <TR>
+            	<TD>
+            		Test Start: 
+            	</TD>
+                <TD>
+                	<B> <xsl:value-of select="/SAFS_LOG/LOG_OPENED/@time"/><xsl:text>&#160;&#160;</xsl:text> </B>
                     <xsl:value-of select="/SAFS_LOG/LOG_OPENED/@date"/>
                 </TD>
             </TR>
-            <TR><TD>Test Finished: </TD>
-                <TD><B>
-                    <xsl:value-of select="/SAFS_LOG/LOG_CLOSED/@time"/><xsl:text>&#160;&#160;</xsl:text>
-                    </B>
+            
+            <TR>
+            	<TD>
+            		Test Finished: 
+            	</TD>
+                <TD>
+                	<B> <xsl:value-of select="/SAFS_LOG/LOG_CLOSED/@time"/><xsl:text>&#160;&#160;</xsl:text> </B>
                     <xsl:value-of select="/SAFS_LOG/LOG_CLOSED/@date"/>
                 </TD>
             </TR>
-    	</TABLE>    	
-    	<H3>Overall Test Status:</H3>
-    	<TABLE border="2" cellpadding="5" >
+    	</TABLE>
+        
+    	
+    	<div style="color: white; background-color: #33ccff; font-size: 18px; font-weight: 400">
+	    	<H3>Overall Test Status:</H3>			
+    	</div>
+    	
+    	    	
+    	<TABLE border="2" cellpadding="5" >   	
     	
     	<xsl:for-each select="/SAFS_LOG/LOG_MESSAGE/MESSAGE_TEXT[contains(text(),' UNEXPECTED test failures')]">
     	    <xsl:call-template name="unexpected_failures" />
     	</xsl:for-each>
+    	
+    	<TR>
+    	<TD>
+    		<H4>
+	    		<font color="red">Go to</font> the <a href="./Regression_Failures.htm"> Failure Reports. </a>
+	    	</H4>
+    	</TD>
+    	</TR>
     	
     	</TABLE>
     	<P>
@@ -65,7 +86,9 @@
     	</P>
     	
     	<HR/>
-    	<H3>Detailed Status Info:</H3>
+    	<div style="color: white; background-color: #33ccff; font-size: 18px; font-weight: 400">
+	    	<H3>Detailed Status Info:</H3>			
+    	</div>
     	
     	<xsl:for-each select="/SAFS_LOG/STATUS_REPORT" >
     	    <P>
