@@ -20,7 +20,7 @@
         } 
     </SCRIPT>
 
-        <HEAD>            
+        <HEAD>     
             <SCRIPT language="JavaScript">
                 document.write("<TITLE>"+ getTestName() +" Failed Test Results</TITLE>");
             </SCRIPT>
@@ -51,6 +51,76 @@
                 </TD>
             </TR>
     	</TABLE>
+
+		
+		<!-- Generate the Unexpected Failure Report -->
+		<!-- Find the 'UNEXPECTED' line with type 'FAILED' -->
+		<xsl:if test="/SAFS_LOG/LOG_MESSAGE[@type ='FAILED' and contains(./MESSAGE_TEXT/text(), 'UNEXPECTED')] != '' ">		
+    		<H3>------- Logged Unexpected Failures: -------</H3>    	
+		</xsl:if>    	
+    	<xsl:for-each select="/SAFS_LOG/LOG_MESSAGE[@type ='FAILED' and contains(./MESSAGE_TEXT/text(), 'UNEXPECTED')] ">
+    		
+	    	<TABLE border="2" cellpadding="5" >	    		
+	    		<!-- Ignore the last whole 'Regression' UNEXPECTED line  -->
+				<xsl:if test="./MESSAGE_TEXT[not(contains(text(), 'Regression'))] ">
+										
+						<!-- ========================= -->
+						<!-- 1. COUNTER upper-boundary -->
+		 				<xsl:if test="preceding-sibling::*[contains(@type, 'COUNTER')][2]">
+			 				<TR style="background-color: yellow;"> <TD>
+				 				[Begin] &gt;&gt;&gt;&gt;&gt;&gt; 
+				 				<b> 
+				 					<xsl:value-of select="preceding-sibling::*[contains(@type, 'COUNTER')][2]/@type" />	 					 
+				 					<font style="color: red;">
+					 					<xsl:value-of select="preceding-sibling::*[contains(@type, 'COUNTER')][2]" />
+				 					</font> 					
+				 				</b>			 					
+			 				</TD> </TR> 	
+			    		</xsl:if>
+			    		
+			    		
+			    		
+			    		<!-- ================================== -->
+			    		<!-- 2. Contents between two boundaries -->
+			    		<xsl:variable name="ns1" select="(preceding-sibling::*[contains(@type, 'COUNTER')][2])/following-sibling::*" />							
+						<xsl:variable name="ns2" select="(preceding-sibling::*[contains(@type, 'COUNTER')][1])/following-sibling::*" />					
+						<xsl:variable name="beContents" select="$ns1[count(.| $ns2) != count($ns2)]" />							
+											
+						<xsl:if test="$beContents != ''">					
+							<xsl:for-each select="$beContents">
+									<xsl:if test="@type = 'FAILED'">
+										<xsl:call-template name="sum_fail" />
+									</xsl:if>
+							</xsl:for-each>			
+											
+						</xsl:if>
+			    		
+			    		
+			    		
+			    		<!-- ========================= -->
+			    		<!-- 3. COUNTER lower-boundary -->
+			    		<xsl:if test="preceding-sibling::*[contains(@type, 'COUNTER')][1]">		  
+							<TR> <TD>	 	
+				 				[End] &lt;&lt;&lt;&lt;&lt;&lt;  
+								<b> 
+					    			<!-- <span class="glyphicon glyphicon-menu-left"></span> -->
+						    		<xsl:value-of select="preceding-sibling::*[contains(@type, 'COUNTER')][1]/@type" />
+						    		
+						    		<font color="red">
+							    		<xsl:value-of select="preceding-sibling::*[contains(@type, 'COUNTER')][1]" />
+				 					</font>
+				 				</b>							    			 
+			 				</TD> </TR>
+			    		</xsl:if>
+			    			 
+	    		</xsl:if> 	    		
+	    	</TABLE>  
+	    	 
+	    	<br /><br />
+    	</xsl:for-each>	    	
+    	
+    	<hr />
+    	
     	<H3>Logged Failures:</H3>
     	<TABLE border="2" cellpadding="5" >
     	
@@ -103,7 +173,7 @@
 	            </TD>
 		    </xsl:when>
 		    <xsl:otherwise>
-	            <TD bgcolor="{$failcolor}">
+	            <TD>
 			<PRE><xsl:value-of select="." /></PRE>
 	            </TD>
 		    </xsl:otherwise>
