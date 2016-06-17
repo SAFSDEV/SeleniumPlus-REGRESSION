@@ -52,12 +52,18 @@
             </TR>
     	</TABLE>
 
-		
+		<H4>
+	   		<font color="red">Go back </font> the <a href="./Regression_Summary.htm"> Testing Summary Reports. </a>
+	   	</H4>
+	    	
 		<!-- Generate the Unexpected Failure Report -->
 		<!-- Find the 'UNEXPECTED' line with type 'FAILED' -->
-		<xsl:if test="/SAFS_LOG/LOG_MESSAGE[@type ='FAILED' and contains(./MESSAGE_TEXT/text(), 'UNEXPECTED')] != '' ">		
-    		<H3>------- Logged Unexpected Failures: -------</H3>    	
-		</xsl:if>    	
+		<xsl:if test="/SAFS_LOG/LOG_MESSAGE[@type ='FAILED' and contains(./MESSAGE_TEXT/text(), 'UNEXPECTED')] != '' ">	
+			<div style="color: white; background-color: #33ccff; font-size: 18px; font-weight: 400">
+		    	<H3>Logged Unexpected Failures:</H3>			
+	    	</div>	    		    	
+		</xsl:if>   
+		 	
     	<xsl:for-each select="/SAFS_LOG/LOG_MESSAGE[@type ='FAILED' and contains(./MESSAGE_TEXT/text(), 'UNEXPECTED')] ">
     		
 	    	<TABLE border="2" cellpadding="5" >	    		
@@ -121,7 +127,10 @@
     	
     	<hr />
     	
-    	<H3>Logged Failures:</H3>
+    	<div style="color: white; background-color: #33ccff; font-size: 18px; font-weight: 400">
+	    	<H3>Logged Failures:</H3>			
+    	</div>	
+    	
     	<TABLE border="2" cellpadding="5" >
     	
     	<xsl:for-each select="/SAFS_LOG/LOG_MESSAGE[@type = 'FAILED']">
