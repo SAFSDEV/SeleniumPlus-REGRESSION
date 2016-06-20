@@ -104,15 +104,23 @@ Echo "Run Regression with 'TestBrowserName' value: '!BrowserName!'."
 "%EXECUTE%" -cp %CMDCLASSPATH%;bin regression.testruns.Regression -safsvar:TestBrowserName=!BrowserName!
 )
 
+Set /a resRegression = !ERRORLEVEL!
+Echo "Regression job is Done with exit code !resRegression!"
+
+
 If !KeepRemoteServer!==FALSE (
 Echo "Terminate the Remote server after Regression."
 Call %SELENIUM_PLUS%/extra/RemoteServerTerminate.bat
+Set /a resTerminate = !ERRORLEVEL!
+Echo "Terminate Remote Server job is Done with exit code !resTerminate!"
 ) Else (
 Echo "Keep the Remote server after Regression."
+Set /a resTerminate = 0
 )
 
 
 :END
-Echo "Test Job is Done with exit code %ERRORLEVEL%"
-Exit /b %ERRORLEVEL%
+Set /a res = !resRegression! + !resTerminate!
+Echo "Test Job is Done with exit code !res!"
+Exit /b !res!
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
