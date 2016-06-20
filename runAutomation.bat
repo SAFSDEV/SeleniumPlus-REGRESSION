@@ -106,7 +106,7 @@ Echo "Run Regression with 'TestBrowserName' value: '!BrowserName!'."
 
 If !KeepRemoteServer!==FALSE (
 Echo "Terminate the Remote server after Regression."
-%SELENIUM_PLUS%/extra/RemoteServerTerminate.bat
+Call %SELENIUM_PLUS%/extra/RemoteServerTerminate.bat
 ) Else (
 Echo "Keep the Remote server after Regression."
 )
