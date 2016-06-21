@@ -152,6 +152,19 @@ public class GenericObjectTests extends Regression{
 		 */
 //		if(Click(Map.GoJSSamples.MenuPageFlow)){
 		Component.ShowOnPage(Map.GoJSSamples.MenuPageFlow, "true");
+		/**
+		 * Notes:
+		 * 		If the Click() method below throws the 'org.openqa.selenium.NoSuchWindowException: unable to get browser' exception, it's probably caused by
+		 * 		short of setting IE's key in registry editor. You need to examine in the registry editor:
+		 * 		For 32-bit Windows: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE .
+		 * 		For 64-bit Windows: HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE .
+		 * 		The FEATURE_BFCACHE subkey may or may not be present, and should be created if it is not present. 
+		 * 		Important: Inside this key, create a DWORD value named iexplore.exe with the value of 0.
+		 * 
+		 * Reference URL:
+		 * 		https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
+		 * @author Tao Xie
+		 */
 		if(Click(Map.GoJSSamples.MenuPageFlow, "5,5")){
 			//Drag some component from "palate" to "my diagram"			
 			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "40, 20, 5%, 5%")) fail++;
