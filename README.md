@@ -9,6 +9,12 @@ This project is used for SeleniumPlus Regression testing. It gives the basic usa
 
 In order to generate detailed Regression summary report, there're some specifications need to be followed when creating new test case. In every test case, we should use the ```Counters``` to indicate testing case boundary. (More details about ```Counters``` can be found in ```SelniumPlus.java``` in [Core](https://github.com/SAFSDEV/Core) project.) It'll give testing case clear structure and accurate testing positions, which is convenient for developers to debug.
 
+### 0. Testing method template in Regression testcase 
+All the specifications below are integrated in the SeleniumPlus option in Ecipse. You can use this template through steps:
+* Click the right button of mouse in the java source code area in Eclipse.
+* Choose the 'Selenium+' option.
+* Choose the 'Insert Regression Testing Method' option.
+Then, the testing method template will be inserted into your source code.
 
 #### 1. Specification in 'runRegressionTest()' method
 
