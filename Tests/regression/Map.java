@@ -650,11 +650,11 @@ public final class Map implements RuntimeDataAware {
         /** "GoogleResults" Window Component itself. */
         public static final Component GoogleResults = new Component("GoogleResults");
 
-        /** "AmazonAdCite" Component in "GoogleResults". */
-        public static final Component AmazonAdCite = new Component(GoogleResults, "AmazonAdCite");
-
         /** "AmazonOfficialSiteLink" Component in "GoogleResults". */
         public static final Component AmazonOfficialSiteLink = new Component(GoogleResults, "AmazonOfficialSiteLink");
+
+        /** "AmazonCite" Component in "GoogleResults". */
+        public static final Component AmazonCite = new Component(GoogleResults, "AmazonCite");
     }
 
     /** "Bing" Component and its children. */
