@@ -72,7 +72,7 @@ public class SeBuilderTests extends SeleniumPlus {
 		
 		if(!launched) fail++;
 		if(! Misc.WaitForGUI(Map.GoogleResults.AmazonOfficialSiteLink, "7")) fail++;
-		if(! Component.VerifyPropertyContains(Map.GoogleResults.AmazonAdCite, "innerHTML", Map.AmazonText())) fail++;
+		if(! Component.VerifyPropertyContains(Map.GoogleResults.AmazonCite, "innerHTML", Map.AmazonText())) fail++;
 		String id = WDLibrary.getIDForWebDriver(WDLibrary.getWebDriver());
 		if(! StopWebBrowser(id)) fail++;
 		

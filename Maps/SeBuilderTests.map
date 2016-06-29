@@ -8,7 +8,8 @@ FormsBrowser="FormsBrowser"
 
 [GoogleResults]
 AmazonOfficialSiteLink="xpath=.//a[@href='https://www.amazon.com/']"
-AmazonAdCite="xpath=.//div[contains(@class, 'ads-visurl')]//cite[1]"
+# AmazonAdCite="xpath=.//div[contains(@class, 'ads-visurl')]//cite[1]"
+AmazonCite="xpath=.//div[contains(@class, 'kv')]//cite[1]"
 
 [FormsMain]
 FormsMain="xpath=/html"
