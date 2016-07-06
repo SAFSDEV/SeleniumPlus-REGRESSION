@@ -1,5 +1,11 @@
+:: 
+::  -------- General BAT System Setting --------
+:: 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::
 @echo off
 setlocal enableDelayedExpansion
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 REM
 REM      Name    : runAutomation.BAT
@@ -65,11 +71,28 @@ REM
 :Begin
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::
+:: 
+::  -------- Integrate complicated Java commands into BAT variable --------
+:: 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::
+::  Get the directory of remote selenium server, i.e. selenium-standalone*.jar.
 set max=0
 for /f "tokens=1* delims=-.0" %%A in ('dir /b /a-d %SELENIUM_PLUS%\libs\selenium-server-standalone*.jar') do if %%B gtr !max! set max=%%B
 set SELENIUM_SERVER_JAR_LOC=%SELENIUM_PLUS%\libs\selenium-%max%
+
+::  Get the 3 JAR files, which are used to run the SeleniumPlus test case from java command line:
+::  	1. seleniumplus.jar
+::  	2. JSTAFEmbedded.jar
+::  	3. selenium-standalone*.jar.
+::  The 'seleniumplus.jar' should be always at the first position.
+::  
 set CMDCLASSPATH="%SELENIUM_PLUS%\libs\seleniumplus.jar;%SELENIUM_PLUS%\libs\JSTAFEmbedded.jar;%SELENIUM_SERVER_JAR_LOC%"
+
+:: Get the directory of Java, which is included in the directory of 'SeleniumPlus'.
 set EXECUTE=%SELENIUM_PLUS%\Java\jre\bin\java.exe
+
+:: Get the directory of javac, which is included in the directory of 'SeleniumPlus'.
 set COMPILE=%SELENIUM_PLUS%\Java\bin\javac.exe
 
 :: DON'T MODIFY ABOVE SETTING UNLESS NECESSARY
