@@ -1,3 +1,5 @@
+[ApplicationConstants]
+preset="0,0,700,300;Status=NORMAL"
 
 [SAFS Monitor]
 SAFS Monitor=":AUTOIT:title=SAFS Monitor"
@@ -24,6 +26,7 @@ BtnEqual="class=Button;instance=28"
 [Notepad]
 Notepad=":AUTOIT:title=Untitled - Notepad"
 EditBox="class=Edit;instance=1"
+preset="0,0,640,480;Status=NORMAL"
 
 [Notepad_Replace]
 Notepad_Replace=":AUTOIT:title=Replace;class=#32770"

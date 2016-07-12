@@ -17,6 +17,15 @@ public final class Map implements RuntimeDataAware {
 
     // The Names of ApplicationConstants:
 
+    /** "preset" */
+    public static final String preset = "preset";
+
+    /** The resolved runtime value of constant 'preset', or null. */
+    public static String preset(){
+        try{ return dataInterface.getVariable("preset"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "DOJO_CHART_URL" */
     public static final String DOJO_CHART_URL = "DOJO_CHART_URL";
 
@@ -608,6 +617,9 @@ public final class Map implements RuntimeDataAware {
 
         /** "EditBox" Component in "Notepad". */
         public static final Component EditBox = new Component(Notepad, "EditBox");
+
+        /** "preset" Component in "Notepad". */
+        public static final Component preset = new Component(Notepad, "preset");
     }
 
     /** "FormsMain" Component and its children. */
@@ -713,6 +725,9 @@ public final class Map implements RuntimeDataAware {
 
         /** "ApplicationConstants" Window Component itself. */
         public static final Component ApplicationConstants = new Component("ApplicationConstants");
+
+        /** "preset" Component in "ApplicationConstants". */
+        public static final Component preset = new Component(ApplicationConstants, "preset");
 
         /** "DOJO_CHART_URL" Component in "ApplicationConstants". */
         public static final Component DOJO_CHART_URL = new Component(ApplicationConstants, "DOJO_CHART_URL");
