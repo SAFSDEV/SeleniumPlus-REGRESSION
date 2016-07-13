@@ -93,27 +93,6 @@ public class AutoItTests extends Regression{
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false)); 
 		Counters.StartCounter(counterID);
 
-		if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.MAXIMIZED)){
-			trace(++fail);
-		}
-		if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.MINIMIZED)){
-			trace(++fail);
-		}
-		if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.NORMAL)){
-			trace(++fail);
-		}
-		//"preset" in section [Notepad], it is "0,0,640,480;Status=NORMAL"
-		if(!Window.SetPosition(Map.Notepad.Notepad, Map.Notepad.preset.getName())){
-			trace(++fail);
-		}
-		//"0,0,700,300;Status=NORMAL"
-		if(!Window.SetPosition(Map.Notepad.Notepad, Map.preset())){
-			trace(++fail);
-		}
-		if(!Window.SetPosition(Map.Notepad.Notepad, 0,0,800,600)){
-			trace(++fail);
-		}
-
 		if(Misc.LaunchApplication(applicationID, executableNotepad)){
 			try{
 				it = AutoIt.AutoItObject();
@@ -126,6 +105,27 @@ public class AutoItTests extends Regression{
 				panel = new AutoItRs(winrs, comprs);
 			}catch(Exception e){
 				Logging.LogTestWarning("Fail to initialize the components. Met "+StringUtils.debugmsg(e));
+			}
+			
+			if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.MAXIMIZED)){
+				trace(++fail);
+			}
+			if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.MINIMIZED)){
+				trace(++fail);
+			}
+			if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.NORMAL)){
+				trace(++fail);
+			}
+			//"preset" in section [Notepad], it is "0,0,640,480;Status=NORMAL"
+			if(!Window.SetPosition(Map.Notepad.Notepad, Map.Notepad.preset.getName())){
+				trace(++fail);
+			}
+			//"0,0,700,300;Status=NORMAL"
+			if(!Window.SetPosition(Map.Notepad.Notepad, Map.preset())){
+				trace(++fail);
+			}
+			if(!Window.SetPosition(Map.Notepad.Notepad, 0,0,800,600)){
+				trace(++fail);
 			}
 			
 			if(Window.SetFocus(Map.Notepad.Notepad)){
