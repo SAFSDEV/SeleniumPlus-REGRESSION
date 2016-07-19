@@ -48,6 +48,9 @@ public class AutoItTests extends Regression{
 
 		if(Misc.LaunchApplication(applicationID, executableCalc)){
 
+			if(!GetGUIImage(Map.Calculator.Btn5, "Btn5.png")) trace(++fail);
+			if(!GetGUIImage(Map.Calculator.BtnEqual, "BtnEqual.png")) trace(++fail);
+			
 			if(Window.SetFocus(Map.Calculator.Calculator)){
 				//make an addition "1+2"
 				if(!Click(Map.Calculator.Btn1)) trace(++fail); else Pause(1);
@@ -106,6 +109,9 @@ public class AutoItTests extends Regression{
 			}catch(Exception e){
 				Logging.LogTestWarning("Fail to initialize the components. Met "+StringUtils.debugmsg(e));
 			}
+			
+			if(!GetGUIImage(Map.Notepad.Notepad, "Notepad.png")) trace(++fail);
+			if(!GetGUIImage(Map.Notepad.EditBox, "EditBox.png")) trace(++fail);
 			
 			if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.MAXIMIZED)){
 				trace(++fail);
