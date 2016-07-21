@@ -74,7 +74,7 @@
 						<!-- 1. COUNTER upper-boundary -->
 		 				<xsl:if test="preceding-sibling::*[contains(@type, 'COUNTER')][2]">
 			 				<TR style="background-color: yellow;"> <TD>
-				 				[Begin] &gt;&gt;&gt;&gt;&gt;&gt; 
+				 				[Start position of one unexpected error] &gt;&gt;&gt; 
 				 				<b> 
 				 					<xsl:value-of select="preceding-sibling::*[contains(@type, 'COUNTER')][2]/@type" />	 					 
 				 					<font style="color: red;">
@@ -107,7 +107,7 @@
 			    		<!-- 3. COUNTER lower-boundary -->
 			    		<xsl:if test="preceding-sibling::*[contains(@type, 'COUNTER')][1]">		  
 							<TR> <TD>	 	
-				 				[End] &lt;&lt;&lt;&lt;&lt;&lt;  
+				 				[End position of one unexpected error] &lt;&lt;&lt;  
 								<b> 
 					    			<!-- <span class="glyphicon glyphicon-menu-left"></span> -->
 						    		<xsl:value-of select="preceding-sibling::*[contains(@type, 'COUNTER')][1]/@type" />
