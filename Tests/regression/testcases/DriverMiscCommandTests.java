@@ -9,9 +9,11 @@ import org.safs.image.ImageUtils.SubArea;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.DCDriverCommand;
 import org.safs.selenium.webdriver.SeleniumPlus;
+import org.safs.selenium.webdriver.lib.SelectBrowser;
 import org.safs.selenium.webdriver.lib.SeleniumPlusException;
 import org.safs.selenium.webdriver.lib.WDLibrary;
 import org.safs.text.FileUtilities;
+
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -260,7 +262,17 @@ public class DriverMiscCommandTests extends Regression{
 		
 		fail += testAPI_WaitForGUI(counterID, browser);
 		fail += testAPI_Misc_URL(counterID, browser);
-		fail += testAPI_Misc_Alert(counterID, browser);
+		
+		/**
+		 * As this is a known defect of 3rd party software Selenium: https://github.com/SeleniumHQ/selenium/issues/2068,
+		 * ignore this test when using IE browser. If this defect can be solved in the future, we'll cancel this
+		 * 'ignore' behavior.
+		 * 
+		 * @author Tao Xie
+		 */		
+		if (! browser.toLowerCase().equals(SelectBrowser.BROWSER_NAME_IE)) {
+			fail += testAPI_Misc_Alert(counterID, browser);			
+		}
 		
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
