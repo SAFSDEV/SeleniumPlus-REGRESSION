@@ -196,6 +196,11 @@ public class Regression extends SeleniumPlus {
 				xslfile = new CaseInsensitiveFile(logsdir, "failuresummary.xsl").toFile();
 				outfile = new File(logsdir, "Regression_Failures.htm");
 				XMLTransformer.transform(xmlfile, xslfile, outfile);
+				
+				xslfile = new CaseInsensitiveFile(logsdir, "timeConsumedSummary.xsl").toFile();
+				outfile = new File(logsdir, "Regression_ConsumedTimeSummary.htm");
+				XMLTransformer.transform(xmlfile, xslfile, outfile, XMLTransformer.XSLT_VERSION_2);
+				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
