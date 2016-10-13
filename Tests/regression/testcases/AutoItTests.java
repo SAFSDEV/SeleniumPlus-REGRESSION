@@ -9,6 +9,8 @@
  *
  * History:
  * 18 DEC 2015    (Lei Wang) Initial release.
+ * 26 SEP 2016	  (Tao Xie) Add 'testDotNetApp()' to test groups of CLICK keywords through Windows .Net Application.
+ * 						   Add 'DoubleClick' test in 'testCaculator()'.
  */
 package regression.testcases;
 
@@ -19,11 +21,11 @@ import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.autoit.AutoIt;
 import org.safs.autoit.AutoItRs;
+import org.safs.autoit.lib.AutoItXPlus;
 import org.safs.model.tools.EmbeddedHookDriverRunner;
 
 import regression.Map;
 import regression.testruns.Regression;
-import autoitx4java.AutoItX;
 
 /**
  * This class is used to test implementation of AUTOIT.<br>
@@ -57,7 +59,15 @@ public class AutoItTests extends Regression{
 				if(!Click(Map.Calculator.BtnPlus)) trace(++fail); else Pause(1);
 				if(!Click(Map.Calculator.Btn2)) trace(++fail); else Pause(1);
 				if(!Click(Map.Calculator.BtnEqual)) trace(++fail); else Pause(1);
-
+				// TODO: We may use 'WinGetText', which hasn't been implemented, to verify the result of computation.
+				
+				// Test DoubleClick by making "11 + 22"
+				if (!DoubleClick(Map.Calculator.Btn1))  trace(++fail); else Pause(1);
+				if(!Click(Map.Calculator.BtnPlus)) trace(++fail); else Pause(1);
+				if(!DoubleClick(Map.Calculator.Btn2)) trace(++fail); else Pause(1);
+				if(!Click(Map.Calculator.BtnEqual)) trace(++fail); else Pause(1);
+				// TODO: We may use 'WinGetText', which hasn't been implemented, to verify the result of computation.
+				
 			}else{
 				trace(++fail);
 			}
@@ -91,7 +101,7 @@ public class AutoItTests extends Regression{
 		int fail = 0;
 		String applicationID = "notepad";
 		String executableNotepad = "notepad.exe";
-		AutoItX it = null;
+		AutoItXPlus it = null;
 		AutoItRs panel = null;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false)); 
 		Counters.StartCounter(counterID);
@@ -219,6 +229,51 @@ public class AutoItTests extends Regression{
 
 		return fail;
 	}
+	
+	/** 
+	 * Test groups of CLICK keywords through Windows .Net application: '%SAFSDIR%\sample\DotNetApp\WinDemo.exe'.
+	 * 
+	 * @return int, the number of unexpected failure.
+	 * @throws Throwable
+	 * 
+	 * @author Tao Xie
+	 */
+	private static int testDotNetApp(String counterPrefix) throws Throwable{
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		int fail = 0;
+		Counters.StartCounter(counterID);
+		String applicationID = "dotNetApp";
+		String executableWinDemo = System.getenv("SAFSDIR") + "\\samples\\DotNetApp\\WinDemo.exe";
+
+		/**
+		 * Test groups of CLICK keywords: RightClick, CtrlClick, ShiftClick.
+		 */
+		if(Misc.LaunchApplication(applicationID, executableWinDemo)){
+			if(!RightClick(Map.DotNetApp.TableControl, "30, 10")) trace(++fail); else Pause(1);
+			if(!Click(Map.DotNetApp.TableControl, "214, 12")) trace(++fail); else Pause(1);
+			if(!CtrlClick(Map.DotNetApp.DataView, "40, 80")) trace(++fail); else Pause(1);
+			if(!CtrlClick(Map.DotNetApp.DataView, "40, 125")) trace(++fail); else Pause(1);
+			if(!ShiftClick(Map.DotNetApp.DataView, "40, 196")) trace(++fail); else Pause(1);
+			
+			if(!Misc.CloseApplication(applicationID)) trace(++fail);
+		} else{
+			trace(++fail);
+		}
+		
+		Pause(1);
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " " + fail + " UNEXPECTED test failures!");
+		 }else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
+		return fail;
+	}	
 
 	/**
 	 * 
@@ -236,6 +291,7 @@ public class AutoItTests extends Regression{
 			String mapID = MAP_FILE_AUTOITAPP;
 			if(Misc.SetApplicationMap(mapID)){
 				
+				fail += testDotNetApp(COUNTER);
 				fail += testCaculator(COUNTER);
 				fail += testNotepad(COUNTER);
 				
