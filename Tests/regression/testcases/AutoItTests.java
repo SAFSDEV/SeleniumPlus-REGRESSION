@@ -11,6 +11,8 @@
  * 18 DEC 2015    (Lei Wang) Initial release.
  * 26 SEP 2016	  (Tao Xie) Add 'testDotNetApp()' to test groups of CLICK keywords through Windows .Net Application.
  * 						   Add 'DoubleClick' test in 'testCaculator()'.
+ * 14 OCT 2016    (Tao Xie) Put 'WinDemo.exe', 'WinDemo.pdb' and 'CodersLab.Windows.Controls.TreeView.dll' from SAFS
+ *                         into .\App\DotNetApp folder. And its directory path in AutoItApp.map file.
  */
 package regression.testcases;
 
@@ -243,12 +245,11 @@ public class AutoItTests extends Regression{
 		int fail = 0;
 		Counters.StartCounter(counterID);
 		String applicationID = "dotNetApp";
-		String executableWinDemo = System.getenv("SAFSDIR") + "\\samples\\DotNetApp\\WinDemo.exe";
-
+		
 		/**
 		 * Test groups of CLICK keywords: RightClick, CtrlClick, ShiftClick.
 		 */
-		if(Misc.LaunchApplication(applicationID, executableWinDemo)){
+		if(Misc.LaunchApplication(applicationID, Map.WinDemoDir())){
 			if(!RightClick(Map.DotNetApp.TableControl, "30, 10")) trace(++fail); else Pause(1);
 			if(!Click(Map.DotNetApp.TableControl, "214, 12")) trace(++fail); else Pause(1);
 			if(!CtrlClick(Map.DotNetApp.DataView, "40, 80")) trace(++fail); else Pause(1);

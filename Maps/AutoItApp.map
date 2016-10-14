@@ -1,5 +1,6 @@
 [ApplicationConstants]
 preset="0,0,700,300;Status=NORMAL"
+WinDemoDir="./Apps/DotNetApp/WinDemo.exe"
 
 [SAFS Monitor]
 SAFS Monitor=":AUTOIT:title=SAFS Monitor"

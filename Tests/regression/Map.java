@@ -26,6 +26,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "WinDemoDir" */
+    public static final String WinDemoDir = "WinDemoDir";
+
+    /** The resolved runtime value of constant 'WinDemoDir', or null. */
+    public static String WinDemoDir(){
+        try{ return dataInterface.getVariable("WinDemoDir"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "DOJO_CHART_URL" */
     public static final String DOJO_CHART_URL = "DOJO_CHART_URL";
 
@@ -728,6 +737,9 @@ public final class Map implements RuntimeDataAware {
 
         /** "preset" Component in "ApplicationConstants". */
         public static final Component preset = new Component(ApplicationConstants, "preset");
+
+        /** "WinDemoDir" Component in "ApplicationConstants". */
+        public static final Component WinDemoDir = new Component(ApplicationConstants, "WinDemoDir");
 
         /** "DOJO_CHART_URL" Component in "ApplicationConstants". */
         public static final Component DOJO_CHART_URL = new Component(ApplicationConstants, "DOJO_CHART_URL");
