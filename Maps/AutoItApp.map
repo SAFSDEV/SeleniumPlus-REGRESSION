@@ -28,6 +28,11 @@ Notepad=":AUTOIT:title=Untitled - Notepad"
 EditBox="class=Edit;instance=1"
 preset="0,0,640,480;Status=NORMAL"
 
+[DotNetApp]
+DotNetApp=":AUTOIT:title=.NET Application"
+TableControl="NAME=tabControl1"
+DataView="NAME=dataGridView1"
+
 [Notepad_Replace]
 Notepad_Replace=":AUTOIT:title=Replace;class=#32770"
 EditBoxFind="class=Edit;instance=1"
