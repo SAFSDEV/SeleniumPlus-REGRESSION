@@ -13,6 +13,7 @@
  * 						   Add 'DoubleClick' test in 'testCaculator()'.
  * 14 OCT 2016    (Tao Xie) Put 'WinDemo.exe', 'WinDemo.pdb' and 'CodersLab.Windows.Controls.TreeView.dll' from SAFS
  *                         into .\App\DotNetApp folder. And its directory path in AutoItApp.map file.
+ * 24 OCT 2016    (Tao Xie) Use 'CloseWindow()' instead of 'CloseApplication()' to test 'CloseWindow' keyword.
  */
 package regression.testcases;
 
@@ -74,7 +75,8 @@ public class AutoItTests extends Regression{
 				trace(++fail);
 			}
 
-			if(!Misc.CloseApplication(applicationID)) trace(++fail);
+			if(!Window.CloseWindow(Map.Calculator.Calculator)) trace(++fail);
+			
 		}else{
 			trace(++fail);
 		}
