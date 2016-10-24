@@ -3,7 +3,7 @@
 	xmlns:xs='http://www.w3.org/2001/XMLSchema'
 	xmlns='http://www.w3.org/TR/REC-html40'>
 
-	<xsl:output method="html" omit-xml-declaration="yes" />
+	<xsl:output encoding="UTF-8" method="html" omit-xml-declaration="yes" />
 
 	<xsl:variable name="colorPass">#000000</xsl:variable>
 	<xsl:variable name="colorWarn">#0000ff</xsl:variable>
