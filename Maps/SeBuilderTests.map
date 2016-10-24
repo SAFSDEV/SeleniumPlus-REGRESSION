@@ -7,7 +7,7 @@ FormsURL="http://safsdev.sourceforge.net/source/rrafs/tests/html/htm_src/forms.h
 FormsBrowser="FormsBrowser"
 
 [GoogleResults]
-AmazonOfficialSiteLink="xpath=.//a[@href='https://www.amazon.com/']"
+AmazonOfficialSiteLink="xpath=.//a[starts-with(@href, 'https://www.amazon.com/')]"
 # AmazonAdCite="xpath=.//div[contains(@class, 'ads-visurl')]//cite[1]"
 AmazonCite="xpath=.//div[contains(@class, 'kv')]//cite[1]"
 
