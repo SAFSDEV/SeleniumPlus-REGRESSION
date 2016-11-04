@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils.SubArea;
-import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.text.FileUtilities;
 import org.safs.text.FileUtilities.Access;
 import org.safs.text.FileUtilities.DateType;
@@ -19,6 +18,7 @@ import org.safs.text.FileUtilities.Placement;
 import org.safs.tools.ocr.OCREngine;
 
 import regression.testruns.Regression;
+import regression.util.Utilities;
 
 public class FilesTests extends Regression{
 	
@@ -45,7 +45,7 @@ public class FilesTests extends Regression{
 				
 		final String result = "result";
 		String resultValue = null;
-		String baseDirecotory = utils.appendDir(utils.testDir(), "TestFilesAPI", true);// %Project%/Actulas/TestFilesAPI/
+		String baseDirecotory = Utilities.appendDir(utils.testDir(), "TestFilesAPI", true);// %Project%/Actulas/TestFilesAPI/
 		String directory = baseDirecotory;
 		String file = null;
 		String dest = null;
@@ -58,7 +58,7 @@ public class FilesTests extends Regression{
 		
 		//CopyFile
 		file = utils.testAssetFile("SASStudioDaily.htm");
-		dest = utils.appendDir(baseDirecotory, "newSASStudioDaily.htm");
+		dest = Utilities.appendDir(baseDirecotory, "newSASStudioDaily.htm");
 		if(!Files.CopyFile(quote(file), quote(dest))) fail++;
 
 		//FilterTextFile
@@ -249,8 +249,8 @@ public class FilesTests extends Regression{
 			fail++;
 		}
 
-		directory = utils.appendDir(directory, "New Directory");
-		file = utils.appendDir(directory, "new test file3.txt");
+		directory = Utilities.appendDir(directory, "New Directory");
+		file = Utilities.appendDir(directory, "new test file3.txt");
 		if(Files.CreateDirectory(directory)){
 			
 			if(Files.CreateFile(file, Mode.OUTPUT, Access.W, result)){
@@ -344,14 +344,14 @@ public class FilesTests extends Regression{
 				fail++;
 			}
 			
-			dest = utils.appendDir(directory, "copy of file3.txt");
+			dest = Utilities.appendDir(directory, "copy of file3.txt");
 			if(!Files.CopyFile(quote(file), quote(dest))) fail++;
 			
-			dest = utils.appendDir(directory, "second copy of file3.txt");
+			dest = Utilities.appendDir(directory, "second copy of file3.txt");
 			String fileDriverCommand = "CopyFile";
 			if(!Files.IfExistFile(file, fileDriverCommand, file, dest)) fail++;
 			
-			String newdest = utils.appendDir(directory, "renamed second copy of file3.txt");
+			String newdest = Utilities.appendDir(directory, "renamed second copy of file3.txt");
 			if(!Files.RenameFile(dest, newdest, true)) fail++;
 			
 			String regexPattern = "CreateFile\\(.*\\)";
@@ -403,7 +403,7 @@ public class FilesTests extends Regression{
 				fail++;
 			}
 			
-			file = utils.appendDir(directory, "UTF8 FILE.txt");
+			file = Utilities.appendDir(directory, "UTF8 FILE.txt");
 			if(Files.OpenUTF8File(file, Mode.OUTPUT, Access.W, result)){
 				fileNo = GetVariableValue(result);
 				Logging.LogMessage(counterID+" '"+file+"' is created and opened with file number '"+fileNo+"' for output UTF8 strings.");
@@ -430,7 +430,7 @@ public class FilesTests extends Regression{
 				fail++;
 			}
 			
-			newdest = utils.appendDir(directory, "Copy of UTF8 FILE.txt");
+			newdest = Utilities.appendDir(directory, "Copy of UTF8 FILE.txt");
 			if(Files.CopyFile(quote(file), quote(newdest))){
 				regexPattern = "saturday|sat|sunday|sun";
 				replace = "weekend";
@@ -473,7 +473,7 @@ public class FilesTests extends Regression{
 				fail++;
 			}
 			
-			String toDirectory = utils.appendDir(baseDirecotory, "Copy Directory");
+			String toDirectory = Utilities.appendDir(baseDirecotory, "Copy Directory");
 			if(Files.CreateDirectory(toDirectory)){
 				if(!Files.CopyMatchingFiles(directory, toDirectory, "[a-z ]*d.*", PatternFilterMode.REGEXP)) fail++;
 				if(!Files.CopyMatchingFiles(directory, toDirectory, "UTF*.*", PatternFilterMode.WILDCARD)) fail++;
@@ -481,7 +481,7 @@ public class FilesTests extends Regression{
 				fail++;
 			}
 			
-			String newdir = utils.appendDir(directory, "NewDirectory");
+			String newdir = Utilities.appendDir(directory, "NewDirectory");
 			fileDriverCommand = "CreateDirectory";
 			if(!Files.IfExistDir(directory, fileDriverCommand, newdir)) fail++;
 			
@@ -494,20 +494,20 @@ public class FilesTests extends Regression{
 		if(!Files.GetTextFromImage(image, result, OCREngine.OCR_T_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "3.0")) fail++;
 		if(!Files.GetTextFromImage(image, result, OCREngine.OCR_G_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "2.0")) fail++;
 		
-		String textFile = utils.appendDir(baseDirecotory, "image_T.txt");
+		String textFile = Utilities.appendDir(baseDirecotory, "image_T.txt");
 		if(!Files.SaveTextFromImage(image, textFile, OCREngine.OCR_T_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "2.0")) fail++;
-		textFile = utils.appendDir(baseDirecotory, "image_G.txt");
+		textFile = Utilities.appendDir(baseDirecotory, "image_G.txt");
 		if(!Files.SaveTextFromImage(image, textFile, OCREngine.OCR_G_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "2.5")) fail++;
 		
 		String coords = "0,0,70%,50%";
-		String subimage = utils.appendDir(baseDirecotory, "subimage.png");
+		String subimage = Utilities.appendDir(baseDirecotory, "subimage.png");
 		if(!Files.FilterImage(image, subimage, coords)) fail++;	
-		subimage = utils.appendDir(baseDirecotory, "subimage2.png");
+		subimage = Utilities.appendDir(baseDirecotory, "subimage2.png");
 		//filter 2 areas
 		coords = "0,0,70%,50% 80%;80%;100%;100%";
 		if(!Files.FilterImage(image, subimage, coords)) fail++;
 		//filter multiple areas
-		subimage = utils.appendDir(baseDirecotory, "subimage3.png");
+		subimage = Utilities.appendDir(baseDirecotory, "subimage3.png");
 		List<SubArea> subareas = new ArrayList<SubArea>();
 		subareas.add(new SubArea(0,0,"20%","30%"));
 		subareas.add(new SubArea("50%", "50%", "60%", "70%"));
@@ -539,7 +539,7 @@ public class FilesTests extends Regression{
 			if(!Files.DeleteDirectory(directory)) fail++;
 
 			//Test to delect an empty folder
-			directory = utils.appendDir(baseDirecotory, "Empty Folder");
+			directory = Utilities.appendDir(baseDirecotory, "Empty Folder");
 			if(Files.CreateDirectory(directory)){
 				if(!Files.DeleteDirectory(directory)) fail++;
 			}else{
@@ -564,14 +564,12 @@ public class FilesTests extends Regression{
 	}
 
 	/**
-	 * 
-	 * @param Runner EmbeddedHookDriverRunner
 	 * @param cleanAll boolean, if user wants to keep the generated files/directories, then provide false.
 	 *                          if true, program will delete all the generated files/directories.
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int runRegressionTest(EmbeddedHookDriverRunner Runner, boolean cleanAll) throws Throwable{
+	public static int runRegressionTest(boolean cleanAll) throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
@@ -597,8 +595,8 @@ public class FilesTests extends Regression{
 
 	public void runTest() throws Throwable{
 		initUtils();
-		runRegressionTest(Runner, false);//the generated files/directories will be kept
-//		runRegressionTest(Runner, true);//the generated files/directories will be deleted
+		runRegressionTest(false);//the generated files/directories will be kept
+//		runRegressionTest(true);//the generated files/directories will be deleted
 	}
 
 }

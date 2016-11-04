@@ -6,14 +6,12 @@ import java.io.File;
 import org.safs.StatusCodes;
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils.SubArea;
-import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.DCDriverCommand;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.selenium.webdriver.lib.SelectBrowser;
 import org.safs.selenium.webdriver.lib.SeleniumPlusException;
 import org.safs.selenium.webdriver.lib.WDLibrary;
 import org.safs.text.FileUtilities;
-
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -774,12 +772,10 @@ public class DriverMiscCommandTests extends Regression{
 	}
 	
 	/**
-	 * 
-	 * @param Runner EmbeddedHookDriverRunner
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int runRegressionTest(EmbeddedHookDriverRunner Runner) throws Throwable{
+	public static int runRegressionTest() throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
@@ -818,7 +814,7 @@ public class DriverMiscCommandTests extends Regression{
 
 	public void runTest() throws Throwable{
 		initUtils();
-		runRegressionTest(Runner);
+		runRegressionTest();
 	}
 
 }

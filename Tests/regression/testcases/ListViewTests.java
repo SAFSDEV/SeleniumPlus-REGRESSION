@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.safs.Domains;
 import org.safs.StringUtils;
-import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.tools.stringutils.StringUtilities;
 
@@ -393,7 +392,7 @@ public class ListViewTests extends Regression{
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int runRegressionTest(EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+	public static int runRegressionTest(List<String> enabledDomains) throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
@@ -425,7 +424,7 @@ public class ListViewTests extends Regression{
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
 		initUtils();
 		Misc.Expressions(false);
-		runRegressionTest(Runner, enabledDomains);
+		runRegressionTest(enabledDomains);
 	}
 
 }

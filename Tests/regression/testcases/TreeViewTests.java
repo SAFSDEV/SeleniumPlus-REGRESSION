@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.safs.Domains;
 import org.safs.StringUtils;
-import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.lib.SeleniumPlusException;
 import org.safs.tools.stringutils.StringUtilities;
 
@@ -368,12 +367,10 @@ public class TreeViewTests extends Regression{
 	}
 
 	/**
-	 * 
-	 * @param Runner EmbeddedHookDriverRunner
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int runRegressionTest(EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+	public static int runRegressionTest(List<String> enabledDomains) throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
@@ -405,7 +402,7 @@ public class TreeViewTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
 		initUtils();
-		runRegressionTest(Runner, enabledDomains);
+		runRegressionTest(enabledDomains);
 	}
 
 }

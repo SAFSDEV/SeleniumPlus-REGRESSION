@@ -18,7 +18,6 @@ import org.safs.ComponentFunction;
 import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils;
-import org.safs.model.tools.EmbeddedHookDriverRunner;
 import org.safs.selenium.webdriver.SeleniumPlus;
 import org.safs.selenium.webdriver.lib.SeleniumPlusException;
 import org.safs.selenium.webdriver.lib.WDLibrary;
@@ -1003,7 +1002,7 @@ public class GenericMasterTests extends Regression{
 		return fail;
 	}
 	
-	public static int testAPIAllBrowsers(String counterPrefix, EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+	public static int testAPIAllBrowsers(String counterPrefix, List<String> enabledDomains) throws Throwable{
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
@@ -1030,17 +1029,15 @@ public class GenericMasterTests extends Regression{
 	}
 	
 	/**
-	 *
-	 * @param Runner EmbeddedHookDriverRunner
 	 * @return
 	 * @throws Throwable
 	 */
-	public static int runRegressionTest(EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+	public static int runRegressionTest(List<String> enabledDomains) throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
 		fail += testKeyboardInputAllBrowsers(COUNTER);
-		fail += testAPIAllBrowsers(COUNTER, Runner, enabledDomains);		
+		fail += testAPIAllBrowsers(COUNTER, enabledDomains);		
 		//utils = new Utilities(Runner.jsafs());
 		//fail += testAPIForSAP(COUNTER, "chrome");
 				
@@ -1063,7 +1060,7 @@ public class GenericMasterTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
 		initUtils();
-		runRegressionTest(Runner, enabledDomains);
+		runRegressionTest(enabledDomains);
 	}
 
 }

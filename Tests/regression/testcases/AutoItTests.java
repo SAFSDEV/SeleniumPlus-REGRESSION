@@ -25,7 +25,6 @@ import org.safs.StringUtils;
 import org.safs.autoit.AutoIt;
 import org.safs.autoit.AutoItRs;
 import org.safs.autoit.lib.AutoItXPlus;
-import org.safs.model.tools.EmbeddedHookDriverRunner;
 
 import regression.Map;
 import regression.testruns.Regression;
@@ -280,11 +279,10 @@ public class AutoItTests extends Regression{
 
 	/**
 	 * 
-	 * @param Runner EmbeddedHookDriverRunner
 	 * @return int, the number of unexpected failure.
 	 * @throws Throwable
 	 */
-	public static int runRegressionTest(EmbeddedHookDriverRunner Runner, List<String> enabledDomains) throws Throwable{
+	public static int runRegressionTest(List<String> enabledDomains) throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
 
@@ -328,6 +326,6 @@ public class AutoItTests extends Regression{
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
 		initUtils();
-		runRegressionTest(Runner, enabledDomains);
+		runRegressionTest(enabledDomains);
 	}
 }

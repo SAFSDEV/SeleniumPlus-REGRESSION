@@ -153,19 +153,19 @@ public class Regression extends SeleniumPlus {
 		fail += MiscTests.runRegressionTest();
 		fail += SeBuilderTests.runRegressionTest();
 		fail += StringsTests.runRegressionTest();
-		fail += FilesTests.runRegressionTest(Runner, true);
-		fail += DriverMiscCommandTests.runRegressionTest(Runner);
+		fail += FilesTests.runRegressionTest(true);
+		fail += DriverMiscCommandTests.runRegressionTest();
 		
-		fail += GenericMasterTests.runRegressionTest(Runner, enabledDomains);
-		fail += GenericObjectTests.runRegressionTest(Runner, enabledDomains);
-		fail += CheckBoxTests.runRegressionTest(Runner, enabledDomains);
-		fail += ComboBoxTests.runRegressionTest(Runner, enabledDomains);
-		fail += ListViewTests.runRegressionTest(Runner, enabledDomains);
-		fail += MenuTests.runRegressionTest(Runner, enabledDomains);
-		fail += TabControlTests.runRegressionTest(Runner, enabledDomains);
-		fail += TreeViewTests.runRegressionTest(Runner, enabledDomains);
-		fail += EditBoxTests.runRegressionTest(Runner, enabledDomains);
-		fail += AutoItTests.runRegressionTest(Runner, enabledDomains);
+		fail += GenericMasterTests.runRegressionTest(enabledDomains);
+		fail += GenericObjectTests.runRegressionTest(enabledDomains);
+		fail += CheckBoxTests.runRegressionTest(enabledDomains);
+		fail += ComboBoxTests.runRegressionTest(enabledDomains);
+		fail += ListViewTests.runRegressionTest(enabledDomains);
+		fail += MenuTests.runRegressionTest(enabledDomains);
+		fail += TabControlTests.runRegressionTest(enabledDomains);
+		fail += TreeViewTests.runRegressionTest(enabledDomains);
+		fail += EditBoxTests.runRegressionTest(enabledDomains);
+		fail += AutoItTests.runRegressionTest(enabledDomains);
 		
 		if(fail > 0){
 			Logging.LogTestFailure("Regression reports "+ fail +" UNEXPECTED test failures!");
