@@ -23,7 +23,7 @@ public class ListViewTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -127,7 +127,7 @@ public class ListViewTests extends Regression{
 					if(TabControl.SelectTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
 						fail += sap_test_selection(counterID, Map.SAPDemoPage.ListView);
 						fail += sap_test_capturedata(counterID, Map.SAPDemoPage.ListView);
-						fail += sap_test_rs_defined_list_item(counterID);//Test list-item in Map.SAPDemoPage.ListView						
+						fail += sap_test_rs_defined_list_item(counterID);//Test list-item in Map.SAPDemoPage.ListView
 					}else{
 						Logging.LogTestWarning(debugmsg+"SelectTab Fail to select tab '"+Map.Tab_basc_comp()+"'. All tests missed.");
 						trace(++fail);
@@ -166,7 +166,7 @@ public class ListViewTests extends Regression{
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		String text = "Kansas";
 		int index = -1;
 		String variable = "existence";
@@ -175,7 +175,7 @@ public class ListViewTests extends Regression{
 
 		if(ListView.SetListContains(listview, text, variable)){
 			Logging.LogMessage("Successfully get existence of item '"+text+"', and set "+GetVariableValue(variable)+" to variable '"+variable+"'");
-			boolean exist = StringUtilities.convertBool(GetVariableValue(variable)); 
+			boolean exist = StringUtilities.convertBool(GetVariableValue(variable));
 			if(!exist) trace(++fail);
 		}else{
 			Logging.LogTestWarning(debugmsg+"SetListContains Failed. Some tests missed.");
@@ -258,7 +258,7 @@ public class ListViewTests extends Regression{
 		if(ListView.SelectIndexItem(listview, index)) trace(++fail);
 
 		text = "Montana";
-		if(ListView.SelectTextItem(listview, text)){			
+		if(ListView.SelectTextItem(listview, text)){
 			text = "Nevada";
 			if(!ListView.ExtendSelectionToTextItem(listview, text)) trace(++fail);
 
@@ -387,7 +387,7 @@ public class ListViewTests extends Regression{
 	}
 
 	/**
-	 * 
+	 *
 	 * @param Runner EmbeddedHookDriverRunner
 	 * @return
 	 * @throws Throwable

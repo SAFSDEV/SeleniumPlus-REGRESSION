@@ -21,11 +21,11 @@ import regression.testruns.Regression;
 import regression.util.Utilities;
 
 public class FilesTests extends Regression{
-	
+
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	
+
 	/**
-	 * 
+	 *
 	 * @param cleanAll boolean, if user wants to keep the generated files/directories, then provide false.
 	 *                          if true, program will delete all the generated files/directories.
 	 * @return
@@ -40,9 +40,9 @@ public class FilesTests extends Regression{
 				Logging.LogTestWarning(counterID+" Fail to turn off Expression! Some APIs may fail!");
 			}
 		}
-		
+
 		int fail = 0;
-				
+
 		final String result = "result";
 		String resultValue = null;
 		String baseDirecotory = Utilities.appendDir(utils.testDir(), "TestFilesAPI", true);// %Project%/Actulas/TestFilesAPI/
@@ -50,12 +50,12 @@ public class FilesTests extends Regression{
 		String file = null;
 		String dest = null;
 		String fileNo = null;
-		
+
 		//CreateDirectory
 		if(!Files.CreateDirectory(directory)){
 			throw new Exception(counterID+" Fail create directory '"+directory+"', cannot continue.");
 		}
-		
+
 		//CopyFile
 		file = utils.testAssetFile("SASStudioDaily.htm");
 		dest = Utilities.appendDir(baseDirecotory, "newSASStudioDaily.htm");
@@ -73,7 +73,7 @@ public class FilesTests extends Regression{
 				content = FileUtilities.readStringFromUTF8File(dest);
 				if(!content.contains(stringToReplace) && content.contains(replaceString)) verified = true;
 			}catch(Exception ignore){}
-			
+
 			if(!verified){
 				Logging.LogTestFailure(counterID+"'"+dest+"' still contains string '"+stringToReplace+"'.");
 				fail++;
@@ -113,7 +113,7 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		//SetFileProtections
 		FileAttribute expectedAttribute = null;
 		expectedAttribute = FileAttribute.instance(FileAttribute.Type.SYSTEMFILE);
@@ -139,7 +139,7 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		//GetFiles
 		//Set all file in array files to normal file.
 		expectedAttribute = FileAttribute.instance(FileAttribute.Type.NORMALFILE);
@@ -160,7 +160,7 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		fileList = directory+"normalList.txt";
 		if(Files.GetFiles(directoryToCheck, fileList, FileAttribute.instance())){//GetFiles second API
 			String contents = FileUtilities.readStringFromUTF8File(fileList);
@@ -174,13 +174,13 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		//Set all file in array files to readonly file.
 		//As Files.GetFiles will always return "normal file", to avoid returning all files,
 		//change them to a special type "readonly"
 		expectedAttribute = FileAttribute.instance(FileAttribute.Type.READONLYFILE);
 		for(String afile:files) if(!Files.SetFileProtections(afile, expectedAttribute)) fail++;
-		
+
 		//Verify that GetFiles get all the archive files + normal files
 		String[] archiveFiles = {files[4], files[5]};
 		expectedAttribute = FileAttribute.instance(FileAttribute.Type.ARCHIVEFILE);
@@ -198,7 +198,7 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		//Verify that GetFiles get all the hidden files + normal files
 		String[] hiddenFiles = {files[7], files[8]};
 		expectedAttribute = FileAttribute.instance(FileAttribute.Type.HIDDENFILE);
@@ -216,7 +216,7 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		//Verify that GetFiles get all the archive files, hidden files and normal files
 		String[] archiveAndhiddenFiles = {files[4], files[5], files[7], files[8]};
 		expectedAttribute = FileAttribute.instance(FileAttribute.Type.HIDDENFILE).add(FileAttribute.Type.ARCHIVEFILE);
@@ -234,7 +234,7 @@ public class FilesTests extends Regression{
 		}else{
 			fail++;
 		}
-		
+
 		fileList = directory+"allFilesList.txt";
 		if(Files.GetFiles(directoryToCheck, fileList, new FileAttribute(Type.ALLFILES))){
 			String contents = FileUtilities.readStringFromUTF8File(fileList);
@@ -252,59 +252,59 @@ public class FilesTests extends Regression{
 		directory = Utilities.appendDir(directory, "New Directory");
 		file = Utilities.appendDir(directory, "new test file3.txt");
 		if(Files.CreateDirectory(directory)){
-			
+
 			if(Files.CreateFile(file, Mode.OUTPUT, Access.W, result)){
 				fileNo = GetVariableValue(result);
-				
+
 				Logging.LogMessage(counterID+" '"+file+"' is created and opened with file number '"+fileNo+"' for output.");
-				
+
 				int charsToWrite = 10;
 				String content = "'Files.CreateFile(file, Mode.OUTPUT, Access.W, result)'";
 				if(!Files.WriteFileChars(fileNo, charsToWrite, content)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, content, Placement.NEWLINE)) fail++;
-				
+
 				String separator = "=================================================";
 				if(!Files.PrintToFile(fileNo, separator, Placement.NEWLINE)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, content, Placement.IMMIDIATE)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, separator, Placement.NEWLINE)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, content, Placement.TABULATION)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, separator, Placement.NEWLINE)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, content)) fail++;
-				
+
 				if(!Files.CloseFile(fileNo)) fail++;
-				
+
 				if(!Files.GetFileSize(file, result)) fail++;
-				
+
 				if(!Files.GetFileDateTime(file, result)) fail++;
-				
+
 				if(!Files.GetFileDateTime(file, result, true, DateType.LASTACCESSED)) fail++;
-				
+
 				if(!Files.GetFileDateTime(file, result, true, DateType.CREATED)) fail++;
-				
+
 				if(!Files.GetFileDateTime(file, result, true, DateType.LASTMODIFIED)) fail++;
-				
+
 			}else{
 				Logging.LogTestFailure(counterID+" Fail to CreateFile '"+file+"', WriteFileChars/PrintToFile/CloseFile/GetFileSize/GetFileDateTime APIs are not tested!!!");
 				fail++;
 			}
-			
+
 			if(Files.OpenFile(file, Mode.INPUT, Access.R, result)){
 				fileNo = GetVariableValue(result);
 				Logging.LogMessage(counterID+" '"+file+"' has been opened with file number '"+fileNo+"' for input.");
 				int charsToRead = 15;
 				if(!Files.ReadFileChars(fileNo, charsToRead, result)) fail++;
-				
+
 				charsToRead = 18;
 				if(!Files.ReadFileChars(fileNo, charsToRead, result)) fail++;
-				
+
 				if(!Files.ReadFileLine(fileNo, result)) fail++;
-				
+
 				String line = null;
 				while(true){
 					if(Files.IsEndOfFile(fileNo, result)){
@@ -318,42 +318,42 @@ public class FilesTests extends Regression{
 						break;
 					}
 				}
-				
+
 				if(!Files.CloseFile(fileNo)) fail++;
-				
+
 			}else{
 				Logging.LogTestFailure(counterID+" Fail to OpenFile '"+file+"', ReadFileChars/ReadFileLine/IsEndOfFile/CloseFile APIs may not be tested!!!");
 				fail++;
 			}
-			
+
 			if(Files.OpenFile(file, Mode.APPEND, Access.W, result)){
 				fileNo = GetVariableValue(result);
 				Logging.LogMessage(counterID+" '"+file+"' has been opened with file number '"+fileNo+"' for append.");
-				
+
 				String separator = "====================  APPENDING CONTENT =============================";
 				if(!Files.PrintToFile(fileNo, separator, Placement.NEWLINE)) fail++;
-				
+
 				int charsToWrite = 25;
 				String content = "'Files.CreateFile(file, Mode.OUTPUT, Access.W, result)'";
 				if(!Files.WriteFileChars(fileNo, charsToWrite, content)) fail++;
-				
+
 				if(!Files.CloseFile(fileNo)) fail++;
-				
+
 			}else{
 				Logging.LogTestFailure(counterID+" Fail to OpenFile '"+file+"', PrintToFile/WriteFileChars/CloseFile APIs may not be tested!!!");
 				fail++;
 			}
-			
+
 			dest = Utilities.appendDir(directory, "copy of file3.txt");
 			if(!Files.CopyFile(quote(file), quote(dest))) fail++;
-			
+
 			dest = Utilities.appendDir(directory, "second copy of file3.txt");
 			String fileDriverCommand = "CopyFile";
 			if(!Files.IfExistFile(file, fileDriverCommand, file, dest)) fail++;
-			
+
 			String newdest = Utilities.appendDir(directory, "renamed second copy of file3.txt");
 			if(!Files.RenameFile(dest, newdest, true)) fail++;
-			
+
 			String regexPattern = "CreateFile\\(.*\\)";
 			String replace = "FilterTextFile(file, regexPattern, replace)";
 			boolean caseSensitive = true;
@@ -381,7 +381,7 @@ public class FilesTests extends Regression{
 							break;
 						}
 					}
-					
+
 					if(!Files.CloseFile(fileNo)) fail++;
 				}else{
 					fail++;
@@ -389,7 +389,7 @@ public class FilesTests extends Regression{
 			}else{
 				fail++;
 			}
-			
+
 			String regexStart = "\\.";
 			String regexStop = "\\(";
 			String method = "Method";
@@ -402,39 +402,39 @@ public class FilesTests extends Regression{
 			}else{
 				fail++;
 			}
-			
+
 			file = Utilities.appendDir(directory, "UTF8 FILE.txt");
 			if(Files.OpenUTF8File(file, Mode.OUTPUT, Access.W, result)){
 				fileNo = GetVariableValue(result);
 				Logging.LogMessage(counterID+" '"+file+"' is created and opened with file number '"+fileNo+"' for output UTF8 strings.");
-				
+
 				int charsToWrite = 10;
 				String content = "中文字符  输入UTF8 文件 saturday sat sunday sun";
 				if(!Files.WriteFileChars(fileNo, charsToWrite, content)) fail++;
-				
+
 				if(!Files.PrintToFile(fileNo, content, Placement.NEWLINE)) fail++;
-				
+
 				content = "中文字符  输入UTF8 文件 Saturday Sat Sunday Sun";
 				if(!Files.PrintToFile(fileNo, content, Placement.NEWLINE)) fail++;
-				
+
 				content = "中文字符  输入UTF8 文件 SATURDAY SAT SUNDAY SUN";
 				if(!Files.PrintToFile(fileNo, content, Placement.NEWLINE)) fail++;
-				
+
 				String separator = "====================  中文 =============================";
 				if(!Files.PrintToFile(fileNo, separator, Placement.NEWLINE)) fail++;
-				
+
 				if(!Files.CloseFile(fileNo)) fail++;
-				
+
 			}else{
 				Logging.LogTestFailure(counterID+" Fail to OpenFile '"+file+"', WriteFileChars/PrintToFile/CloseFile APIs may not be tested!!!");
 				fail++;
 			}
-			
+
 			newdest = Utilities.appendDir(directory, "Copy of UTF8 FILE.txt");
 			if(Files.CopyFile(quote(file), quote(newdest))){
 				regexPattern = "saturday|sat|sunday|sun";
 				replace = "weekend";
-				
+
 				caseSensitive = false;//true
 				pattern = caseSensitive? Pattern.compile(regexPattern):Pattern.compile(regexPattern,Pattern.CASE_INSENSITIVE);
 				if(Files.FilterTextFile(file, regexPattern, replace, false)){
@@ -460,19 +460,19 @@ public class FilesTests extends Regression{
 								break;
 							}
 						}
-						
+
 						if(!Files.CloseFile(fileNo)) fail++;
 					}
 				}else{
 					fail++;
 				}
-				
 
-				
+
+
 			}else{
 				fail++;
 			}
-			
+
 			String toDirectory = Utilities.appendDir(baseDirecotory, "Copy Directory");
 			if(Files.CreateDirectory(toDirectory)){
 				if(!Files.CopyMatchingFiles(directory, toDirectory, "[a-z ]*d.*", PatternFilterMode.REGEXP)) fail++;
@@ -480,28 +480,28 @@ public class FilesTests extends Regression{
 			}else{
 				fail++;
 			}
-			
+
 			String newdir = Utilities.appendDir(directory, "NewDirectory");
 			fileDriverCommand = "CreateDirectory";
 			if(!Files.IfExistDir(directory, fileDriverCommand, newdir)) fail++;
-			
+
 		}else{
 			Logging.LogTestFailure(counterID+" Fail to CreateDirctory '"+directory+"', A LOF OF APIs not tested!!!");
 			fail++;
 		}
-		
+
 		String image = utils.testAssetFile("keyword.png");
 		if(!Files.GetTextFromImage(image, result, OCREngine.OCR_T_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "3.0")) fail++;
 		if(!Files.GetTextFromImage(image, result, OCREngine.OCR_G_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "2.0")) fail++;
-		
+
 		String textFile = Utilities.appendDir(baseDirecotory, "image_T.txt");
 		if(!Files.SaveTextFromImage(image, textFile, OCREngine.OCR_T_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "2.0")) fail++;
 		textFile = Utilities.appendDir(baseDirecotory, "image_G.txt");
 		if(!Files.SaveTextFromImage(image, textFile, OCREngine.OCR_G_ENGINE_KEY, Locale.ENGLISH.getLanguage(), "2.5")) fail++;
-		
+
 		String coords = "0,0,70%,50%";
 		String subimage = Utilities.appendDir(baseDirecotory, "subimage.png");
-		if(!Files.FilterImage(image, subimage, coords)) fail++;	
+		if(!Files.FilterImage(image, subimage, coords)) fail++;
 		subimage = Utilities.appendDir(baseDirecotory, "subimage2.png");
 		//filter 2 areas
 		coords = "0,0,70%,50% 80%;80%;100%;100%";
@@ -513,18 +513,18 @@ public class FilesTests extends Regression{
 		subareas.add(new SubArea("50%", "50%", "60%", "70%"));
 		subareas.add(new SubArea("80%", "80%", "90%", "90%"));
 		if(!Files.FilterImage(image, subimage, subareas)) fail++;
-	
+
 		file = utils.projectFile("test.ini");
 		String section = null;
 		String item = null;
 		section = "SAFS_TEST";
 		item = "TestName";
 		if(!Files.GetINIFileValue(file, section, item, result)) fail++;
-		
+
 		section = "SAFS_DIRECTORIES";
 		item = "TESTDIR";
 		if(!Files.GetINIFileValue(file, section, item, result)) fail++;
-		
+
 		if(cleanAll){
 			//Test to delete non-empty folder
 			if(Files.DeleteDirectory(directory)){//"New Directory"
@@ -533,9 +533,9 @@ public class FilesTests extends Regression{
 			}else{
 				Logging.LogMessage(counterID+" Expected result: directory '"+directory+"' is not empty, cannot be deleted.");
 			}
-			
+
 			if(!Files.DeleteDirectoryContents(directory)) fail++;
-			
+
 			if(!Files.DeleteDirectory(directory)) fail++;
 
 			//Test to delect an empty folder
@@ -545,7 +545,7 @@ public class FilesTests extends Regression{
 			}else{
 				fail++;
 			}
-			
+
 			//Delete the whole test folder
 			if(!Files.DeleteDirectoryContents(baseDirecotory, true)) fail++;
 		}
@@ -575,7 +575,7 @@ public class FilesTests extends Regression{
 
 		try{
 			fail += testAPI(COUNTER, cleanAll);
-			
+
 		}catch(Throwable t){
 			fail++;
 			Logging.LogTestFailure(COUNTER +" fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
