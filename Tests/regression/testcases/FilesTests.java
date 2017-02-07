@@ -34,10 +34,10 @@ public class FilesTests extends Regression{
 	private static int testAPI(String counterPrefix, boolean cleanAll) throws Throwable{
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		boolean expression = Misc.isExpressionsOn();
-		if(expression){
+		boolean originalExpression = Misc.isExpressionsOn();
+		if(originalExpression){
 			if(!Misc.Expressions(false)){
-				Logging.LogTestWarning(counterID+" Fail to turn off Expression! Some APIs may fail!");
+				Logging.LogTestWarning(counterID+" Failed to turn off Expression! Some APIs may fail!");
 			}
 		}
 
@@ -558,6 +558,12 @@ public class FilesTests extends Regression{
 			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
+		if(originalExpression){
+			if(!Misc.Expressions(originalExpression)){
+				Logging.LogTestWarning(counterID+" Failed to set Expression to its original value '"+originalExpression+"'!");
+			}
 		}
 
 		return fail;

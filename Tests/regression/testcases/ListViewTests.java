@@ -418,13 +418,26 @@ public class ListViewTests extends Regression{
 	}
 
 	public void runTest() throws Throwable{
+		String counterID = StringUtils.debugmsg(false);
 		List<String> enabledDomains = new ArrayList<String>();
 		enabledDomains.add(Domains.HTML_DOMAIN);
 		enabledDomains.add(Domains.HTML_DOJO_DOMAIN);
 		enabledDomains.add(Domains.HTML_SAP_DOMAIN);
 		initUtils();
-		Misc.Expressions(false);
-		runRegressionTest(enabledDomains);
+
+		boolean originalExpression = Misc.isExpressionsOn();
+		try{
+			if(originalExpression){
+				if(!Misc.Expressions(false)){
+					Logging.LogTestWarning(counterID+"Failed to turned off Expression!");
+				}
+			}
+			runRegressionTest(enabledDomains);
+		}finally{
+			if(!Misc.Expressions(originalExpression)){
+				Logging.LogTestWarning(counterID+"Failed to set Expression to its original value '"+originalExpression+"'");
+			}
+		}
 	}
 
 }
