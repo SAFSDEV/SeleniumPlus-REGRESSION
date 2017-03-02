@@ -20,7 +20,7 @@ W3CPromptURL="http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_prompt"
 
 [GoJSSamples]
 Diagram="id=myDiagramDiv"
-MenuPageFlow="id=menu;\;xpath=//li[.='Page Flow']"
+MenuPageFlow="id=sections;\;xpath=//li[.='Page Flow']"
 Palette="id=palette"
 
 [ThomasBayerPage]
