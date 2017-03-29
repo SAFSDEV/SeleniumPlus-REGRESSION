@@ -6,15 +6,15 @@ import org.safs.selenium.webdriver.SeleniumPlus;
 import regression.Map;
 import regression.testruns.Regression;
 
-/** 
+/**
  * <pre>
  * 	 java -cp %CLASSPATH% regression.testcases.IBTTests
  * </pre>
  * @see org.safs.selenium.webdriver.SeleniumPlus#main(java.lang.String[])
- */ 
+ */
 public class IBTTests extends SeleniumPlus {
 	public static final String COUNTER = StringUtils.getClassName(0, false);
-	
+
 	/** "IBTImageTests.MAP" */
 	public static String IBTTESTS_APPMAP = "IBTImageTests.MAP";
 
@@ -27,9 +27,9 @@ public class IBTTests extends SeleniumPlus {
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		if(! Misc.LaunchApplication(Map.SwingAppID(), quote("java -jar "+ Map.SwingAppJar()))) fail++;
-		Pause(2);		
+		Pause(2);
 
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
@@ -43,9 +43,9 @@ public class IBTTests extends SeleniumPlus {
 
 		return fail;
 	}
-	
+
 	/**
-	 * Click on the SwingApp titlebar to activate the window. 
+	 * Click on the SwingApp titlebar to activate the window.
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
 	 */
@@ -53,7 +53,7 @@ public class IBTTests extends SeleniumPlus {
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		if( ! Click(Map.SwingApp.SwingApp) ) fail++;
 
 		Counters.StopCounter(counterID);
@@ -68,9 +68,9 @@ public class IBTTests extends SeleniumPlus {
 
 		return fail;
 	}
-	
+
 	/**
-	 * Click on the SwingApp titlebar to activate the window. 
+	 * Click on the SwingApp titlebar to activate the window.
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
 	 */
@@ -78,14 +78,14 @@ public class IBTTests extends SeleniumPlus {
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		if( ! Click(Map.SwingApp.TitleBar) ) fail++;
 		Pause(1);
 		if( ! Click(Map.SwingApp.JDragTab) ) fail++;
 		Pause(1);
 		TypeKeys("{RIGHT}");
 		Pause(1);
-		
+
 		if( ! Click(Map.IBTWinIR.TitleBar) ) fail++;
 		Pause(1);
 		if( ! Click(Map.IBTWinIR.JDragTab) ) fail++;
@@ -111,7 +111,7 @@ public class IBTTests extends SeleniumPlus {
 
 		return fail;
 	}
-	
+
 	/**
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
@@ -120,7 +120,7 @@ public class IBTTests extends SeleniumPlus {
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		fail += ActivateSwingApp(counterID);
 		if( ! DoubleClick(Map.SwingApp.JDragTab) ) fail++;
 
@@ -136,7 +136,7 @@ public class IBTTests extends SeleniumPlus {
 
 		return fail;
 	}
-	
+
 	/**
 	 * @return the number of unexpected failures encountered.
 	 * @throws Throwable
@@ -145,7 +145,7 @@ public class IBTTests extends SeleniumPlus {
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		fail += ActivateSwingApp(counterID);
 		if(! TypeKeys(quote("%{F4}"))) fail++;
 
@@ -170,7 +170,7 @@ public class IBTTests extends SeleniumPlus {
 	public static int runRegressionTest() throws Throwable{
 		int fail = 0;
 		Counters.StartCounter(COUNTER);
-		
+
 		if(! Misc.SetApplicationMap(IBTTESTS_APPMAP)) fail++;
 		fail += LaunchSwingApp(COUNTER);
 
@@ -178,11 +178,11 @@ public class IBTTests extends SeleniumPlus {
 		Pause(1);
 		TypeKeys("{RIGHT}");
 		Pause(1);
-		
+
 		fail += TestIBTWindows(COUNTER);
-		
+
 		fail += CloseSwingApp(COUNTER);
-		
+
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
 		Counters.LogCounterInfo(COUNTER);
@@ -195,8 +195,8 @@ public class IBTTests extends SeleniumPlus {
 
 		return fail;
 	}
-	
-	/** 
+
+	/**
 	 * Simply runs the Regression Test.
 	 * @see #runRegressionTest()
      * @see org.safs.selenium.webdriver.SeleniumPlus#main(java.lang.String[])

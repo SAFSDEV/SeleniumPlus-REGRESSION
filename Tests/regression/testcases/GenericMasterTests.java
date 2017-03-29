@@ -129,7 +129,7 @@ public class GenericMasterTests extends Regression{
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		if(Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
 			String ID = null;
 
@@ -209,12 +209,12 @@ public class GenericMasterTests extends Regression{
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview6.png", Map.subarea, Map.FilteredAreas2())) trace(++fail);
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview7.png", "", quote(FILTER+"="+Map.FilteredAreas2))) trace(++fail);
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview8.png", Map.subarea, quote(FILTER+"="+Map.FilteredAreas2()))) trace(++fail);
-			
+
 			//GetGUIImage with warnings
 			Logging.LogWarningOK("GetGUIImage Warnings Expected: Without prefix '"+FILTER+"', the parameter FilteredAreas will be ignored. GetGUIImage produces Warning, but passes.");
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview9.png", "", Map.FilteredAreas1)) trace(++fail);//Without prefix Filter
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview10.png", "", Map.FilteredAreas1())) trace(++fail);//Without prefix Filter
-			
+
 			Logging.LogWarningOK("GetGUIImage Warnings Expected: Part of 'FilteredAreasWithWarning' are wrong and will be ignored. GetGUIImage produces Warnings, but passes.");
 			if(!GetGUIImage(Map.SAPDemoPage.Basc_ListBox, "filteredListview11.png", "", "FilteredAreasWithWarning")) trace(++fail);//Part of areas are wrong
 
@@ -246,16 +246,16 @@ public class GenericMasterTests extends Regression{
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", Map.FilteredAreas2())) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"="+Map.FilteredAreas2))) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"="+Map.FilteredAreas2()))) trace(++fail);
-				
+
 				//VerifyGUIImageToFile passes with warnings
 				Logging.LogWarningOK("VerifyGuiImageToFile 2 Warnings Expected: Bad parameter FilteredAreas will be ignored. VerifyGUIImageToFile produces Warnings, but passes.");
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", Map.FilteredAreas1)) trace(++fail);
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", Map.FilteredAreas1())) trace(++fail);
-				
+
 				//VerifyGUIImageToFile passes with warnings
 				Logging.LogWarningOK("VerifyGuiImageToFile Multiple Warnings Expected: 'FilteredAreasWithWarning' are wrong and will be ignored. VerifyGUIImageToFile produces Warnings, but passes.");
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", "FilteredAreasWithWarning")) trace(++fail);
-				
+
 				//VerifyGUIImageToFile errors with warnings
 				Logging.LogFailureOK("VerifyGuiImageToFile Failure Expected: All filtered areas are wrong. VerifyGUIImageToFile produces Warnings and fails.");
 				if(VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote(FILTER+"=0,0,%,15%"))) {
@@ -270,7 +270,7 @@ public class GenericMasterTests extends Regression{
 
 				Logging.LogWarningOK("VerifyGuiImageToFile Warning(s) Expected: Filter param(s) is too big. VerifyGUIImageToFile produces Warnings, but passes.");
 				if(!VerifyGUIImageToFile(Map.SAPDemoPage.Basc_ListBox, listviewPic, "", "", "", quote("Filter=0,0,511,511 512,512,1024,1024"))) trace(++fail);
-				
+
 
 				//Remove all generated actual files.
 				deleteGeneratedActualFiles(listviewPic);
@@ -440,8 +440,8 @@ public class GenericMasterTests extends Regression{
 			// 						[Reference URL: http://www.w3.org/TR/css3-fonts/#font-family-prop,
 			// 				   						http://stackoverflow.com/questions/17967371/are-property-values-in-css-case-sensitive, and
 			// 				   						http://stackoverflow.com/questions/12533926/are-class-names-in-css-selectors-case-sensitive/12533957#12533957]
-			// 						So it may be meaningless to check the 'font-family' name with case-sensitive. I'll comment the 'font-family case-sensitive' test case below. 
-			// 			
+			// 						So it may be meaningless to check the 'font-family' name with case-sensitive. I'll comment the 'font-family case-sensitive' test case below.
+			//
 			//
 //			if(!Component.VerifyPropertyContains(Map.SAPDemoPage.Basc_ComboBox, quote(property), containedValue)) trace(++fail);
 
@@ -613,7 +613,7 @@ public class GenericMasterTests extends Regression{
 
 		Logging.LogMessage(counterID+" WDLibrary.setDelayBetweenKeystrokes(70).");
 		WDLibrary.setDelayBetweenKeystrokes(70); // direct calls often are too fast for UI without delayBetweenKeystrokes
-		
+
 		if(! StartWebBrowser(Map.GoogleURL(), counterID, browser)) trace(++fail);
 		if(fail == 0){
 			if(! Misc.SetApplicationMap("MiscTests")) trace(++fail);
@@ -630,7 +630,7 @@ public class GenericMasterTests extends Regression{
 			if(! Click(Map.LogIn.BackArrow)) trace(++fail);
 			WebElement e = getObject(Map.LogIn.UserName);
 			if(e != null){
-				
+
 				try{
 					Logging.LogMessage(counterID+" attempting WebElement.clear().");
 					// Here may need clear the Edit box because of the setting focus action of WDLibrary.inputChars()
@@ -640,61 +640,61 @@ public class GenericMasterTests extends Regression{
 
 					Logging.LogMessage(counterID+" attempting WDLibary.inputChars "+ Map.GoogleUser());
 					WDLibrary.inputChars(e,  Map.GoogleUser());
-				}catch(Throwable t){ 
+				}catch(Throwable t){
 					trace(++fail);
 					Logging.LogTestFailure(counterID+" failed WDLibrary.inputChars "+ Map.GoogleUser());}
-				
+
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
-				try{ 
+				try{
 					Logging.LogMessage(counterID+" attempting WDLibary.inputKeys "+ CLEAR);
-					// DOES NOT TAKE ^a and DELETE reliably. 
+					// DOES NOT TAKE ^a and DELETE reliably.
 					// MUST separate unless DelayBetweenKeystrokes
-					WDLibrary.inputKeys(e,  CLEAR); 
-					// WDLibrary.inputKeys(e,  "^a");					
+					WDLibrary.inputKeys(e,  CLEAR);
+					// WDLibrary.inputKeys(e,  "^a");
 					// WDLibrary.inputKeys(e,  "{DELETE}");
-				}catch(Throwable t){ 
+				}catch(Throwable t){
 					trace(++fail);
 					Logging.LogTestFailure(counterID+" failed WDLibary.inputKeys "+ CLEAR);}
-				
+
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
 				try{
 					Logging.LogMessage(counterID+" attempting WDLibary.inputKeys "+ Map.GoogleUser());
 					WDLibrary.inputKeys(e,  Map.GoogleUser());
-					}catch(Throwable t){ 
+					}catch(Throwable t){
 						trace(++fail);
 					    Logging.LogTestFailure(counterID+" failed WDLibary.inputKeys "+ Map.GoogleUser());}
-				
+
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 
-				try{ 
+				try{
 					Logging.LogMessage(counterID+" attempting WDLibary.inputKeysSAFS2Selenium "+ CLEAR);
-					
+
 					/**
 					 * DEC 16, 2015    (Tao Xie)
 					 * As 'WDLibrary.inputKeysSAFS2Selenium' will set focus at beginning,
 					 * we need to combine the "^a" and "{Delete}" into one inputting contents.
 					 * Otherwise the 'set focus' action of "{Delete}" will make the "select all" action invalid.
-					 * 
+					 *
 					 * Also keep the original comment "TOO FAST..." below.
 					 */
-					WDLibrary.inputKeysSAFS2Selenium(e,  CLEAR); // TOO FAST.  Needs DelayBetweenKeystrokes? 
+					WDLibrary.inputKeysSAFS2Selenium(e,  CLEAR); // TOO FAST.  Needs DelayBetweenKeystrokes?
 //					WDLibrary.inputKeysSAFS2Selenium(e,  "^a");
 //					WDLibrary.inputKeysSAFS2Selenium(e,  "{DELETE}");
-				}catch(Throwable t){ 
+				}catch(Throwable t){
 					trace(++fail);
 					Logging.LogTestFailure(counterID+" failed WDLibary.inputKeysSAFS2Selenium "+ CLEAR);}
-				
+
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);
 
-				try{ 
+				try{
 					Logging.LogMessage(counterID+" attempting WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());
 					WDLibrary.inputKeysSAFS2Selenium(e,  Map.GoogleUser());
-				}catch(Throwable t){ 
+				}catch(Throwable t){
 					trace(++fail);
 					Logging.LogTestFailure(counterID+" failed WDLibary.inputKeysSAFS2Selenium "+ Map.GoogleUser());}
-				
+
 				if(! Component.VerifyProperty(Map.LogIn.UserName, "value", Map.GoogleUser())) trace(++fail);
 			}else{
 				fail++;
@@ -703,17 +703,17 @@ public class GenericMasterTests extends Regression{
 
 			if(! StopWebBrowser(counterID)) trace(++fail);
 		}
-		
+
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
 		if(fail > 0){
 			Logging.LogTestFailure(counterID+" reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess(counterID+" did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
 
@@ -792,7 +792,7 @@ public class GenericMasterTests extends Regression{
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
-		
+
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
 			WebElement textarea = SeleniumPlus.getObject(Map.SAPDemoPage.Basc_TextArea);
 			WDLibrary.focus(textarea);
@@ -822,7 +822,7 @@ public class GenericMasterTests extends Regression{
 				Logging.LogTestWarning(debugmsg+" Fail to zoom by WDLibrary Ctrl+/-. '"+StringUtils.debugmsg(e));
 				fail++;
 			}
-		
+
 			try{
 				//by keys Ctrl+, Ctrl-, Ctrl0, thru wrapper class Component
 				Component.InputKeys(Map.SAPDemoPage.Basc_TextArea, "^{Num+}");
@@ -833,7 +833,7 @@ public class GenericMasterTests extends Regression{
 				Logging.LogTestWarning(debugmsg+" Fail to zoom by SeleniumPlus Ctrl+/-. '"+StringUtils.debugmsg(e));
 				fail++;
 			}
-			
+
 			try{
 				//by keys Ctrl+, Ctrl-, Ctrl0, thru Selenium API directly
 				//Selenium API is not reliable, Ctrl+ cannot work on firefox
@@ -842,26 +842,26 @@ public class GenericMasterTests extends Regression{
 				actions = new Actions(wd);
 				WDLibrary.focus(textarea);
 				actions.keyDown(Keys.CONTROL).perform();
-				
+
 				actions.sendKeys("+").perform();//can NOT zoom in
 				actions.sendKeys("-").perform();//can zoom out
 				actions.sendKeys("0").perform();//can zoom to normal size
-				
+
 				//can NOT zoom in, by Shift=
 				actions.keyDown(Keys.SHIFT).perform();
 				actions.sendKeys(Keys.EQUALS).perform();
 				actions.keyUp(Keys.SHIFT).perform();
-				
+
 				actions.sendKeys(Keys.ADD).perform();
 				actions.sendKeys(Keys.SUBTRACT).perform();
 				actions.sendKeys("0").perform();//can zoom to normal size
-				
+
 				actions.keyUp(Keys.CONTROL).perform();
 			}catch(Exception e){
 				Logging.LogTestWarning(debugmsg+" Fail to zoom by Selenium Actions Ctrl+/-. '"+StringUtils.debugmsg(e));
 				//fail++;//It is not SE+ bug, don't increment the number of fail
 			}
-			
+
 		}else{
 			trace(++fail);
 			Logging.LogTestWarning(debugmsg+" Fail to ClickTab '"+Map.Tab_basc_comp()+"', some APIs not tested!");
@@ -879,15 +879,15 @@ public class GenericMasterTests extends Regression{
 
 		return fail;
 	}
-	
+
 	private static int testShowOnPage(String counterPrefix) throws Throwable{
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String debugmsg = StringUtils.debugmsg(false);
-		
+
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
-			
+
 			try{
 				Window.SetPosition(Map.SAPDemoPage.SAPDemoPage, 0, 0, 1024, 768);
 				if(!Component.ShowOnPage(Map.SAPDemoPage.Basc_ListBox)) fail++;
@@ -913,10 +913,10 @@ public class GenericMasterTests extends Regression{
 					Logging.LogTestWarning("Verification error, it is caused by Selenium's API getLocation return negative value for x-coordinates. ");
 				}
 				Pause(2);
-				
+
 				//Set back the window's location
 				Window.SetPosition(Map.SAPDemoPage.SAPDemoPage, 0, 0, 1024, 768);
-				
+
 			}catch(Exception e){
 				//If running on remote grid/node and SAFS RMI server is not running, we will fail
 				Logging.LogTestWarning(debugmsg+" Fail to zoom by Ctrl+MouseWheel. '"+StringUtils.debugmsg(e));
@@ -940,9 +940,9 @@ public class GenericMasterTests extends Regression{
 
 		return fail;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * As the VerifyGUIImageToFile will generate a lot of acutal files, if they
 	 * are not useful, we can delete them by this method.
@@ -977,7 +977,7 @@ public class GenericMasterTests extends Regression{
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		String browsers = Map.TestBrowserName();
-		
+
 		if(browsers == null || browsers.trim().isEmpty()){
 			browsers = FF;
 			Logging.LogTestWarning("testKeyboardInput cannot get TestBrowserName from map, use " + browsers);
@@ -988,7 +988,7 @@ public class GenericMasterTests extends Regression{
 		for(String browser: browserArray){
 			fail += testKeyboardInput(counterID, browser);
 		}
-		
+
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
@@ -998,15 +998,15 @@ public class GenericMasterTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
-	
+
 	public static int testAPIAllBrowsers(String counterPrefix, List<String> enabledDomains) throws Throwable{
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
 			fail += testAPI(counterID);
@@ -1014,7 +1014,7 @@ public class GenericMasterTests extends Regression{
 			trace(++fail);
 			Logging.LogTestFailure("testAPIAllBrowsers fatal error due to "+t.getClass().getName()+", "+ t.getMessage());
 		}
-		
+
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
@@ -1024,10 +1024,10 @@ public class GenericMasterTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws Throwable
@@ -1037,10 +1037,10 @@ public class GenericMasterTests extends Regression{
 		Counters.StartCounter(COUNTER);
 
 		fail += testKeyboardInputAllBrowsers(COUNTER);
-		fail += testAPIAllBrowsers(COUNTER, enabledDomains);		
+		fail += testAPIAllBrowsers(COUNTER, enabledDomains);
 		//utils = new Utilities(Runner.jsafs());
 		//fail += testAPIForSAP(COUNTER, "chrome");
-				
+
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
 		Counters.LogCounterInfo(COUNTER);

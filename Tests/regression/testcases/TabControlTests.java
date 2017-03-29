@@ -21,7 +21,7 @@ public class TabControlTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -122,7 +122,7 @@ public class TabControlTests extends Regression{
 				ID = startBrowser(browser, Map.SAPDemoURL());
 				if(ID!=null){
 					fail += sap_test_tabcontrol(counterID, Map.SAPDemoPage.TabControl);
-					
+
 				}else{
 					Logging.LogTestWarning(counterID+"StartWebBrowser '"+browser+"' Unsuccessful.");
 					trace(++fail);
@@ -167,33 +167,33 @@ public class TabControlTests extends Regression{
 
 		String value = "JPan";
 		int index = -1;
-		
+
 		if(!TabControl.ClickTab(tabcontrol, value)) trace(++fail);
-		
+
 		value = "Calc";
 		if(!TabControl.ClickTabContains(tabcontrol, value)) trace(++fail);
-		
+
 		value = "JTable2";
 		if(!TabControl.MakeSelection(tabcontrol, value)) trace(++fail);
-		
+
 		value = "JTable";
 		if(!TabControl.SelectTab(tabcontrol, value)) trace(++fail);
-		
+
 		value = "Top Secret";//not visible, should fail
 		if(TabControl.SelectTab(tabcontrol, value)) trace(++fail);
-		
+
 		index = 1;
 		if(!TabControl.SelectTabIndex(tabcontrol, index)) trace(++fail);
-		
+
 		index = 5;
 		if(!TabControl.SelectTabIndex(tabcontrol, index)) trace(++fail);
-		
+
 		index = -1;//out of boundary, should fail
 		if(TabControl.SelectTabIndex(tabcontrol, index)) trace(++fail);
-		
+
 		index = 12;//out of boundary, should fail
 		if(TabControl.SelectTabIndex(tabcontrol, index)) trace(++fail);
-		
+
 		value = "JTable4";
 		if(!TabControl.UnverifiedClickTab(tabcontrol, value)) trace(++fail);
 

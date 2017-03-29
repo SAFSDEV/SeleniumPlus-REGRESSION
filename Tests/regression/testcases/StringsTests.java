@@ -6,9 +6,9 @@ import org.safs.selenium.webdriver.SeleniumPlus;
 import regression.testruns.Regression;
 
 public class StringsTests extends SeleniumPlus{
-	
+
 	protected static String COUNTER = StringUtils.getClassName(0, false);
-	
+
 	protected static boolean verify(String expectedResult, String variable){
 		try{
 			String result = SeleniumPlus.GetVariableValue(variable);
@@ -26,14 +26,14 @@ public class StringsTests extends SeleniumPlus{
 	protected static int testAPI(String counterPrefix) throws Throwable{
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		boolean expression = Misc.isExpressionsOn();
 		if(expression){
 			if(!Misc.Expressions(false)){
 				Logging.LogTestWarning(counterID+" Fail to turn off Expression! Some SeleniumPlus Strings API may fail!");
 			}
 		}
-		
+
 		int fail = 0;
 
 		String result = "result";
@@ -172,7 +172,7 @@ public class StringsTests extends SeleniumPlus{
 		if(!(Strings.Trim(source, result) && verify(expectedResult, result))) fail++;
 
 		Misc.Expressions(expression);
-		
+
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
@@ -210,7 +210,7 @@ public class StringsTests extends SeleniumPlus{
 	}
 
 	public void runTest() throws Throwable{
-		runRegressionTest();	
+		runRegressionTest();
 	}
 
 }

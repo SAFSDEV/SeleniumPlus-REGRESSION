@@ -14,7 +14,7 @@ public class GenericObjectTests extends Regression{
 
 	public static final String COUNTER = StringUtils.getClassName(0, false);
 	static final String FILTER = ComponentFunction.PARAM_FILTER;
-	
+
 	/**
 	 * <B>NOTE:</B>
 	 * <pre>
@@ -23,7 +23,7 @@ public class GenericObjectTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -63,15 +63,15 @@ public class GenericObjectTests extends Regression{
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-		
+
 		if(Misc.SetApplicationMap(MAP_FILE_HTMLAPP)){
 			String ID = null;
-			
+
 			try{
 				ID = startBrowser(browser, Map.GOJS_MINIMAL_URL());
 				if(ID!=null){
 					fail +=html_gojs_testDrag(counterID);
-					
+
 				}else{
 					Logging.LogTestWarning(COUNTER+"StartWebBrowser '"+browser+"' Unsuccessful.");
 					fail++;
@@ -82,7 +82,7 @@ public class GenericObjectTests extends Regression{
 			}finally{
 				if(ID!=null) if(!StopWebBrowser(ID)) fail++;
 			}
-			
+
 		}else{
 			fail++;
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_HTMLAPP+"', cannot test in browser '"+browser+"'!");
@@ -100,12 +100,12 @@ public class GenericObjectTests extends Regression{
 
 		return fail;
 	}
-	
+
 	private static int html_gojs_testDrag(String counterPrefix){
 		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
-	
+
 		//1. Test some drag keywords on Minimal page "http://www.gojs.net/latest/samples/minimal.html"
 		//Drag one node
 		if(!LeftDrag(Map.GoJSSamples.Diagram, "coords=160, 160, 72, 160")) fail++;
@@ -123,7 +123,7 @@ public class GenericObjectTests extends Regression{
 		if(!RightDrag(Map.GoJSSamples.Diagram, "coords=300, 55, 350, 55")) fail++;
 		//Make an copy of the copy, put it to the left
 		if(!CtrlAltLeftDrag(Map.GoJSSamples.Diagram, "coords=350, 55, 300, 55")) fail++;
-		
+
 		//2. Test DragTo on PageFlow page "http://www.gojs.net/latest/samples/pageFlow.html"
 		Logging.LogMessage("Going to page 'Page Flow, try to test DragTo'");
 		/**
@@ -131,23 +131,23 @@ public class GenericObjectTests extends Regression{
 		 *     Using below '1-parameter version Click()' will make the 'DragTo()' fail with IE browser in VM environment.
 		 *     More specifically, after the '1-parameter version Click()', the 'getCurrentURL()' method in 'SearchObject.java',
 		 *     which will be called in the 'DragTo()' method, will throw 'Unable to get browser' exception.
-		 * 
+		 *
 		 * Notes:
 		 *     1. If we use Chrome or Firefox, it can succeed in any environment.
 		 *     2. If we use IE in local, NOT in VM environment, it also can success.
-		 *  
+		 *
 		 * Reason:
-		 *     This is probably due to the 3rd party Selenium's IE driver. 
+		 *     This is probably due to the 3rd party Selenium's IE driver.
 		 *         1. If we put a break point at 'Click(Map.GoJSSamples.MenuPageFlow)', then the whole test could pass successfully.
-		 *         2. If we make the IE lose the focus before executing 'Click(Map.GoJSSamples.MenuPageFlow)', then the test will succeed.     
+		 *         2. If we make the IE lose the focus before executing 'Click(Map.GoJSSamples.MenuPageFlow)', then the test will succeed.
 		 *     [Lei] The Selenium webdriver must do something extra in this situation. (This sounds strange, normally we need focus on component before performing
 		 *           something. But Selenium is different, it calls native methods/events and doesn't need focus.), I would consider this as Selenium IE driver's bug, not ours.
-		 * 
+		 *
 		 * Solution:
 		 *     As it's Selenium's bug not ours, we'll leave it here with comments as no fix.
-		 *     In order to make the Regression test pass, we'll use the 'Click()' method with 
+		 *     In order to make the Regression test pass, we'll use the 'Click()' method with
 		 *     coordinate, which will use Robot to execute the Click action.
-		 * 
+		 *
 		 */
 //		if(Click(Map.GoJSSamples.MenuPageFlow)){
 		Component.ShowOnPage(Map.GoJSSamples.MenuPageFlow, "true");
@@ -157,15 +157,15 @@ public class GenericObjectTests extends Regression{
 		 * 		short of setting IE's key in registry editor. You need to examine in the registry editor:
 		 * 		For 32-bit Windows: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE .
 		 * 		For 64-bit Windows: HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BFCACHE .
-		 * 		The FEATURE_BFCACHE subkey may or may not be present, and should be created if it is not present. 
+		 * 		The FEATURE_BFCACHE subkey may or may not be present, and should be created if it is not present.
 		 * 		Important: Inside this key, create a DWORD value named iexplore.exe with the value of 0.
-		 * 
+		 *
 		 * Reference URL:
 		 * 		https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver
 		 * @author Tao Xie
 		 */
 		if(Click(Map.GoJSSamples.MenuPageFlow, "5,5")){
-			//Drag some component from "palate" to "my diagram"			
+			//Drag some component from "palate" to "my diagram"
 			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "40, 20, 5%, 5%")) fail++;
 			Pause(1);
 			if(!Component.DragTo(Map.GoJSSamples.Palette, Map.GoJSSamples.Diagram, "10%, 20%, 20%, 20%")) fail++;
@@ -189,13 +189,13 @@ public class GenericObjectTests extends Regression{
 
 		return fail;
 	}
-	
+
 	private static int testAPIForDojo(String counterPrefix, String browser) throws Throwable{
-		int fail = 0;	
+		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_DOJOAPP)){
-	
+
 		}else{
 			fail++;
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_DOJOAPP+"', cannot test in browser '"+browser+"'!");
@@ -213,13 +213,13 @@ public class GenericObjectTests extends Regression{
 
 		return fail;
 	}
-	
+
 	private static int testAPIForSAP(String counterPrefix, String browser) throws Throwable{
-		int fail = 0;	
+		int fail = 0;
 		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 		if(Misc.SetApplicationMap(MAP_FILE_SAPDEMOAPP)){
-	
+
 		}else{
 			fail++;
 			Logging.LogTestFailure(COUNTER+"Fail to load map '"+MAP_FILE_SAPDEMOAPP+"', cannot test in browser '"+browser+"'!");
@@ -263,7 +263,7 @@ public class GenericObjectTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(COUNTER+" did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
 

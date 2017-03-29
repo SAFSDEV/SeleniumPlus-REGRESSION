@@ -22,7 +22,7 @@ public class EditBoxTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -42,13 +42,13 @@ public class EditBoxTests extends Regression{
 		//If the expression is on, turn it off; otherwise it will affect the "input text string"
 		boolean isExpressionOn = Misc.isExpressionsOn();
 		if(isExpressionOn) Misc.Expressions(false);
-		
+
 		for(String browser: browserArray){
 			if(Domains.isHtmlEnabled()) fail += testAPIForHtml(counterID, browser);
 			if(Domains.isDojoEnabled()) fail += testAPIForDojo(counterID, browser);
 			if(Domains.isSapEnabled()) fail+= testAPIForSAP(counterID, browser);
 		}
-		
+
 		//Set back to original expression
 		Misc.Expressions(isExpressionOn);
 
@@ -173,7 +173,7 @@ public class EditBoxTests extends Regression{
 		Counters.StartCounter(counterID);
 
 		String value = "Some Text";
-		
+
 		if(!EditBox.SetTextValue(editbox, value)) trace(++fail);
 		Pause(1);
 		if(!EditBox.SetUnverifiedTextValue(editbox, value)) trace(++fail);
@@ -182,7 +182,7 @@ public class EditBoxTests extends Regression{
 		Pause(1);
 		if(!EditBox.SetUnverifiedTextCharacters(editbox, value)) trace(++fail);
 		Pause(1);
-		
+
 		value = "Some Text with special keys +(abcd)";
 		if(!EditBox.SetTextValue(editbox, value)) trace(++fail);
 		Pause(1);

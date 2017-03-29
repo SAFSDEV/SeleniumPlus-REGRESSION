@@ -22,7 +22,7 @@ public class CheckBoxTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -48,13 +48,13 @@ public class CheckBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
 		if(fail > 0){
 			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
 
@@ -80,7 +80,7 @@ public class CheckBoxTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
 
@@ -100,13 +100,13 @@ public class CheckBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
 		if(fail > 0){
 			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
 
@@ -144,7 +144,7 @@ public class CheckBoxTests extends Regression{
 		}else{
 			trace(++fail);
 			Logging.LogTestFailure(counterID+"Fail to load map '"+mapID+"', cannot test in browser '"+browser+"'!");
-		}		
+		}
 
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
@@ -155,7 +155,7 @@ public class CheckBoxTests extends Regression{
 		}else{
 			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
 		}
-		
+
 		return fail;
 	}
 
@@ -172,12 +172,12 @@ public class CheckBoxTests extends Regression{
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
 		return fail;
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 * @throws Throwable
 	 */

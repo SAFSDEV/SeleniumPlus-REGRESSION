@@ -22,7 +22,7 @@ public class ComboBoxTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -44,7 +44,7 @@ public class ComboBoxTests extends Regression{
 			if(Domains.isDojoEnabled()) fail += testAPIForDojo(counterID, browser);
 			if(Domains.isSapEnabled()) fail+= testAPIForSAP(counterID, browser);
 		}
-		
+
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
@@ -181,11 +181,11 @@ public class ComboBoxTests extends Regression{
 		if(!ComboBox.CaptureItemsToFile(combobox, "ComboBoxDataUTF8.txt", "UTF-8")) trace(++fail);
 
 		String item = null;
-		
+
 		item = "Some Text";
 		if(!ComboBox.SetTextValue(combobox, item)) trace(++fail);
 		Pause(1);
-		
+
 		item = "Some Text with special keys +(abcd)";
 		if(!ComboBox.SetTextValue(combobox, item)) trace(++fail);
 		Pause(1);

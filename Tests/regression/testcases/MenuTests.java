@@ -21,7 +21,7 @@ public class MenuTests extends Regression{
 	 * TestBrowserName="firefox"
 	 * ;TestBrowserName="firefox chrome explorer"
 	 * </pre>
-	 * 
+	 *
 	 * @return int, the number of error occurs
 	 * @throws Throwable
 	 */
@@ -165,7 +165,7 @@ public class MenuTests extends Regression{
 			Logging.LogTestWarning(debugmsg+" Fail to turn off expression, some tests will fail!");
 			trace(++fail);
 		}
-		
+
 		String path =  "Tools->JTree Viewer";
 		String indexPath = "";
 
@@ -214,7 +214,7 @@ public class MenuTests extends Regression{
 		}else{
 			trace(++fail);
 		}
-		
+
 		itemPic = "MenuBasicComponentsItem.png";
 		//Click to show the Tools submenu, so that menu-item in it will be shown
 		//if(Menu.SelectMenuItem(Map.SAPDemoPage.MenuBar, "Tools")){//This cannot keep the submenu shown, and following tests will fail

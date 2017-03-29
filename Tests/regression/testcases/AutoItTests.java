@@ -1,4 +1,4 @@
-/** 
+/**
  * Copyright (C) SAS Institute, All rights reserved.
  * General Public License: http://www.opensource.org/licenses/gpl-license.php
  */
@@ -54,7 +54,7 @@ public class AutoItTests extends Regression{
 
 			if(!GetGUIImage(Map.Calculator.Btn5, "Btn5.png")) trace(++fail);
 			if(!GetGUIImage(Map.Calculator.BtnEqual, "BtnEqual.png")) trace(++fail);
-			
+
 			if(Window.SetFocus(Map.Calculator.Calculator)){
 				//make an addition "1+2"
 				if(!Click(Map.Calculator.Btn1)) trace(++fail); else Pause(1);
@@ -62,30 +62,30 @@ public class AutoItTests extends Regression{
 				if(!Click(Map.Calculator.Btn2)) trace(++fail); else Pause(1);
 				if(!Click(Map.Calculator.BtnEqual)) trace(++fail); else Pause(1);
 				// TODO: We may use 'WinGetText', which hasn't been implemented, to verify the result of computation.
-				
+
 				// Test DoubleClick by making "11 + 22"
 				if (!DoubleClick(Map.Calculator.Btn1))  trace(++fail); else Pause(1);
 				if(!Click(Map.Calculator.BtnPlus)) trace(++fail); else Pause(1);
 				if(!DoubleClick(Map.Calculator.Btn2)) trace(++fail); else Pause(1);
 				if(!Click(Map.Calculator.BtnEqual)) trace(++fail); else Pause(1);
 				// TODO: We may use 'WinGetText', which hasn't been implemented, to verify the result of computation.
-				
+
 			}else{
 				trace(++fail);
 			}
 
 			if(!Window.CloseWindow(Map.Calculator.Calculator)) trace(++fail);
-			
+
 		}else{
 			trace(++fail);
 		}
-		
+
 		Pause(1);
-		
+
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
 		Counters.LogCounterInfo(counterID);
-		
+
 		if(fail > 0){
 			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
 		}else{
@@ -94,7 +94,7 @@ public class AutoItTests extends Regression{
 
 		return fail;
 	}
-	
+
 	/**
 	 * Test with Windows notepad application.
 	 * @return int, the number of unexpected failure.
@@ -106,7 +106,7 @@ public class AutoItTests extends Regression{
 		String executableNotepad = "notepad.exe";
 		AutoItXPlus it = null;
 		AutoItRs panel = null;
-		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false)); 
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
 		Counters.StartCounter(counterID);
 
 		if(Misc.LaunchApplication(applicationID, executableNotepad)){
@@ -122,10 +122,10 @@ public class AutoItTests extends Regression{
 			}catch(Exception e){
 				Logging.LogTestWarning("Fail to initialize the components. Met "+StringUtils.debugmsg(e));
 			}
-			
+
 			if(!GetGUIImage(Map.Notepad.Notepad, "Notepad.png")) trace(++fail);
 			if(!GetGUIImage(Map.Notepad.EditBox, "EditBox.png")) trace(++fail);
-			
+
 			if(!Window.SetPosition(Map.Notepad.Notepad, org.safs.ComponentFunction.Window.MAXIMIZED)){
 				trace(++fail);
 			}
@@ -146,7 +146,7 @@ public class AutoItTests extends Regression{
 			if(!Window.SetPosition(Map.Notepad.Notepad, 0,0,800,600)){
 				trace(++fail);
 			}
-			
+
 			if(Window.SetFocus(Map.Notepad.Notepad)){
 				//input some string and verify the input characters.
 				String text = "Value to input";
@@ -162,15 +162,15 @@ public class AutoItTests extends Regression{
 						Logging.LogTestWarning("Fail to verify the editbox value. Met "+StringUtils.debugmsg(e));
 					}
 					Misc.Pause(1);
-					
+
 					//Open the "replace" popup, and replace some characters in editbox and verify
 					if(TypeKeys("%ER")){//Alt+E, then R
 						String replacedStr = "input";
 						String replacingStr = "INPUT";
-						
+
 						if(Window.SetFocus(Map.Notepad_Replace.EditBoxFind)){
 							if(!TypeChars(replacedStr)) trace(++fail); else Pause(1);
-							
+
 							if(Window.SetFocus(Map.Notepad_Replace.EditBoxReplace)){
 								if(!TypeChars(replacingStr)) trace(++fail); else Pause(1);
 							}else{
@@ -197,15 +197,15 @@ public class AutoItTests extends Regression{
 									trace(++fail);
 								}
 							}
-							
+
 						}else{
 							trace(++fail);
 						}
-						
+
 					}else{
 						trace(++fail);
 					}
-					
+
 				}else{
 					trace(++fail);
 				}
@@ -232,13 +232,13 @@ public class AutoItTests extends Regression{
 
 		return fail;
 	}
-	
-	/** 
+
+	/**
 	 * Test groups of CLICK keywords through Windows .Net application: '%SAFSDIR%\sample\DotNetApp\WinDemo.exe'.
-	 * 
+	 *
 	 * @return int, the number of unexpected failure.
 	 * @throws Throwable
-	 * 
+	 *
 	 * @author Tao Xie
 	 */
 	private static int testDotNetApp(String counterPrefix) throws Throwable{
@@ -246,7 +246,7 @@ public class AutoItTests extends Regression{
 		int fail = 0;
 		Counters.StartCounter(counterID);
 		String applicationID = "dotNetApp";
-		
+
 		/**
 		 * Test groups of CLICK keywords: RightClick, CtrlClick, ShiftClick.
 		 */
@@ -256,12 +256,12 @@ public class AutoItTests extends Regression{
 			if(!CtrlClick(Map.DotNetApp.DataView, "40, 80")) trace(++fail); else Pause(1);
 			if(!CtrlClick(Map.DotNetApp.DataView, "40, 125")) trace(++fail); else Pause(1);
 			if(!ShiftClick(Map.DotNetApp.DataView, "40, 196")) trace(++fail); else Pause(1);
-			
+
 			if(!Misc.CloseApplication(applicationID)) trace(++fail);
 		} else{
 			trace(++fail);
 		}
-		
+
 		Pause(1);
 
 		Counters.StopCounter(counterID);
@@ -275,10 +275,10 @@ public class AutoItTests extends Regression{
 		}
 
 		return fail;
-	}	
+	}
 
 	/**
-	 * 
+	 *
 	 * @return int, the number of unexpected failure.
 	 * @throws Throwable
 	 */
@@ -288,16 +288,16 @@ public class AutoItTests extends Regression{
 
 		try{
 			for(String domain: enabledDomains) Domains.enableDomain(domain);
-			
+
 			String mapID = MAP_FILE_AUTOITAPP;
 			if(Misc.SetApplicationMap(mapID)){
-				
+
 				fail += testDotNetApp(COUNTER);
 				fail += testCaculator(COUNTER);
 				fail += testNotepad(COUNTER);
-				
+
 				if(!Misc.CloseApplicationMap(mapID)) trace(++fail);
-				
+
 			}else{
 				trace(++fail);
 				Logging.LogTestFailure(COUNTER+"Fail to load map '"+mapID+"', cannot "+StringUtils.debugmsg(false));
