@@ -6,8 +6,20 @@ WinDemoDir="./Apps/DotNetApp/WinDemo.exe"
 SAFS Monitor=":AUTOIT:title=SAFS Monitor"
 
 [Calculator]
+##The RS starting with "[" and ending with "]" is the autoit native RS. It is faster.
+#Calculator=":AUTOIT:[REGEXPCLASS:.*Fra.*; ]"
+##The caption= is the same as title=, if the value is a normal string
+#Calculator=":AUTOIT:CAPTION=Calculator"
+##The caption= is the same as regexptitle=, if the value is a wildcard string
+#Calculator=":AUTOIT:Caption=*Calcu?at*"
 Calculator=":AUTOIT:title=Calculator"
-Panel="calss=#32770;instance=1"
+#Calculator=":AUTOIT:REGEXPCLASS=.*Fra.*"
+#Calculator=":AUTOIT:class=CalcFrame"
+
+##index= and instance= are equivalent
+Panel="calss=#32770;index=1"
+#Panel="calss=#32770;instance=1"
+
 Btn1="class=Button;instance=5"
 Btn2="class=Button;instance=11"
 Btn3="class=Button;instance=16"
