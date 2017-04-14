@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.safs.ComponentFunction;
+import org.safs.Constants;
 import org.safs.Domains;
 import org.safs.StringUtils;
 import org.safs.image.ImageUtils;
@@ -557,6 +558,7 @@ public class GenericMasterTests extends Regression{
 		if(TabControl.ClickTab(Map.SAPDemoPage.TabControl, Map.Tab_basc_comp())){
 
 			if(!Component.HoverMouse(Map.SAPDemoPage.Basc_Radio)) trace(++fail);
+			if(!Component.HoverMouse(Map.SAPDemoPage.Basc_Radio, "10,5", String.valueOf(Constants.TIMEOUT_HOVERMOUSE_STAY_FOREVER))) trace(++fail);
 			if(!Component.HoverMouse(Map.SAPDemoPage.Basc_Radio, "10,5", "4000")) trace(++fail);
 			if(!Component.HoverMouse(Map.SAPDemoPage.Basc_ToggleButton, Map.locationA, "1000")) trace(++fail);
 			if(!Component.HoverMouse(Map.SAPDemoPage.Basc_Link, "offset", "3000")) trace(++fail);
@@ -1038,8 +1040,6 @@ public class GenericMasterTests extends Regression{
 
 		fail += testKeyboardInputAllBrowsers(COUNTER);
 		fail += testAPIAllBrowsers(COUNTER, enabledDomains);
-		//utils = new Utilities(Runner.jsafs());
-		//fail += testAPIForSAP(COUNTER, "chrome");
 
 		Counters.StopCounter(COUNTER);
 		Counters.StoreCounterInfo(COUNTER, COUNTER);
