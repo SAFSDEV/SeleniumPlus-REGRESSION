@@ -32,6 +32,10 @@ EVBBUserName="sascnn"
 EVBBPassword="1connect"
 nlsSignin="Sign in"
 
+LogIn.Passwd.ID="Passwd"
+LogIn.Passwd.Name="Passwd"
+LogIn.Passwd.PlaceHolder="Password"
+
 [ContentSelector]
 Result="XPATH=.//textarea[@id='ContentSelector-basic-opnDlgSmplTextArea-inner']"
 

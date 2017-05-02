@@ -620,6 +620,9 @@ public class GenericMasterTests extends Regression{
 		if(fail == 0){
 			if(! Misc.SetApplicationMap("MiscTests")) trace(++fail);
 			if(! Click(Map.Google.SignIn)) trace(++fail);
+
+			MiscTests.LoadNewGoolgeLoginMap();
+
 			// test InputCharacters
 			if(! Component.InputKeys(Map.LogIn.UserName, quote(CLEAR))) trace(++fail);
 			if(! Component.VerifyProperty(Map.LogIn.UserName, "value", "")) trace(++fail);

@@ -1,0 +1,20 @@
+#-------------------------------------------------------------------------------
+# This map contains the recognition string defined for the new Google Login page
+#-------------------------------------------------------------------------------
+
+[ApplicationConstants]
+LogIn.Passwd.Name="password"
+
+
+[LogIn]
+LogIn="xpath=/html/body"
+UserName="id=identifierId"
+UserNameNext="id=identifierNext"
+Passwd="name=password"
+SignIn="id=passwordNext"
+BackArrow="role=button;jsname=af8ijd"
+OneGoogle="id=initialView"
+
+#NOT Used anymore
+#Circle="class=circle"
+#ProfileImage="xpath=.//img[@class='profile-img']"

@@ -314,6 +314,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "LogIn.Passwd.Name" */
+    public static final String LogIn_Passwd_Name = "LogIn.Passwd.Name";
+
+    /** The resolved runtime value of constant 'LogIn.Passwd.Name', or null. */
+    public static String LogIn_Passwd_Name(){
+        try{ return dataInterface.getVariable("LogIn.Passwd.Name"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "EVBBPassword" */
     public static final String EVBBPassword = "EVBBPassword";
 
@@ -386,6 +395,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "LogIn.Passwd.PlaceHolder" */
+    public static final String LogIn_Passwd_PlaceHolder = "LogIn.Passwd.PlaceHolder";
+
+    /** The resolved runtime value of constant 'LogIn.Passwd.PlaceHolder', or null. */
+    public static String LogIn_Passwd_PlaceHolder(){
+        try{ return dataInterface.getVariable("LogIn.Passwd.PlaceHolder"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "TopLeft" */
     public static final String TopLeft = "TopLeft";
 
@@ -401,6 +419,15 @@ public final class Map implements RuntimeDataAware {
     /** The resolved runtime value of constant 'SimpleTableURL', or null. */
     public static String SimpleTableURL(){
         try{ return dataInterface.getVariable("SimpleTableURL"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "LogIn.Passwd.ID" */
+    public static final String LogIn_Passwd_ID = "LogIn.Passwd.ID";
+
+    /** The resolved runtime value of constant 'LogIn.Passwd.ID', or null. */
+    public static String LogIn_Passwd_ID(){
+        try{ return dataInterface.getVariable("LogIn.Passwd.ID"); }
         catch(Exception x){ return null; }
     }
 
@@ -834,6 +861,9 @@ public final class Map implements RuntimeDataAware {
         /** "Browser" Component in "ApplicationConstants". */
         public static final Component Browser = new Component(ApplicationConstants, "Browser");
 
+        /** "LogIn.Passwd.Name" Component in "ApplicationConstants". */
+        public static final Component LogIn_Passwd_Name = new Component(ApplicationConstants, "LogIn.Passwd.Name");
+
         /** "EVBBPassword" Component in "ApplicationConstants". */
         public static final Component EVBBPassword = new Component(ApplicationConstants, "EVBBPassword");
 
@@ -858,11 +888,17 @@ public final class Map implements RuntimeDataAware {
         /** "BusyDialogURL" Component in "ApplicationConstants". */
         public static final Component BusyDialogURL = new Component(ApplicationConstants, "BusyDialogURL");
 
+        /** "LogIn.Passwd.PlaceHolder" Component in "ApplicationConstants". */
+        public static final Component LogIn_Passwd_PlaceHolder = new Component(ApplicationConstants, "LogIn.Passwd.PlaceHolder");
+
         /** "TopLeft" Component in "ApplicationConstants". */
         public static final Component TopLeft = new Component(ApplicationConstants, "TopLeft");
 
         /** "SimpleTableURL" Component in "ApplicationConstants". */
         public static final Component SimpleTableURL = new Component(ApplicationConstants, "SimpleTableURL");
+
+        /** "LogIn.Passwd.ID" Component in "ApplicationConstants". */
+        public static final Component LogIn_Passwd_ID = new Component(ApplicationConstants, "LogIn.Passwd.ID");
 
         /** "GoogleURL" Component in "ApplicationConstants". */
         public static final Component GoogleURL = new Component(ApplicationConstants, "GoogleURL");
