@@ -173,25 +173,40 @@ public class EditBoxTests extends Regression{
 		Counters.StartCounter(counterID);
 
 		String value = "Some Text";
-
 		if(!EditBox.SetTextValue(editbox, value)) trace(++fail);
-		Pause(1);
 		if(!EditBox.SetUnverifiedTextValue(editbox, value)) trace(++fail);
-		Pause(1);
 		if(!EditBox.SetTextCharacters(editbox, value)) trace(++fail);
-		Pause(1);
 		if(!EditBox.SetUnverifiedTextCharacters(editbox, value)) trace(++fail);
-		Pause(1);
 
 		value = "Some Text with special keys +(abcd)";
 		if(!EditBox.SetTextValue(editbox, value)) trace(++fail);
-		Pause(1);
 		if(!EditBox.SetUnverifiedTextValue(editbox, value)) trace(++fail);
-		Pause(1);
 		if(!EditBox.SetTextCharacters(editbox, value)) trace(++fail);
-		Pause(1);
 		if(!EditBox.SetUnverifiedTextCharacters(editbox, value)) trace(++fail);
-		Pause(1);
+
+		//Test input string with leading/ending spaces
+		boolean originalExpressionOn = Misc.isExpressionsOn();
+		Misc.Expressions(true);//Turn on the expression so that DDVarialbe will be evaluated
+		String variableName = "tempvar";
+		String variableValue = "HHHH";
+		Misc.SetVariableValueEx(variableName, variableValue);
+		//If we turn on the 'normalizeTextForInput', leading/ending spaces will be kept and DDVariable will not be parsed
+		boolean originalNormalizeText = setNormalizeTextForInput(true);
+		//" " is expected
+		if(!EditBox.SetTextCharacters(editbox, " ")) trace(++fail);
+		//" ^tempvar " is expected
+		if(!EditBox.SetTextCharacters(editbox, " ^"+variableName+" ")) trace(++fail);
+
+		//If we turn off the 'normalizeTextForInput', leading/ending spaces will be trimmed and DDVariable will be parsed
+		setNormalizeTextForInput(false);
+		//"" is expected
+		if(!EditBox.SetTextCharacters(editbox, " ")) trace(++fail);
+		//"HHHH" is expected
+		if(!EditBox.SetTextCharacters(editbox, " ^"+variableName+" ")) trace(++fail);
+
+		//Set 'normalizeTextForInput' and 'Expression' to original value.
+		setNormalizeTextForInput(originalNormalizeText);
+		Misc.Expressions(originalExpressionOn);
 
 		Counters.StopCounter(counterID);
 		Counters.StoreCounterInfo(counterID, counterID);
