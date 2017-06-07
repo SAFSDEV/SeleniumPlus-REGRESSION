@@ -107,6 +107,15 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "InternalSecondPageRegexTitle" */
+    public static final String InternalSecondPageRegexTitle = "InternalSecondPageRegexTitle";
+
+    /** The resolved runtime value of constant 'InternalSecondPageRegexTitle', or null. */
+    public static String InternalSecondPageRegexTitle(){
+        try{ return dataInterface.getVariable("InternalSecondPageRegexTitle"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "THOMAS_BAYER_SQLREST_ITEM_URL" */
     public static final String THOMAS_BAYER_SQLREST_ITEM_URL = "THOMAS_BAYER_SQLREST_ITEM_URL";
 
@@ -170,12 +179,39 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "InternalSecondPageWildcardTitle" */
+    public static final String InternalSecondPageWildcardTitle = "InternalSecondPageWildcardTitle";
+
+    /** The resolved runtime value of constant 'InternalSecondPageWildcardTitle', or null. */
+    public static String InternalSecondPageWildcardTitle(){
+        try{ return dataInterface.getVariable("InternalSecondPageWildcardTitle"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "InternalSecondPageFullTitle" */
+    public static final String InternalSecondPageFullTitle = "InternalSecondPageFullTitle";
+
+    /** The resolved runtime value of constant 'InternalSecondPageFullTitle', or null. */
+    public static String InternalSecondPageFullTitle(){
+        try{ return dataInterface.getVariable("InternalSecondPageFullTitle"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "THOMAS_BAYER_SQLREST_URL" */
     public static final String THOMAS_BAYER_SQLREST_URL = "THOMAS_BAYER_SQLREST_URL";
 
     /** The resolved runtime value of constant 'THOMAS_BAYER_SQLREST_URL', or null. */
     public static String THOMAS_BAYER_SQLREST_URL(){
         try{ return dataInterface.getVariable("THOMAS_BAYER_SQLREST_URL"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "InternalTestLinkPageTitle" */
+    public static final String InternalTestLinkPageTitle = "InternalTestLinkPageTitle";
+
+    /** The resolved runtime value of constant 'InternalTestLinkPageTitle', or null. */
+    public static String InternalTestLinkPageTitle(){
+        try{ return dataInterface.getVariable("InternalTestLinkPageTitle"); }
         catch(Exception x){ return null; }
     }
 
@@ -792,6 +828,9 @@ public final class Map implements RuntimeDataAware {
         /** "HtmlLinkTargetPageURL" Component in "ApplicationConstants". */
         public static final Component HtmlLinkTargetPageURL = new Component(ApplicationConstants, "HtmlLinkTargetPageURL");
 
+        /** "InternalSecondPageRegexTitle" Component in "ApplicationConstants". */
+        public static final Component InternalSecondPageRegexTitle = new Component(ApplicationConstants, "InternalSecondPageRegexTitle");
+
         /** "THOMAS_BAYER_SQLREST_ITEM_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_ITEM_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_ITEM_URL");
 
@@ -813,8 +852,17 @@ public final class Map implements RuntimeDataAware {
         /** "InternalTestLinkPageURL" Component in "ApplicationConstants". */
         public static final Component InternalTestLinkPageURL = new Component(ApplicationConstants, "InternalTestLinkPageURL");
 
+        /** "InternalSecondPageWildcardTitle" Component in "ApplicationConstants". */
+        public static final Component InternalSecondPageWildcardTitle = new Component(ApplicationConstants, "InternalSecondPageWildcardTitle");
+
+        /** "InternalSecondPageFullTitle" Component in "ApplicationConstants". */
+        public static final Component InternalSecondPageFullTitle = new Component(ApplicationConstants, "InternalSecondPageFullTitle");
+
         /** "THOMAS_BAYER_SQLREST_URL" Component in "ApplicationConstants". */
         public static final Component THOMAS_BAYER_SQLREST_URL = new Component(ApplicationConstants, "THOMAS_BAYER_SQLREST_URL");
+
+        /** "InternalTestLinkPageTitle" Component in "ApplicationConstants". */
+        public static final Component InternalTestLinkPageTitle = new Component(ApplicationConstants, "InternalTestLinkPageTitle");
 
         /** "SwingAppID" Component in "ApplicationConstants". */
         public static final Component SwingAppID = new Component(ApplicationConstants, "SwingAppID");

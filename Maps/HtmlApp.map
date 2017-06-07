@@ -14,6 +14,11 @@ HtmlLinkTargetPageURL="http://www.w3schools.com/tags/tryit.asp?filename=tryhtml_
 InternalTestLinkPageURL="http://safsdev/Test/testlink.htm"
 InternalSecondPageURL="http://safsdev/Test/secondpage.htm"
 
+InternalTestLinkPageTitle="Test Link"
+InternalSecondPageFullTitle="Second Page"
+InternalSecondPageRegexTitle="[S|s]econd.*"
+InternalSecondPageWildcardTitle="*econd*"
+
 W3CAlertURL="http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_alert"
 W3CConfirmURL="http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_confirm"
 W3CPromptURL="http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_prompt"
