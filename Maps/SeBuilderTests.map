@@ -6,6 +6,10 @@ FormsTest="SeBuilder/Scripts/FormsSRTest.htm"
 FormsURL="http://safsdev.sourceforge.net/source/rrafs/tests/html/htm_src/forms.htm"
 FormsBrowser="FormsBrowser"
 
+JSCodeAndStoredVarTest="SeBuilder/Scripts/JSCodeAndStoredVarTest.htm"
+JSCodeAndStoredVarURL="http://safsdev.sourceforge.net/source/rrafs/tests/html/htm_src/forms.htm"
+JSCodeAndStoredVarBrowser="JSCodeAndStoredVarBrowser"
+
 [GoogleResults]
 AmazonOfficialSiteLink="xpath=.//a[starts-with(@href, 'https://www.amazon.com/')]"
 # AmazonAdCite="xpath=.//div[contains(@class, 'ads-visurl')]//cite[1]"

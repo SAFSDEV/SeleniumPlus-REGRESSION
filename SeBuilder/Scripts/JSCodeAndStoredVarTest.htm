@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Run Javascript and Stored Variables</title>
+</head><body>
+<table cellpadding="1" cellspacing="1" border="1">
+	<thead>
+	<tr><td rowspan="1" colspan="3">Run Javascript and Eval "Stored Variables" Test</td></tr>
+	</thead>
+	<tbody>
+	<tr>
+	    <td>store</td>
+	    <td>${JSCodeAndStoredVarURL}</td>
+	    <td>baseurl</td><!-- will also be stored in the javascript array 'storedVars' -->
+	</tr>
+	<tr>
+	    <td>store</td>
+	    <td>Single Hello</td><!-- the value to store -->
+	    <td>textVariable</td><!-- will also be stored in the javascript array 'storedVars' -->
+	</tr>
+	<tr>
+	    <td>open</td>
+	    <td>${baseurl}</td>
+	    <td>${JSCodeAndStoredVarBrowser}</td>
+	</tr>
+	<tr>
+	    <td>type</td>
+	    <td>${Map:FormsMain:SingleLineText}</td>
+	    <td>${textVariable}</td>
+	</tr>
+	<tr>
+	    <td>verifyText</td>
+	    <td>${Map:FormsMain:SingleLineText}</td>
+	    <td>${textVariable}</td>
+	</tr>
+	<tr>
+	    <td>storeText</td>
+	    <td>${Map:FormsMain:SingleLineText}</td>
+	    <td>SingleLineText</td><!-- will also be stored in the javascript array 'storedVars' -->
+	</tr>
+	<tr><th colspan="3">storeEval will evaluate storedVars['SingleLineText'].toUpperCase() as javascript and store the evaluated result into variable SingleLineTextUC</th></tr>
+	<tr>
+	    <td>storeEval</td>
+	    <td>storedVars['SingleLineText'].toUpperCase()</td><!-- will be evaluated as javascript code  -->
+	    <td>SingleLineTextUC</td><!-- will also be stored in the javascript array 'storedVars' -->
+	</tr>	
+    <tr><th colspan="3">"type" will get value of 'SingleLineTextUC' from javascript associate-array 'storedVars', and input the value to element defined by ${Map:FormsMain:SingleLineText}</th></tr>
+    <tr>
+        <td>type</td>
+        <td>${Map:FormsMain:SingleLineText}</td>
+        <td>javascript{storedVars['SingleLineTextUC']}</td><!-- will be evaluated as javascript code  -->
+    </tr>
+    <tr><th colspan="3">"verifyText" will get value of 'textVariable' and append it with the value of 'SingleLineTextUC' from javascript associate-array 'storedVars', then compare it with the value of element defined by ${Map:FormsMain:SingleLineText}</th></tr>
+    <tr>
+        <td>verifyText</td>
+        <td>${Map:FormsMain:SingleLineText}</td>
+        <td>javascript{'${textVariable}'+storedVars['SingleLineTextUC']}</td><!-- will be evaluated as javascript code  -->
+    </tr>
+    <tr><th colspan="3">Test 'RunScript' to open an Alert, verify its value and dismiss it.</th></tr>
+	<tr>
+	    <td>runScript</td>
+	    <td>javascript{alert('baseurl');}</td>
+	    <td></td>
+	</tr>
+	<tr>
+	    <td>verifyAlertText</td>
+	    <td>baseurl</td>
+	    <td></td>
+	</tr>
+	<tr>
+	    <td>acceptAlert</td>
+	    <td></td>
+	    <td></td>
+	</tr>
+	<tr><th colspan="3">Test 'RunScript' with reference to associate array 'storedVars'</th></tr>
+	<tr>
+	    <td>runScript</td>
+	    <td>javascript{alert("stored variable 'baseurl'="+storedVars['baseurl']);}</td>
+	    <td></td>
+	</tr>
+    <tr>
+        <td>pause</td>
+        <td>1000</td>
+	    <td></td>
+    </tr>
+	<tr>
+        <td>acceptAlert</td>
+	    <td></td>
+	    <td></td>
+    </tr>
+	<tr>
+	    <td>close</td>
+	    <td>${JSCodeAndStoredVarBrowser}</td>
+	    <td></td>
+	</tr>
+	</tbody>
+</table>
+</body>
+</html>

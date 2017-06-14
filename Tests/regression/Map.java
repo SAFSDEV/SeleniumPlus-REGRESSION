@@ -638,6 +638,33 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
+    /** "JSCodeAndStoredVarTest" */
+    public static final String JSCodeAndStoredVarTest = "JSCodeAndStoredVarTest";
+
+    /** The resolved runtime value of constant 'JSCodeAndStoredVarTest', or null. */
+    public static String JSCodeAndStoredVarTest(){
+        try{ return dataInterface.getVariable("JSCodeAndStoredVarTest"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "JSCodeAndStoredVarBrowser" */
+    public static final String JSCodeAndStoredVarBrowser = "JSCodeAndStoredVarBrowser";
+
+    /** The resolved runtime value of constant 'JSCodeAndStoredVarBrowser', or null. */
+    public static String JSCodeAndStoredVarBrowser(){
+        try{ return dataInterface.getVariable("JSCodeAndStoredVarBrowser"); }
+        catch(Exception x){ return null; }
+    }
+
+    /** "JSCodeAndStoredVarURL" */
+    public static final String JSCodeAndStoredVarURL = "JSCodeAndStoredVarURL";
+
+    /** The resolved runtime value of constant 'JSCodeAndStoredVarURL', or null. */
+    public static String JSCodeAndStoredVarURL(){
+        try{ return dataInterface.getVariable("JSCodeAndStoredVarURL"); }
+        catch(Exception x){ return null; }
+    }
+
     /** "SampleEscpScript" */
     public static final String SampleEscpScript = "SampleEscpScript";
 
@@ -1004,6 +1031,15 @@ public final class Map implements RuntimeDataAware {
 
         /** "FormsURL" Component in "ApplicationConstants". */
         public static final Component FormsURL = new Component(ApplicationConstants, "FormsURL");
+
+        /** "JSCodeAndStoredVarTest" Component in "ApplicationConstants". */
+        public static final Component JSCodeAndStoredVarTest = new Component(ApplicationConstants, "JSCodeAndStoredVarTest");
+
+        /** "JSCodeAndStoredVarBrowser" Component in "ApplicationConstants". */
+        public static final Component JSCodeAndStoredVarBrowser = new Component(ApplicationConstants, "JSCodeAndStoredVarBrowser");
+
+        /** "JSCodeAndStoredVarURL" Component in "ApplicationConstants". */
+        public static final Component JSCodeAndStoredVarURL = new Component(ApplicationConstants, "JSCodeAndStoredVarURL");
 
         /** "SampleEscpScript" Component in "ApplicationConstants". */
         public static final Component SampleEscpScript = new Component(ApplicationConstants, "SampleEscpScript");

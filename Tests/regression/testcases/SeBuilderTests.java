@@ -57,6 +57,31 @@ public class SeBuilderTests extends SeleniumPlus {
 		return fail;
 	}
 
+	public static int testJScodeAndStoredVars(String counterPrefix)throws Throwable{
+		int fail = 0;
+		String counterID = Regression.generateCounterID(counterPrefix, StringUtils.getMethodName(0, false));
+		Counters.StartCounter(counterID);
+		boolean launched = Misc.CallScript(Map.JSCodeAndStoredVarTest());
+
+		if(!launched) fail++;
+
+		try{
+			WDLibrary.stopBrowser(Map.JSCodeAndStoredVarBrowser());
+		}catch(Exception ignore){}
+
+		Counters.StopCounter(counterID);
+		Counters.StoreCounterInfo(counterID, counterID);
+		Counters.LogCounterInfo(counterID);
+
+		if(fail > 0){
+			Logging.LogTestFailure(counterID + " reports "+ fail +" UNEXPECTED test failures!");
+		}else{
+			Logging.LogTestSuccess(counterID + " did not report any UNEXPECTED test failures!");
+		}
+
+		return fail;
+	}
+
 	/*
 	 * Insert (generally) static testcase methods below.
 	 * You call these from your TestRun runTest() method for normal testing,
@@ -98,7 +123,9 @@ public class SeBuilderTests extends SeleniumPlus {
 		// JavaScriptFunctions.jsDebugLogEnable = true;
 		// *****************************************
 
-		int fail = runFormsTest(COUNTER);
+		int fail = 0;
+		fail = runFormsTest(COUNTER);
+		fail += testJScodeAndStoredVars(COUNTER);
 		fail += runGoogleSampleEscp(COUNTER);
 
 		Counters.StopCounter(COUNTER);
