@@ -45,3 +45,7 @@ Temporary Items
 # Text file for storing multiple lines of comments
 comments.txt
 /bin
+
+#
+TestWithNativeWebDriver.java
+
