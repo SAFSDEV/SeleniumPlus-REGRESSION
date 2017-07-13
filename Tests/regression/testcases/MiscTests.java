@@ -75,32 +75,6 @@ public class MiscTests extends Regression{
 	}
 
 	/**
-	 *
-	 * ApplicationConstant BusyDialogURL<br>
-	 * ApplicationConstant HoneycombBrowser<br>
-	 * Defaults to using FireFox.
-	 * @throws Throwable
-	 */
-	public static void startBusyDialog() throws Throwable{
-		if (! StartWebBrowser(Map.BusyDialogURL(), Map.HoneycombBrowser(),  SelectBrowser.BROWSER_NAME_FIREFOX))
-			AbortTest("StartWebBrowser Unsuccessful. Cannot Proceed.");
-	}
-
-	public static void startHoneycomb(String url, String browser) throws Throwable{
-		if(browser==null) browser = SelectBrowser.BROWSER_NAME_FIREFOX;
-		if (! StartWebBrowser(url, Map.HoneycombBrowser(),  browser))
-			AbortTest("StartWebBrowser Unsuccessful. Cannot Proceed.");
-	}
-
-	public static void stopBusyDialog() throws Throwable{
-		stopHoneycomb();
-	}
-
-	public static void stopHoneycomb() throws Throwable{
-		StopWebBrowser(Map.HoneycombBrowser());
-	}
-
-	/**
 	 *  Take picture
 	 *  See Map.LogIn.SignIn for RS
 	 */
@@ -369,39 +343,6 @@ public class MiscTests extends Regression{
 		}
 
 		return fail;
-	}
-
-	/**
-	 * User can test cases locally here
-	 *
-	 * To run test
-	 * Right click on TestCase1.java
-	 * Run As Selenium+1 Test.
-	 *
-	 * Always comment testcases once tested
-	 *
-	 */
-
-
-	public void runTestOriginal() throws Throwable {
-
-		try{
-		    startHoneycomb(Map.SimpleTableURL(), null);
-		    Pause(2);
-		    Component.CapturePropertiesToFile(Map.SimpleTable.VScroller, "VScrollerProperties.txt");
-		    Component.VerifyPropertiesToFile(Map.SimpleTable.VScroller, "VScrollerProperties.txt");
-		    Logging.LogMessage("FAILURE OK/EXPECTED for the following test!");
-		    Component.VerifyPropertiesToFile(Map.SimpleTable.VScroller, "VScrollerPropertiesBAD.txt");
-		    Click(Map.SimpleTable.VScroller, "8 8");
-		    Component.InputKeys(Map.SimpleTable.VScroller, "{Down 4}");
-		    Component.InputKeys(Map.SimpleTable.VScroller, "{PgDn 3}");
-		    Pause(2);
-		}
-		catch(Throwable x){
-		    Logging.LogTestFailure(x.getMessage());
-		}
-		stopHoneycomb();
-
 	}
 
 	public void runTestContentSelector() throws Throwable {

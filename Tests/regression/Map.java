@@ -242,15 +242,6 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
-    /** "HoneycombURL" */
-    public static final String HoneycombURL = "HoneycombURL";
-
-    /** The resolved runtime value of constant 'HoneycombURL', or null. */
-    public static String HoneycombURL(){
-        try{ return dataInterface.getVariable("HoneycombURL"); }
-        catch(Exception x){ return null; }
-    }
-
     /** "TestPath" */
     public static final String TestPath = "TestPath";
 
@@ -284,15 +275,6 @@ public final class Map implements RuntimeDataAware {
     /** The resolved runtime value of constant 'GoogleUser', or null. */
     public static String GoogleUser(){
         try{ return dataInterface.getVariable("GoogleUser"); }
-        catch(Exception x){ return null; }
-    }
-
-    /** "HoneycombBrowser" */
-    public static final String HoneycombBrowser = "HoneycombBrowser";
-
-    /** The resolved runtime value of constant 'HoneycombBrowser', or null. */
-    public static String HoneycombBrowser(){
-        try{ return dataInterface.getVariable("HoneycombBrowser"); }
         catch(Exception x){ return null; }
     }
 
@@ -395,39 +377,12 @@ public final class Map implements RuntimeDataAware {
         catch(Exception x){ return null; }
     }
 
-    /** "MessagesURL" */
-    public static final String MessagesURL = "MessagesURL";
-
-    /** The resolved runtime value of constant 'MessagesURL', or null. */
-    public static String MessagesURL(){
-        try{ return dataInterface.getVariable("MessagesURL"); }
-        catch(Exception x){ return null; }
-    }
-
     /** "EVBBUserName" */
     public static final String EVBBUserName = "EVBBUserName";
 
     /** The resolved runtime value of constant 'EVBBUserName', or null. */
     public static String EVBBUserName(){
         try{ return dataInterface.getVariable("EVBBUserName"); }
-        catch(Exception x){ return null; }
-    }
-
-    /** "ContentSelectorURL" */
-    public static final String ContentSelectorURL = "ContentSelectorURL";
-
-    /** The resolved runtime value of constant 'ContentSelectorURL', or null. */
-    public static String ContentSelectorURL(){
-        try{ return dataInterface.getVariable("ContentSelectorURL"); }
-        catch(Exception x){ return null; }
-    }
-
-    /** "BusyDialogURL" */
-    public static final String BusyDialogURL = "BusyDialogURL";
-
-    /** The resolved runtime value of constant 'BusyDialogURL', or null. */
-    public static String BusyDialogURL(){
-        try{ return dataInterface.getVariable("BusyDialogURL"); }
         catch(Exception x){ return null; }
     }
 
@@ -446,15 +401,6 @@ public final class Map implements RuntimeDataAware {
     /** The resolved runtime value of constant 'TopLeft', or null. */
     public static String TopLeft(){
         try{ return dataInterface.getVariable("TopLeft"); }
-        catch(Exception x){ return null; }
-    }
-
-    /** "SimpleTableURL" */
-    public static final String SimpleTableURL = "SimpleTableURL";
-
-    /** The resolved runtime value of constant 'SimpleTableURL', or null. */
-    public static String SimpleTableURL(){
-        try{ return dataInterface.getVariable("SimpleTableURL"); }
         catch(Exception x){ return null; }
     }
 
@@ -900,9 +846,6 @@ public final class Map implements RuntimeDataAware {
         /** "UserNamespaceURIBench" Component in "ApplicationConstants". */
         public static final Component UserNamespaceURIBench = new Component(ApplicationConstants, "UserNamespaceURIBench");
 
-        /** "HoneycombURL" Component in "ApplicationConstants". */
-        public static final Component HoneycombURL = new Component(ApplicationConstants, "HoneycombURL");
-
         /** "TestPath" Component in "ApplicationConstants". */
         public static final Component TestPath = new Component(ApplicationConstants, "TestPath");
 
@@ -914,9 +857,6 @@ public final class Map implements RuntimeDataAware {
 
         /** "GoogleUser" Component in "ApplicationConstants". */
         public static final Component GoogleUser = new Component(ApplicationConstants, "GoogleUser");
-
-        /** "HoneycombBrowser" Component in "ApplicationConstants". */
-        public static final Component HoneycombBrowser = new Component(ApplicationConstants, "HoneycombBrowser");
 
         /** "GooglePassword" Component in "ApplicationConstants". */
         public static final Component GooglePassword = new Component(ApplicationConstants, "GooglePassword");
@@ -951,26 +891,14 @@ public final class Map implements RuntimeDataAware {
         /** "GoogleBrowser" Component in "ApplicationConstants". */
         public static final Component GoogleBrowser = new Component(ApplicationConstants, "GoogleBrowser");
 
-        /** "MessagesURL" Component in "ApplicationConstants". */
-        public static final Component MessagesURL = new Component(ApplicationConstants, "MessagesURL");
-
         /** "EVBBUserName" Component in "ApplicationConstants". */
         public static final Component EVBBUserName = new Component(ApplicationConstants, "EVBBUserName");
-
-        /** "ContentSelectorURL" Component in "ApplicationConstants". */
-        public static final Component ContentSelectorURL = new Component(ApplicationConstants, "ContentSelectorURL");
-
-        /** "BusyDialogURL" Component in "ApplicationConstants". */
-        public static final Component BusyDialogURL = new Component(ApplicationConstants, "BusyDialogURL");
 
         /** "LogIn.Passwd.PlaceHolder" Component in "ApplicationConstants". */
         public static final Component LogIn_Passwd_PlaceHolder = new Component(ApplicationConstants, "LogIn.Passwd.PlaceHolder");
 
         /** "TopLeft" Component in "ApplicationConstants". */
         public static final Component TopLeft = new Component(ApplicationConstants, "TopLeft");
-
-        /** "SimpleTableURL" Component in "ApplicationConstants". */
-        public static final Component SimpleTableURL = new Component(ApplicationConstants, "SimpleTableURL");
 
         /** "LogIn.Passwd.ID" Component in "ApplicationConstants". */
         public static final Component LogIn_Passwd_ID = new Component(ApplicationConstants, "LogIn.Passwd.ID");
